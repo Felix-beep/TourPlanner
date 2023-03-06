@@ -5,32 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File">
-                <MenuItem Header="New" Click="MenuItem_Click" />
-            </MenuItem>
-        </Menu>
+        Title="MainWindow" Height="600" Width="920"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+  <Border Background="#272437" CornerRadius="10">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200"/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
 
-        <DockPanel DockPanel.Dock="Top">
-            <Button DockPanel.Dock="Right" Content="Search"/>
-            <TextBox Text="search..."/>
-        </DockPanel>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="75"/>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="50*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <ListView Grid.Column="0" Grid.Row="0"/>
-            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
-            <ListView Grid.Column="2" d:ItemsSource="{Binding}"/>
-        </Grid>
-        
-    </DockPanel>
+      <TextBlock Text="TourPlanner" VerticalAlignment="Center" HorizontalAlignment ="Center" Foreground="White" FontSize="22"/>
+
+      <StackPanel Grid.Row="1">
+        <RadioButton Content="Home" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+        <RadioButton Content="Option1" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+        <RadioButton Content="Option2" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+
+      </StackPanel>
+
+      <TextBox Width="250" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Style="{StaticResource ModernTextbox}"/>
+
+    </Grid>
+  </Border>
+
 </Window>
