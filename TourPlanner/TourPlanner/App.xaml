@@ -9,6 +9,10 @@
           <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
           <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
         </ResourceDictionary.MergedDictionaries>
+
+        <DataTemplate DataType="">
+    
+        </DataTemplate>
       </ResourceDictionary>
     </Application.Resources>
 </Application>

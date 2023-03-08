@@ -26,14 +26,17 @@
 
       <StackPanel Grid.Row="1">
         <RadioButton Content="Home" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
-        <RadioButton Content="Option1" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
-        <RadioButton Content="Option2" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
-
+        <RadioButton Content="Import Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+        <RadioButton Content="Export Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+        <RadioButton Content="Create Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+        <RadioButton Content="Browse Routes" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
       </StackPanel>
 
       <TextBox Width="250" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Style="{StaticResource ModernTextbox}"/>
 
-    </Grid>
+        <ContentControl Grid.Row="1" Grid.Column="1" Margin="10"/>
+
+        </Grid>
   </Border>
 
 </Window>
