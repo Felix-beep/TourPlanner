@@ -5,14 +5,12 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
       <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-          <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
-          <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
-        </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/BetterTextBoxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/SearchBarTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-        <DataTemplate DataType="">
-    
-        </DataTemplate>
       </ResourceDictionary>
     </Application.Resources>
 </Application>

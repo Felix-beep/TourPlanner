@@ -20,9 +20,15 @@
         </Style.Setters>
 
         <Style.Triggers>
-            <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#22202f"></Setter>
+            
+            <Trigger Property="Border.IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#373252"/>
             </Trigger>
+
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#5a5478"/>
+            </Trigger>
+
         </Style.Triggers>
     </Style>
            
