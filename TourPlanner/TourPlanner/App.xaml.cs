@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using TourPlanner.MVVM.View;
+using TourPlanner.MVVM.ViewModel;
 
 namespace TourPlanner
 {
@@ -7,5 +9,16 @@ namespace TourPlanner
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            // create needed viewmodels
+
+            var wnd = new MainWindow
+            {
+                DataContext = new MainViewModel(),
+            };
+
+            wnd.Show();
+        }
     }
 }

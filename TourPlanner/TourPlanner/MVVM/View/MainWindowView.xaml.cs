@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Windows;
 
-namespace TourPlanner
+namespace TourPlanner.MVVM.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
