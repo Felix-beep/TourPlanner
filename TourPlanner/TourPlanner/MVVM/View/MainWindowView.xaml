@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner.MVVM.View"
-        xmlns:viewModel="clr-namespace:TourPlanner.MVVM.ViewModel"
+        xmlns:viewModel="clr-namespace:TourPlanner.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="600" Width="920"
@@ -14,10 +14,6 @@
         Background="Transparent"
         AllowsTransparency="False"
         >
-
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
 
     <Border Background="#272437" CornerRadius="0,0,10,10">
         <Grid>
@@ -41,10 +37,11 @@
                 <RadioButton Content="Export Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Create Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Browse Routes" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="{Binding Path=Title}" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
 
-            <ContentControl Grid.Column="2" Grid.Row="1" Content="{Binding CurrentView.Utils}"/>
-            <ContentControl Grid.Column="2" Grid.Row="2" Content="{Binding CurrentView.Content}"/>
+            <ContentControl x:Name="Hotbar" Grid.Column="2" Grid.Row="1" Content="{Binding CurrentView.Hotbar}"/>
+            <ContentControl x:Name="Content" Grid.Column="2" Grid.Row="2" Content="{Binding CurrentView.Content}"/>
 
         </Grid>
     </Border>

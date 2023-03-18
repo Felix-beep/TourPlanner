@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.MVVM.Model
 {
-    public class ViewObject
+    public class ViewModelObject
     {
-        public String Title { get; set; }
-        public object Content { get; set;  }
-
-        public object Utils { get; set;  }
-
+        public string Title { get; set; }
+        public object Hotbar { get; set; }
+        public object Content { get; set; }
     }
 }

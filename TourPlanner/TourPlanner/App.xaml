@@ -20,7 +20,7 @@
             <DataTemplate DataType="{x:Type viewModel:SearchbarViewModel}">
                 <view:Searchbar/>
             </DataTemplate>
-          
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

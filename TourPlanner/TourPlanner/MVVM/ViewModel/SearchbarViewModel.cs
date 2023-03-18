@@ -21,13 +21,12 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
-        public SearchbarViewModel(EventHandler<string> OnSearchClicked)
+        public SearchbarViewModel()
         {
-            ExecuteCommandGreet = new RelayCommand(param => SearchClicked?.Invoke(this, searchtext));
-            SearchClicked += OnSearchClicked;
+            ExecuteCommandSearch = new RelayCommand(param => SearchClicked?.Invoke(this, searchtext));
         }
 
-        public ICommand ExecuteCommandGreet { get; }
+        public ICommand ExecuteCommandSearch { get; }
 
         public event EventHandler<string> SearchClicked;
     }
