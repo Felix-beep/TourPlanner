@@ -21,6 +21,14 @@
                 <view:Searchbar/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:CreateRoutesViewModel}">
+                <view:CreateNewRoutesView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:BrowseRoutesViewModel}">
+                <view:BrowseRoutesView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

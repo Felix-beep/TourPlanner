@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class SearchbarViewModel : ObservableObject
     {
-        private String searchtext = "";
+        private String searchtext = "Search Here!";
 
         public String SearchText { 
             get { return searchtext; }
@@ -24,10 +25,17 @@ namespace TourPlanner.MVVM.ViewModel
         public SearchbarViewModel()
         {
             ExecuteCommandSearch = new RelayCommand(param => SearchClicked?.Invoke(this, searchtext));
+            // SearchClicked += (_, searchtext) => SayHello(searchtext);
         }
 
         public ICommand ExecuteCommandSearch { get; }
 
         public event EventHandler<string> SearchClicked;
+
+        public void SayHello(string text)
+        {
+            int numofevents = SearchClicked.GetInvocationList().Count();
+            Console.WriteLine($"Hello {text}");
+        }
     }
 }

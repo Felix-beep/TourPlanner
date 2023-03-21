@@ -9,18 +9,19 @@
 
                         <Grid>
                             <TextBox Margin="2"
-                                     Text="{TemplateBinding Text}"
+                                     Text="{Binding Path=TemplatedParent.Text ,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                      BorderThickness="0" 
                                      Background="Transparent"
                                      VerticalAlignment="Center"
                                      Foreground="#CFCFCF"
                                      Padding="5"
                                      Style="{StaticResource TextBoxBlock}"
-                                     x:Name="SearchBox"/>
+                                     x:Name="SearchBox">
+                            </TextBox>
 
 
                             <TextBlock IsHitTestVisible="False"
-                                       Text="Search"
+                                       Text="Search..."
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="10,0,0,0"

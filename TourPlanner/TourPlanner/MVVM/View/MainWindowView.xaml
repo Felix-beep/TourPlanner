@@ -29,19 +29,18 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="1" Text="{Binding CurrentView.Title}" VerticalAlignment="Center" HorizontalAlignment ="Center" Foreground="White" FontSize="22"/>
+            <TextBlock Grid.Row="1" Text="{Binding Path=Title}" VerticalAlignment="Center" HorizontalAlignment ="Center" Foreground="White" FontSize="22"/>
 
             <StackPanel Grid.Row="2">
-                <RadioButton Content="Home" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True" />
+                <RadioButton Command="{Binding Path=SwapToHomeView}" Content="Home" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True" />
                 <RadioButton Content="Import Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Export Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
-                <RadioButton Content="Create Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
-                <RadioButton Content="Browse Routes" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
-                <RadioButton Content="{Binding Path=Title}" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Command="{Binding Path=SwapToCreateRoutes}" Content="Create Route" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Command="{Binding Path=SwapToBrowseRoutes}" Content="Browse Routes" Height ="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
 
-            <ContentControl x:Name="Hotbar" Grid.Column="2" Grid.Row="1" Content="{Binding CurrentView.Hotbar}"/>
-            <ContentControl x:Name="Content" Grid.Column="2" Grid.Row="2" Content="{Binding CurrentView.Content}"/>
+            <ContentControl x:Name="Hotbar" Grid.Column="2" Grid.Row="1" Content="{Binding CurrentHotbar}"/>
+            <ContentControl x:Name="Content" Grid.Column="2" Grid.Row="2" Content="{Binding CurrentView}"/>
 
         </Grid>
     </Border>

@@ -15,24 +15,30 @@ namespace TourPlanner
         {
             // create needed viewmodelobjects
 
-            ViewModelObject HomeView = new ViewModelObject
-            {
-                Title = "Homepage",
-                Hotbar = new SearchbarViewModel(),
-                Content = new HomeViewModel(),
-            };
+            SearchbarViewModel Searchbar = new SearchbarViewModel();
+
+            HomeViewModel HomeView = new HomeViewModel();
+
+            CreateRoutesViewModel CreateRoutesView = new CreateRoutesViewModel();
+
+            BrowseRoutesViewModel BrowseRoutesView = new BrowseRoutesViewModel();
+
 
             var wnd = new MainWindow()
             {
                 DataContext = new MainViewModel
                 {
-                    HomeViewObject = HomeView,
+                    SearchbarInstance = Searchbar,
+                    HomeViewInstance = HomeView,
+                    CreateRoutesViewInstance = CreateRoutesView,
+                    BrowseRoutesViewInstance = BrowseRoutesView,
+
                     CurrentView = HomeView,
+                    CurrentHotbar = Searchbar,
                 },
-                /*
-                 * Content = { DataContext = HomeView.ContentModel },
-                Hotbar = { DataContext = HomeView.HotbarModel },
-                */
+                // Content = { DataContext = HomeView.Content },
+                // Hotbar = { DataContext = HomeView.Hotbar },
+                
             };
 
             ((MainViewModel)wnd.DataContext).UpdateViews();
