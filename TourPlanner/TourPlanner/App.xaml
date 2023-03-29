@@ -21,12 +21,20 @@
                 <view:Searchbar/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:CreateRoutesViewModel}">
-                <view:CreateNewRoutesView/>
+            <DataTemplate DataType="{x:Type viewModel:CreateToursViewModel}">
+                <view:CreateNewToursView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:BrowseRoutesViewModel}">
-                <view:BrowseRoutesView/>
+            <DataTemplate DataType="{x:Type viewModel:BrowseToursViewModel}">
+                <view:BrowseToursView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ExportToursViewModel}">
+                <view:ExportToursView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ImportToursViewModel}">
+                <view:ImportToursView/>
             </DataTemplate>
 
         </ResourceDictionary>

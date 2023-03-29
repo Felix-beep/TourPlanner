@@ -9,7 +9,7 @@
 
                         <Grid>
                             <TextBox Margin="2"
-                                     Text="{Binding Path=TemplatedParent.Text ,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                     Text="{Binding Path=TemplatedParent.DataContext.SearchText ,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      BorderThickness="0" 
                                      Background="Transparent"
                                      VerticalAlignment="Center"
@@ -17,6 +17,7 @@
                                      Padding="5"
                                      Style="{StaticResource TextBoxBlock}"
                                      x:Name="SearchBox">
+                                <!-- alternative: " -->
                             </TextBox>
 
 

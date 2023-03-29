@@ -25,17 +25,11 @@ namespace TourPlanner.MVVM.ViewModel
         public SearchbarViewModel()
         {
             ExecuteCommandSearch = new RelayCommand(param => SearchClicked?.Invoke(this, searchtext));
-            // SearchClicked += (_, searchtext) => SayHello(searchtext);
         }
 
         public ICommand ExecuteCommandSearch { get; }
 
         public event EventHandler<string> SearchClicked;
 
-        public void SayHello(string text)
-        {
-            int numofevents = SearchClicked.GetInvocationList().Count();
-            Console.WriteLine($"Hello {text}");
-        }
     }
 }

@@ -7,8 +7,8 @@ using TourPlanner.Core;
 
 namespace TourPlanner.MVVM.ViewModel
 {
-    public class CreateRoutesViewModel : ObservableObject
+    public class ImportToursViewModel : ObservableObject
     {
-        
+
     }
 }

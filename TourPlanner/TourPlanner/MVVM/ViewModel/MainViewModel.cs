@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TourPlanner.Core;
-using TourPlanner.MVVM.Model;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -50,23 +49,26 @@ namespace TourPlanner.MVVM.ViewModel
         public HomeViewModel HomeViewInstance;
         public ICommand SwapToHomeView { get; }
 
-        public CreateRoutesViewModel CreateRoutesViewInstance;
-        public ICommand SwapToCreateRoutes { get; }
+        public CreateToursViewModel CreateToursViewInstance;
+        public ICommand SwapToCreateTours { get; }
 
-        public BrowseRoutesViewModel BrowseRoutesViewInstance;
-        public ICommand SwapToBrowseRoutes { get; }
+        public BrowseToursViewModel BrowseToursViewInstance;
+        public ICommand SwapToBrowseTours { get; }
+
+        public ImportToursViewModel ImportToursViewInstance;
+        public ICommand SwapToImportTours { get; }
+
+        public ExportToursViewModel ExportToursViewInstance;
+        public ICommand SwapToExportTours { get; }
 
         // Behavior, UI event handlers
         public MainViewModel()
         {
             SwapToHomeView = new RelayCommand(param => CurrentView = HomeViewInstance);
-            SwapToCreateRoutes = new RelayCommand(param => CurrentView = CreateRoutesViewInstance);
-            SwapToBrowseRoutes = new RelayCommand(param => CurrentView = BrowseRoutesViewInstance);
-
-            /*addGreetingBarViewModel.GreetingButtonClicked += (_, greetingName) => AddGreeting(greetingName);
-
-            ExecuteCommandExit = new RelayCommand(p => System.Environment.Exit(0));
-            ExecuteCommandOpenTourPlanner = new RelayCommand(p => new Views.TourPlannerWindow().ShowDialog());*/
+            SwapToCreateTours = new RelayCommand(param => CurrentView = CreateToursViewInstance);
+            SwapToBrowseTours = new RelayCommand(param => CurrentView = BrowseToursViewInstance);
+            SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
+            SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
         }
 
         public void UpdateViews()

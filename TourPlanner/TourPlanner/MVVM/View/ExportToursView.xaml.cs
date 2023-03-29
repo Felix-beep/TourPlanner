@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TourPlanner.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for BrowseRoutesView.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class BrowseRoutesView : UserControl
+    public partial class ExportToursView : UserControl
     {
-        public BrowseRoutesView()
+        public ExportToursView()
         {
             InitializeComponent();
         }

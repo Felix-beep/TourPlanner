@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using TourPlanner.MVVM.Model;
 using TourPlanner.MVVM.View;
 using TourPlanner.MVVM.ViewModel;
 
@@ -19,9 +18,13 @@ namespace TourPlanner
 
             HomeViewModel HomeView = new HomeViewModel();
 
-            CreateRoutesViewModel CreateRoutesView = new CreateRoutesViewModel();
+            CreateToursViewModel CreateToursView = new CreateToursViewModel();
 
-            BrowseRoutesViewModel BrowseRoutesView = new BrowseRoutesViewModel();
+            BrowseToursViewModel BrowseToursView = new BrowseToursViewModel();
+
+            ImportToursViewModel ImportToursView = new();
+
+            ExportToursViewModel ExportToursView = new();
 
 
             var wnd = new MainWindow()
@@ -30,8 +33,10 @@ namespace TourPlanner
                 {
                     SearchbarInstance = Searchbar,
                     HomeViewInstance = HomeView,
-                    CreateRoutesViewInstance = CreateRoutesView,
-                    BrowseRoutesViewInstance = BrowseRoutesView,
+                    CreateToursViewInstance = CreateToursView,
+                    BrowseToursViewInstance = BrowseToursView,
+                    ImportToursViewInstance = ImportToursView,
+                    ExportToursViewInstance = ExportToursView,
 
                     CurrentView = HomeView,
                     CurrentHotbar = Searchbar,
