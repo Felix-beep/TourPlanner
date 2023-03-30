@@ -6,7 +6,88 @@
              xmlns:local="clr-namespace:TourPlanner.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="40" Text="Browse Tours Here"/>
+    <Grid Margin="0,20,5,5">
+        <DataGrid Name="dataGridProgram"
+            AlternatingRowBackground="#FFA3A3A3"
+            AutoGenerateColumns="False"
+            Background="Transparent"
+            BorderBrush="Gray"
+            BorderThickness="0,0,0,0"
+            CanUserAddRows="False"
+            CanUserResizeColumns="True"
+            ColumnHeaderHeight="40"
+            FontSize="15"
+            Foreground="Black"
+            GridLinesVisibility="All"
+            ItemsSource="{Binding Path=Items}"
+            RowBackground="#FFCECDCD"
+            >
+            
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Preview" Width="100*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                            x:Name="btnPreview"
+                            Width="75"
+                            Height="Auto"
+                            Margin="5"
+                            Content="Preview" 
+                            BorderBrush="Transparent"
+                            Background="White"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Width="50*"
+                    Binding="{Binding Path=ID}"
+                    Header="ID"
+                    IsReadOnly="True"
+                    Visibility="Visible"/>
+                <DataGridTextColumn
+                    Width="100*"
+                    Binding="{Binding Path=name}"
+                    Header="Name"
+                    IsReadOnly="True"
+                    Visibility="Visible"/>
+                <DataGridTextColumn
+                    Width="300*"
+                    Binding="{Binding Path=description}"
+                    Header="Description"
+                    IsReadOnly="True"
+                    Visibility="Visible"/>
+                <DataGridTemplateColumn Header="Edit" Width="100*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                            x:Name="btnEdit"
+                            Width="75"
+                            Height="Auto"
+                            Margin="5"
+                            Content="Edit"
+                            BorderBrush="Transparent"
+                            Background="White"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Delete" Width="100*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                            x:Name="btnDelete"
+                            Width="75"
+                            Height="Auto"
+                            Margin="5"
+                            Content="Delete"
+                            BorderBrush="Transparent"
+                            Background="White"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>    
     </Grid>
 </UserControl>

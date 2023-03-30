@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TourPlanner.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="500">
-    <Grid>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="100"/>
