@@ -39,6 +39,21 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="View" Width="100*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                            x:Name="btnView"
+                            Width="75"
+                            Height="Auto"
+                            Margin="5"
+                            Content="View"
+                            BorderBrush="Transparent"
+                            Background="White"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn
                     Width="50*"
                     Binding="{Binding Path=ID}"
@@ -52,41 +67,11 @@
                     IsReadOnly="True"
                     Visibility="Visible"/>
                 <DataGridTextColumn
-                    Width="300*"
+                    Width="450*"
                     Binding="{Binding Path=description}"
                     Header="Description"
                     IsReadOnly="True"
                     Visibility="Visible"/>
-                <DataGridTemplateColumn Header="Edit" Width="100*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button
-                            x:Name="btnEdit"
-                            Width="75"
-                            Height="Auto"
-                            Margin="5"
-                            Content="Edit"
-                            BorderBrush="Transparent"
-                            Background="White"
-                            />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Delete" Width="100*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button
-                            x:Name="btnDelete"
-                            Width="75"
-                            Height="Auto"
-                            Margin="5"
-                            Content="Delete"
-                            BorderBrush="Transparent"
-                            Background="White"
-                            />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>    
     </Grid>
