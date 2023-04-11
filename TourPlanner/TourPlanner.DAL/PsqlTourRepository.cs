@@ -10,13 +10,12 @@ namespace TourPlanner.DAL
         {
             this.context = context;
 
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
 
         public void PopulateWithSampleData()
         {
-            context.Database.EnsureDeleted();
-
             for (int i = 0; i < 8; i++)
                 context.Tours.Add(
                     new Tour
