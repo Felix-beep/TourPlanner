@@ -13,12 +13,21 @@ namespace TourPlanner.Tests
             repo.Connect(new Uri("http://localhost:5000/"));
         }
 
+        void PrintTours()
+        {
+            foreach (var t in repo.GetTours())
+            {
+                Console.WriteLine(t);
+                foreach (var tl in t.logs)
+                    Console.WriteLine($"\t{tl}");
+            }
+        }
+
         [Test]
         public void BasicTest() 
         {
             Console.WriteLine("Getting tours:");
-            foreach (var t in repo.GetTours()) 
-                Console.WriteLine(t);
+            PrintTours();
 
             Console.WriteLine("\nGetting tours after insert:");
             repo.InsertTour(new Models.Tour
@@ -26,8 +35,7 @@ namespace TourPlanner.Tests
                 name = "new test tour",
                 description = "Description",
             });
-            foreach (var t in repo.GetTours())
-                Console.WriteLine(t);
+            PrintTours();
 
             Console.WriteLine("\nGetting tours after update:");
             repo.UpdateTour(new Models.Tour
@@ -36,14 +44,11 @@ namespace TourPlanner.Tests
                 name = "updated tour with id 3",
                 description = "Description",
             });
-            foreach (var t in repo.GetTours())
-                Console.WriteLine(t);
+            PrintTours();
 
             Console.WriteLine("\nGetting tours after delete:");
             repo.DeleteTour(5);
-            foreach (var t in repo.GetTours())
-                Console.WriteLine(t);
-
+            PrintTours();
         }
     }
 }

@@ -17,18 +17,23 @@ namespace TourPlanner.DAL
         public void PopulateWithSampleData()
         {
             for (int i = 0; i < 8; i++)
+            {
+                var logs = new List<TourLog>(); 
+                for (int j = 0; j < i % 3; j++)
+                    logs.Add(
+                        new TourLog
+                        {
+                            comment = $"TourLog{j}"
+                        });
+             
                 context.Tours.Add(
                     new Tour
                     {
                         name = $"Tour{i}",
-                        description = $"Tour{i}Desc"
+                        description = $"Tour{i}Desc",
+                        logs = logs
                     });
-            for (int i = 0; i < 4; i++)
-                context.TourLogs.Add(
-                    new TourLog
-                    {
-                        comment = $"TourLog{i}"
-                    });
+            }
 
             context.SaveChanges();
         }
