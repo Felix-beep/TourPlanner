@@ -1,4 +1,4 @@
-﻿using TourPlanner.BL;
+﻿using TourPlanner.DAL;
 
 namespace TourPlanner.Tests
 {
