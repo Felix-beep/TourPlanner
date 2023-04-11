@@ -1,23 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TourPlanner.Models;
 
 namespace TourPlanner.DAL
 {
     public class PsqlContext : DbContext
     {
-        readonly string connectionString;
+        readonly string contextString;
+        readonly IConfiguration config;
 
-        public DbSet<PersonTestModel> People { get; set; }
+        public DbSet<Tour> Tours { get; set; }
+        public DbSet<TourLog> TourLogs { get; set; }
 
-        public PsqlContext(string connectionString)
+        public PsqlContext(IConfiguration configuration, string contextString)
         {
-            this.connectionString = connectionString;
+            config = configuration;
+            this.contextString = contextString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(connectionString:connectionString);
-            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseNpgsql(config.GetConnectionString(contextString));
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.HasPostgresExtension("postgis");
         }
     }
 }
