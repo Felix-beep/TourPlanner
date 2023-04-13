@@ -1,6 +1,6 @@
 ﻿using TourPlanner.Models;
 
-namespace TourPlanner.BL
+namespace TourPlanner.DAL
 {
     public interface ITourRepository
     {
@@ -11,8 +11,8 @@ namespace TourPlanner.BL
         void DeleteTour(int tourID);
         void UpdateTour(Tour tour);
 
-        void InsertTourLog(Tour tourLog);
+        void InsertTourLog(TourLog tourLog);
         void DeleteTourLog(int tourLogID);
-        void UpdateTourLog(Tour tourLog);
+        void UpdateTourLog(TourLog tourLog);
     }
 }
