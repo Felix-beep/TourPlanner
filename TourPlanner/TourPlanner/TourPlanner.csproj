@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TourPlanner.DAL\TourPlanner.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="log4net.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -26,27 +26,25 @@ namespace TourPlanner
 
             ExportToursViewModel ExportToursView = new();
 
+            MainViewModel MainViewModelInstance = new MainViewModel
+            {
+                SearchbarInstance = Searchbar,
+                HomeViewInstance = HomeView,
+                CreateToursViewInstance = CreateToursView,
+                BrowseToursViewInstance = BrowseToursView,
+                ImportToursViewInstance = ImportToursView,
+                ExportToursViewInstance = ExportToursView,
+
+                CurrentView = HomeView,
+                CurrentHotbar = Searchbar,
+            };
 
             var wnd = new MainWindow()
             {
-                DataContext = new MainViewModel
-                {
-                    SearchbarInstance = Searchbar,
-                    HomeViewInstance = HomeView,
-                    CreateToursViewInstance = CreateToursView,
-                    BrowseToursViewInstance = BrowseToursView,
-                    ImportToursViewInstance = ImportToursView,
-                    ExportToursViewInstance = ExportToursView,
-
-                    CurrentView = HomeView,
-                    CurrentHotbar = Searchbar,
-                },
-                // Content = { DataContext = HomeView.Content },
-                // Hotbar = { DataContext = HomeView.Hotbar },
-                
+                DataContext = MainViewModelInstance
             };
 
-            ((MainViewModel)wnd.DataContext).UpdateViews();
+            MainViewModelInstance.UpdateViews();
             
             wnd.Show();
         }
