@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using TourPlanner.DAL;
 using TourPlanner.MVVM.View;
 using TourPlanner.MVVM.ViewModel;
 
@@ -25,6 +26,12 @@ namespace TourPlanner
             ImportToursViewModel ImportToursView = new();
 
             ExportToursViewModel ExportToursView = new();
+
+            // create DAL access 
+
+            ITourRepository tourRepository;
+
+            // create mainviewmodel
 
             MainViewModel MainViewModelInstance = new MainViewModel
             {

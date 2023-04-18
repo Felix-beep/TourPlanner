@@ -21,6 +21,6 @@ namespace TourPlanner.Models
             this.logs = logs;
         }
 
-        public override string ToString() => $"Tour({ID},{name},{description},{logs.Count})";
+        public override string ToString() => $"Tour({ID},{name},{description},{logs?.Count})";
     }
 }

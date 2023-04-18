@@ -16,9 +16,18 @@ namespace TourPlanner.MVVM.ViewModel
         {
             Items = new()
             {
-                new Tour(1, "Hello", "some description"),
-                new Tour(2, "Hallo", "some description"),
-                new Tour(3, "Tschau", "some description")
+                new Tour{
+                    ID=1,
+                    name="Hello",
+                    description="some description"},
+                new Tour{
+                    ID=2,
+                    name="Hallo",
+                    description="some description"},
+                new Tour{
+                    ID=3,
+                    name="Tschau",
+                    description="some description"},
             };
         }
     }
