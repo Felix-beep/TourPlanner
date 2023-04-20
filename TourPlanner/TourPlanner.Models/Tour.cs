@@ -22,5 +22,16 @@ namespace TourPlanner.Models
         }
 
         public override string ToString() => $"Tour({ID},{name},{description},{logs.Count})";
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+
+            if (obj is Tour otherTour) 
+            {
+                return otherTour.ID == ID; 
+            }
+
+            return false;
+        }
     }
 }
