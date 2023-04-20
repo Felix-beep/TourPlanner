@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TourPlanner.MVVM.View">
     <Style TargetType="{x:Type TextBox}"
            x:Key="SearchBarTheme">
         <Setter Property="Template">
@@ -9,7 +10,7 @@
 
                         <Grid>
                             <TextBox Margin="2"
-                                     Text="{Binding Path=TemplatedParent.DataContext.SearchText ,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged}"
                                      BorderThickness="0" 
                                      Background="Transparent"
                                      VerticalAlignment="Center"
@@ -17,7 +18,10 @@
                                      Padding="5"
                                      Style="{StaticResource TextBoxBlock}"
                                      x:Name="SearchBox">
-                                <!-- alternative: " -->
+                                
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding Path=ExecuteCommandSearch}"/>
+                                </TextBox.InputBindings>
                             </TextBox>
 
 

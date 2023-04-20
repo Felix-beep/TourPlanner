@@ -7,13 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel>
-            <Label Foreground="White" Margin="0, 20,0,0" Content="Name:"/>
-            <TextBox x:Name="TxtName" Margin="20,0"/>
-            <Label Foreground="White" Margin="0,20,0,0" Content="From:"/>
-            <TextBox x:Name="From" Margin="20,0"/>
-            <Label Foreground="White" Margin="0, 20,0,0" Content="To:"/>
-            <TextBox x:Name="To" Margin="20,0"/>
+        <StackPanel> 
+            <Label Foreground="White" FontSize="20" Margin="0, 20,0,0" Content="Name:"/>
+            <TextBox x:Name="TxtName" Text="Enter desired name" Margin="20,0" Style="{StaticResource InputField}"/>
+            <Label Foreground="White" FontSize="20" Margin="0,20,0,0" Content="From:"/>
+            <TextBox x:Name="From" Text="Enter start point" Margin="20,0" Style="{StaticResource InputField}"/>
+            <Label Foreground="White" FontSize="20" Margin="0, 20,0,0" Content="To:"/>
+            <TextBox x:Name="To" Text="Enter destination" Margin="20,0" Style="{StaticResource InputField}"/>
+
+            <Label Foreground="White"  Margin="0, 20,0,0" Content="Preview:"/>
+
+            <Button Content="Submit" Width="100" FontSize="20" Style="{StaticResource ButtonTheme}"/>
         </StackPanel>
     </Grid>
 </UserControl>

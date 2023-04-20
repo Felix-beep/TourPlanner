@@ -12,11 +12,9 @@
             <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="SearchBox" Text="{Binding Path=SearchText}" FontSize="30" Grid.Column="0" Height="40" Width="400" HorizontalAlignment="Left" >
-            <TextBox.InputBindings>
-                <KeyBinding Key="Enter" Command="{Binding Path=ExecuteCommandSearch}"/>
-            </TextBox.InputBindings>
+        <TextBox x:Name="SearchBox" Text="{Binding Path=SearchText}" Grid.Column="0" Height="40" Width="400" HorizontalAlignment="Left" Style="{StaticResource SearchBarTheme}">
+            
         </TextBox>
-        <Button Grid.Column="1" Margin="10" Content="Submit" Command="{Binding Path=ExecuteCommandSearch}"/>
+        <Button Grid.Column="1" Margin="10" Content="Submit" Command="{Binding Path=ExecuteCommandSearch}" Style="{StaticResource ButtonTheme}"/>
     </Grid>
 </UserControl>

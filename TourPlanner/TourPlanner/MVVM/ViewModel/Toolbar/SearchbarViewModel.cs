@@ -11,7 +11,7 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class SearchbarViewModel : ObservableObject
     {
-        private String searchtext = "Search Here!";
+        private String searchtext = "";
 
         public String SearchText { 
             get { return searchtext; }
