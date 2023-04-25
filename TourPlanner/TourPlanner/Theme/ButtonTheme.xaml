@@ -7,6 +7,9 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="MaxHeight" Value="40"/>
         <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
@@ -23,8 +26,30 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="0" Y="0"/>
+            </Setter.Value>
+        </Setter>
 
         <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.Click">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation To="0.9" Duration="0:0:0.1" AutoReverse="True"
+                                             Storyboard.TargetProperty="(Button.LayoutTransform).(ScaleTransform.ScaleX)"/>
+                        <DoubleAnimation To="0.9" Duration="0:0:0.1" AutoReverse="True"
+                                             Storyboard.TargetProperty="(Button.LayoutTransform).(ScaleTransform.ScaleY)"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            
             <Trigger Property="Border.IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#ffcf4a"/>
             </Trigger>
