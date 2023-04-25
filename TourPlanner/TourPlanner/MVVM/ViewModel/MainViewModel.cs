@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TourPlanner.Core;
+using TourPlanner.BL;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -44,6 +45,8 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
+        public TourList TourListInstance;
+
         public SearchbarViewModel SearchbarInstance;
         
         public HomeViewModel HomeViewInstance;
@@ -74,6 +77,8 @@ namespace TourPlanner.MVVM.ViewModel
         public void UpdateViews()
         {
             SearchbarInstance.SearchClicked += (_, searchtext) => Title = searchtext;
+            BrowseToursViewInstance.SetTourList(TourListInstance);
+            // SwapToHomeView.GetTours += 
         }
     }
 }

@@ -10,25 +10,20 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class BrowseToursViewModel : ObservableObject
     {
-        public List<Tour> Items { get; set; }
+        private TourList TourList;
 
-        public BrowseToursViewModel()
+        public List<Tour> Items {
+            get {
+                return TourList?.ListOfTours.ToList();
+            }
+        }
+
+        public void SetTourList(TourList tourlist)
         {
-            Items = new()
+            if(TourList == null)
             {
-                new Tour{
-                    ID=1,
-                    name="Hello",
-                    description="some description"},
-                new Tour{
-                    ID=2,
-                    name="Hallo",
-                    description="some description"},
-                new Tour{
-                    ID=3,
-                    name="Tschau",
-                    description="some description"},
-            };
+                TourList = tourlist;
+            }
         }
     }
 }

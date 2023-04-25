@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using TourPlanner.DAL;
+using TourPlanner.BL;
 using TourPlanner.MVVM.View;
 using TourPlanner.MVVM.ViewModel;
 
@@ -29,7 +29,7 @@ namespace TourPlanner
 
             // create DAL access 
 
-            ITourRepository tourRepository;
+            IBackGroundLogic BackGroundLogic = new BackGroundLogic();
 
             // create mainviewmodel
 
@@ -41,6 +41,7 @@ namespace TourPlanner
                 BrowseToursViewInstance = BrowseToursView,
                 ImportToursViewInstance = ImportToursView,
                 ExportToursViewInstance = ExportToursView,
+                TourListInstance = new TourList(BackGroundLogic),
 
                 CurrentView = HomeView,
                 CurrentHotbar = Searchbar,
