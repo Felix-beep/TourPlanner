@@ -8,6 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Fonts\**" />
+    <Compile Remove="Images\**" />
+    <Compile Remove="MVVM\Model\**" />
+    <EmbeddedResource Remove="Fonts\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <EmbeddedResource Remove="MVVM\Model\**" />
+    <None Remove="Fonts\**" />
+    <None Remove="Images\**" />
+    <None Remove="MVVM\Model\**" />
+    <Page Remove="Fonts\**" />
+    <Page Remove="Images\**" />
+    <Page Remove="MVVM\Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.15" />
   </ItemGroup>
 
@@ -19,12 +34,6 @@
     <None Update="log4net.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Fonts\" />
-    <Folder Include="Images\" />
-    <Folder Include="MVVM\Model\" />
   </ItemGroup>
 
   <ItemGroup>

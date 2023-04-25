@@ -62,6 +62,9 @@
                                     <Trigger Property="IsMouseCaptureWithin" Value="True">
                                         <Setter Property="Border.Width" Value="400"/>
                                     </Trigger>
+                                    <Trigger Property="Border.IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Trigger>
                                 </Style.Triggers>
                                 <Setter Property="Border.Width" Value="200"/>
                             </Style>

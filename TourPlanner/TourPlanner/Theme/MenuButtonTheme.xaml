@@ -28,6 +28,9 @@
                 <Setter Property="Background" Value="#5a5478"/>
             </Trigger>
 
+            <Trigger Property="Border.IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
            

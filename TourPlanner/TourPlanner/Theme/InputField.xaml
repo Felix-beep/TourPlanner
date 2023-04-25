@@ -45,5 +45,11 @@
                 </Setter.Value>
             </Setter>
         </Style.Setters>
+
+        <Style.Triggers>
+            <Trigger Property="Border.IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

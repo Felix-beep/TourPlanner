@@ -17,7 +17,7 @@
 
             <Label Foreground="White"  Margin="0, 20,0,0" Content="Preview:"/>
 
-            <Button Content="Submit" Width="100" FontSize="20" Style="{StaticResource ButtonTheme}"/>
+            <Button Content="Submit" Width="100" Height="30"  Style="{StaticResource ButtonTheme}"/>
         </StackPanel>
     </Grid>
 </UserControl>
