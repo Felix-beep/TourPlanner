@@ -10,10 +10,10 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class TourList
     {
-        IBackGroundLogic _bl;
+        IBackgroundLogic _bl;
         public IEnumerable<Tour> ListOfTours { get; private set; }
 
-        public TourList(IBackGroundLogic BL)
+        public TourList(IBackgroundLogic BL)
         {
             _bl = BL;
             ListOfTours = BL.GetAllTours();

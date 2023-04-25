@@ -3,10 +3,10 @@ using TourPlanner.Models;
 
 namespace TourPlanner.BL
 {
-    public class BackGroundLogic : IBackGroundLogic
+    public class BackgroundLogic : IBackgroundLogic
     {
         private ITourRepository _repository;
-        public BackGroundLogic()
+        public BackgroundLogic()
         {
             //_repository = new ...
         }

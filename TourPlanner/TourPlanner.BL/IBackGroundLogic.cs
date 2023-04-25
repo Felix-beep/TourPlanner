@@ -2,7 +2,7 @@
 
 namespace TourPlanner.BL
 {
-    public interface IBackGroundLogic
+    public interface IBackgroundLogic
     {
         public IEnumerable<Tour> GetAllTours();
 

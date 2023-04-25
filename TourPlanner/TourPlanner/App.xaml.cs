@@ -13,58 +13,15 @@ namespace TourPlanner
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            // create needed viewmodelobjects
+            var ioCConfig = (IoCContainerConfig)Application.Current.Resources["IoCConfig"];
 
-            SearchbarViewModel Searchbar = new SearchbarViewModel();
-
-            HomeViewModel HomeView = new HomeViewModel();
-
-            CreateToursViewModel CreateToursView = new CreateToursViewModel();
-
-            BrowseToursViewModel BrowseToursView = new BrowseToursViewModel();
-
-            ImportToursViewModel ImportToursView = new();
-
-            ExportToursViewModel ExportToursView = new();
-
-            // create DAL access 
-
-            IBackGroundLogic BackGroundLogic = new BackGroundLogic();
-
-            // create mainviewmodel
-
-            MainViewModel MainViewModelInstance = new MainViewModel
-            {
-                SearchbarInstance = Searchbar,
-                HomeViewInstance = HomeView,
-                CreateToursViewInstance = CreateToursView,
-                BrowseToursViewInstance = BrowseToursView,
-                ImportToursViewInstance = ImportToursView,
-                ExportToursViewInstance = ExportToursView,
-                TourListInstance = new TourList(BackGroundLogic),
-
-                CurrentView = HomeView,
-                CurrentHotbar = Searchbar,
-            };
 
             var wnd = new MainWindow()
             {
-                DataContext = MainViewModelInstance
+                DataContext = ioCConfig.MainViewInstance
             };
-
-            MainViewModelInstance.UpdateViews();
             
             wnd.Show();
         }
     }
 }
-
-/* 
-    <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-        <view:HomeView/>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type viewModel:SearchbarViewModel}">
-        <view:Searchbar/>
-    </DataTemplate>
-*/

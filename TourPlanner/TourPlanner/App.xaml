@@ -6,13 +6,18 @@
              xmlns:view="clr-namespace:TourPlanner.MVVM.View"
              Startup="Application_Startup">
     <Application.Resources>
-      <ResourceDictionary>
+
+        <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/BetterTextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/SearchBarTheme.xaml"/>
                 <ResourceDictionary Source="Theme/InputField.xaml"/>
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
+                <ResourceDictionary>
+                    <local:IoCContainerConfig x:Key="IoCConfig" />
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

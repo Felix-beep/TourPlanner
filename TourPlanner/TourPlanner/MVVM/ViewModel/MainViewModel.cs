@@ -65,20 +65,33 @@ namespace TourPlanner.MVVM.ViewModel
         public ICommand SwapToExportTours { get; }
 
         // Behavior, UI event handlers
-        public MainViewModel()
+        public MainViewModel(IBackgroundLogic BackGroundLogic, 
+                            SearchbarViewModel Searchbar, HomeViewModel HomeView, 
+                            CreateToursViewModel CreateToursView, ExportToursViewModel ExportToursView,
+                            BrowseToursViewModel BrowseToursView, ImportToursViewModel ImportToursView,
+                            TourList TourListItem)
+
         {
+            SearchbarInstance = Searchbar;
+            HomeViewInstance = HomeView;
+            CreateToursViewInstance = CreateToursView;
+            BrowseToursViewInstance = BrowseToursView;
+            ImportToursViewInstance = ImportToursView;
+            ExportToursViewInstance = ExportToursView;
+
+            TourListInstance = TourListItem;
+
+            CurrentView = HomeView;
+            CurrentHotbar = Searchbar;
+
             SwapToHomeView = new RelayCommand(param => CurrentView = HomeViewInstance);
             SwapToCreateTours = new RelayCommand(param => CurrentView = CreateToursViewInstance);
             SwapToBrowseTours = new RelayCommand(param => CurrentView = BrowseToursViewInstance);
             SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
-        }
 
-        public void UpdateViews()
-        {
             SearchbarInstance.SearchClicked += (_, searchtext) => Title = searchtext;
             BrowseToursViewInstance.SetTourList(TourListInstance);
-            // SwapToHomeView.GetTours += 
         }
     }
 }
