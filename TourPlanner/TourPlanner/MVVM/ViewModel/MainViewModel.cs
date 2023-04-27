@@ -12,7 +12,7 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class MainViewModel : ObservableObject
     {
-        public String _title = "TourPlanner";
+        private String _title = "TourPlanner";
         public String Title
         {
             get { return _title; }
@@ -91,7 +91,8 @@ namespace TourPlanner.MVVM.ViewModel
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
             SearchbarInstance.SearchClicked += (_, searchtext) => Title = searchtext;
-            BrowseToursViewInstance.SetTourList(TourListInstance);
+
+            TourListInstance.UpadteTours();
         }
     }
 }

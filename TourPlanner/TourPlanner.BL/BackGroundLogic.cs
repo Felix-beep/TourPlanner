@@ -6,9 +6,9 @@ namespace TourPlanner.BL
     public class BackgroundLogic : IBackgroundLogic
     {
         private ITourRepository _repository;
-        public BackgroundLogic()
+        public BackgroundLogic(ITourRepository repository)
         {
-            //_repository = new ...
+            _repository = repository;
         }
 
         public IEnumerable<Tour> GetAllTours()

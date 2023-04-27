@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using TourPlanner.BL;
+using TourPlanner.DAL;
 using TourPlanner.MVVM.ViewModel;
 
 namespace TourPlanner
@@ -13,7 +14,11 @@ namespace TourPlanner
         {
             var services = new ServiceCollection();
 
+            var repo = new APITourRepository();
+            repo.Connect(new Uri("http://localhost:5000/"));
+
             // create all layers
+            services.AddSingleton<ITourRepository>(repo);
             services.AddSingleton<IBackgroundLogic, BackgroundLogic>();
             
             // create all viewmodels

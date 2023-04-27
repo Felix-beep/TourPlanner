@@ -5,7 +5,6 @@
         <Setter Property="Background" Value="#fcba03"/>
         <Setter Property="Foreground" Value="white"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="MaxHeight" Value="40"/>
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>

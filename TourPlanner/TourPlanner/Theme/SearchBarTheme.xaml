@@ -9,6 +9,7 @@
                     <Border CornerRadius="10" Margin="0,3,0,3" Background="#353340" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center">
 
                         <Grid>
+                            
                             <TextBox Margin="2"
                                      Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged}"
                                      BorderThickness="0" 
@@ -44,9 +45,9 @@
                                         <Setter Property="Visibility" Value="Hidden"/>
                                     </Style>
                                 </TextBlock.Style>
-                                    
-                            </TextBlock>
 
+                            </TextBlock>
+                            
                         </Grid>
 
 

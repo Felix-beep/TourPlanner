@@ -10,25 +10,22 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class ExportToursViewModel : ObservableObject
     {
-        public List<Tour> Items { get; set; }
+        private TourList? _tourList;
 
-        public ExportToursViewModel()
+        public List<Tour> Items
         {
-            Items = new()
+            get
             {
-                new Tour{
-                    ID=1,
-                    name="Hello",
-                    description="some description"},
-                new Tour{
-                    ID=2,
-                    name="Hallo",
-                    description="some description"},
-                new Tour{
-                    ID=3,
-                    name="Tschau",
-                    description="some description"},
-            };
+                return _tourList?.ListOfTours.ToList();
+            }
+        }
+
+        public ExportToursViewModel(TourList tourlist)
+        {
+            if (_tourList == null)
+            {
+                _tourList = tourlist;
+            }
         }
     }
 }
