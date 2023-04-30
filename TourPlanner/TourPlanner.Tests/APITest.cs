@@ -10,7 +10,7 @@ namespace TourPlanner.Tests
         public void Setup()
         {
             repo = new APITourRepository();
-            repo.Connect(new Uri("http://localhost:5000/"));
+            repo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
         }
 
         void PrintTours()
@@ -30,11 +30,12 @@ namespace TourPlanner.Tests
             PrintTours();
 
             Console.WriteLine("\nGetting tours after insert:");
-            repo.InsertTour(new Models.Tour
+            var newTour = new Models.Tour
             {
                 name = "new test tour",
                 description = "Description",
-            });
+            };
+            repo.InsertTour(newTour);
             PrintTours();
 
             Console.WriteLine("\nGetting tours after update:");
