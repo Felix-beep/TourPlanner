@@ -8,6 +8,11 @@ namespace TourPlanner.Models
         public int ID { get; set; }
         public string comment { get; set; }
 
+        public DateTime date { get; set; }
+        public int difficulty { get; set; }
+        public DateTime totalTime { get; set; }
+        public int rating { get; set; }
+
         public TourLog() { }
 
         public TourLog(int ID, string comment) 

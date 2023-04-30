@@ -10,7 +10,7 @@ namespace TourPlanner.Tests
         public void Setup()
         {
             repo = new APITourRepository();
-            repo.Connect(new Uri("http://localhost:5000/"));
+            repo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
         }
 
         void PrintTours()

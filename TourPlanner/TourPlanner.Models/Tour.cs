@@ -9,6 +9,13 @@ namespace TourPlanner.Models
         public string name { get; set; }
         public string description { get; set; }
 
+        public string from { get; set; }
+        public string to { get; set; }
+        public string transportType { get; set; }
+        public double tourDistance { get; set; }
+        public DateTime estimatedTime { get; set; }
+        public string imageID { get; set; }
+
         public ICollection<TourLog> logs { get; set; }
 
         public Tour() { }
