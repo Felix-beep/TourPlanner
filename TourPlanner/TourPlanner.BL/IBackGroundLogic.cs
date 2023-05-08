@@ -16,5 +16,7 @@ namespace TourPlanner.BL
 
         public void ImportTours(String FileToImport);
 
+        public IEnumerable<Tour> FullTextSearch(String Text);
+
     }
 }

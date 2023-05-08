@@ -56,5 +56,10 @@ namespace TourPlanner.BL
 
         }
 
+        public IEnumerable<Tour> FullTextSearch(String Text)
+        {
+            return new List<Tour>();
+        }
+
     }
 }
