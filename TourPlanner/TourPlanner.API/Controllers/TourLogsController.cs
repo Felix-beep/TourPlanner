@@ -25,8 +25,8 @@ namespace TourPlanner.API.Controllers
         [HttpGet("{id}")]
         public TourLog Get(int id) => repo.GetTourLogs().Single(tl => tl.ID == id);
 
-        [HttpPost]
-        public void Post([FromBody] TourLog newTourLog) => repo.InsertTourLog(newTourLog);
+        [HttpPost("{tourID}")]
+        public void Post(int tourID, [FromBody] TourLog newTourLog) => repo.InsertTourLog(tourID, newTourLog);
 
         [HttpPut]
         public void Put([FromBody] TourLog updateTourLog) => repo.UpdateTourLog(updateTourLog);
