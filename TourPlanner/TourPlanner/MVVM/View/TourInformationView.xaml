@@ -7,6 +7,48 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.Row="0" Background="LightGray">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Orientation="Vertical" Grid.Column="0">
+                    <TextBlock Text="Name"/>
+                    <TextBlock Text="Name here"/>
+                    <TextBlock Text="Description"/>
+                    <TextBlock Text ="Decscription here"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Grid.Column="1">
+                    <TextBlock Text="From"/>
+                    <TextBlock Text="From here"/>
+                    <TextBlock Text="To"/>
+                    <TextBlock Text ="To here"/>
+                    <TextBlock Text="Transportation"/>
+                    <TextBlock Text="Transportation here"/>
+                    <TextBlock Text="Duration"/>
+                    <TextBlock Text ="Duration here"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="Image here" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="DimGray">
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="TourLogs here" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        </Border>
     </Grid>
 </UserControl>

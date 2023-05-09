@@ -5,32 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using TourPlanner.Core;
 using TourPlanner.Models;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace TourPlanner.MVVM.ViewModel
 {
     public class BrowseToursViewModel : ObservableObject
     {
-        private TourList? _tourList;
+        private DepictedTourList? _tourList;
 
         public List<Tour> Items {
             get {
                 return _tourList?.ListOfTours.ToList();
             }
         }
-        public BrowseToursViewModel(TourList tourlist)
+
+
+        public ICommand OpenTourInformation { get; }
+
+        public BrowseToursViewModel(DepictedTourList tourlist)
         {
-            if (_tourList == null)
-            {
-                _tourList = tourlist;
-            }
+            _tourList = tourlist;
+            OpenTourInformation = new RelayCommand<int>(newRelayCommand);
         }
 
-        public void SetTourList(TourList tourlist)
+        private void newRelayCommand(int ID)
         {
-            if(_tourList == null)
-            {
-                _tourList = tourlist;
-            }
+            TourClicked?.Invoke(this, ID);
         }
+
+
+
+        public event EventHandler<int> TourClicked;
     }
 }

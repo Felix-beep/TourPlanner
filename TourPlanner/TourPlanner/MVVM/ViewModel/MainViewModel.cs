@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using TourPlanner.Core;
 using TourPlanner.BL;
+using TourPlanner.MVVM.View;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -45,7 +46,7 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
-        public TourList TourListInstance;
+        public DepictedTourList TourListInstance;
 
         public SearchbarViewModel SearchbarInstance;
         
@@ -64,12 +65,14 @@ namespace TourPlanner.MVVM.ViewModel
         public ExportToursViewModel ExportToursViewInstance;
         public ICommand SwapToExportTours { get; }
 
+        public TourInformationViewModel TourInformationViewInstance;
+
         // Behavior, UI event handlers
         public MainViewModel(IBackgroundLogic BackGroundLogic, 
                             SearchbarViewModel Searchbar, HomeViewModel HomeView, 
                             CreateToursViewModel CreateToursView, ExportToursViewModel ExportToursView,
                             BrowseToursViewModel BrowseToursView, ImportToursViewModel ImportToursView,
-                            TourList TourListItem)
+                            DepictedTourList TourListItem, TourInformationViewModel TourInformationView)
 
         {
             SearchbarInstance = Searchbar;
@@ -78,6 +81,7 @@ namespace TourPlanner.MVVM.ViewModel
             BrowseToursViewInstance = BrowseToursView;
             ImportToursViewInstance = ImportToursView;
             ExportToursViewInstance = ExportToursView;
+            TourInformationViewInstance = TourInformationView;
 
             TourListInstance = TourListItem;
 
@@ -90,7 +94,9 @@ namespace TourPlanner.MVVM.ViewModel
             SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
-            SearchbarInstance.SearchClicked += (_, searchtext) => Title = searchtext;
+            SearchbarInstance.SearchClicked += (_, searchtext) => TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));
+            BrowseToursViewInstance.TourClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
+
 
             TourListInstance.UpadteTours();
         }

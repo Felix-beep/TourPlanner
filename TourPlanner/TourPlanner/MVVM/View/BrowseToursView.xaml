@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:TourPlanner.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <Grid Margin="0,20,5,5">
         <DataGrid Name="dataGridProgram"
             AlternatingRowBackground="#FFA3A3A3"
@@ -22,23 +23,8 @@
             ItemsSource="{Binding Path=Items}"
             RowBackground="#FFCECDCD"
             >
-            
+
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Preview" Width="100*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button
-                            x:Name="btnPreview"
-                            Width="75"
-                            Height="Auto"
-                            Margin="5"
-                            Content="Preview" 
-                            BorderBrush="Transparent"
-                            Background="White"
-                            />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="View" Width="100*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -50,16 +36,12 @@
                             Content="View"
                             BorderBrush="Transparent"
                             Background="White"
+                            Command="{Binding DataContext.OpenTourInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                            CommandParameter="{Binding Path=ID}"
                             />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn
-                    Width="50*"
-                    Binding="{Binding Path=ID}"
-                    Header="ID"
-                    IsReadOnly="True"
-                    Visibility="Visible"/>
                 <DataGridTextColumn
                     Width="100*"
                     Binding="{Binding Path=name}"

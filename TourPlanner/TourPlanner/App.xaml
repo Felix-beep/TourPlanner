@@ -24,6 +24,10 @@
                 <view:HomeView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:TourInformationViewModel}">
+                <view:TourInformationView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:SearchbarViewModel}">
                 <view:Searchbar/>
             </DataTemplate>

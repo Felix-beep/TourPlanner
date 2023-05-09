@@ -7,7 +7,13 @@ namespace TourPlanner.DAL
         int nextTourID = 1;
         int nextTourLogID = 1;
 
-        Dictionary<int, Tour> tours = new Dictionary<int, Tour>();
+        Dictionary<int, Tour> tours = new Dictionary<int, Tour>()
+        {
+            {0, new Tour(0, "Hello Subject1", "description1", new List<TourLog>())},
+            {1,  new Tour(1, "Subject2", "description2", new List<TourLog>()) },
+            {2, new Tour(2, "Subject3", "description3", new List<TourLog>()) },
+            {3, new Tour(3, "Food", "Food", new List<TourLog>()) },
+        };
 
         public void DeleteTour(int tourID) => tours.Remove(tourID);
 

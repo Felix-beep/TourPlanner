@@ -10,7 +10,7 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class HomeViewModel : ObservableObject
     {
-        private TourList? _tourList;
+        private DepictedTourList? _tourList;
 
         public List<Tour> Items
         {
@@ -20,7 +20,7 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
-        public void SetTourList(TourList tourlist)
+        public void SetTourList(DepictedTourList tourlist)
         {
             if (_tourList == null)
             {

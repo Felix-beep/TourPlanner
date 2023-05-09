@@ -10,7 +10,7 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class ExportToursViewModel : ObservableObject
     {
-        private TourList? _tourList;
+        private DepictedTourList? _tourList;
 
         public List<Tour> Items
         {
@@ -20,7 +20,7 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
-        public ExportToursViewModel(TourList tourlist)
+        public ExportToursViewModel(DepictedTourList tourlist)
         {
             if (_tourList == null)
             {

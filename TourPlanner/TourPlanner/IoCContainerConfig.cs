@@ -14,8 +14,8 @@ namespace TourPlanner
         {
             var services = new ServiceCollection();
 
-            var repo = new APITourRepository();
-            repo.Connect(new Uri("http://localhost:5000/"));
+            var repo = new MemoryTourRepository();
+            //repo.Connect(new Uri("http://localhost:5000/"));
 
             // create all layers
             services.AddSingleton<ITourRepository>(repo);
@@ -29,8 +29,9 @@ namespace TourPlanner
             services.AddSingleton<ImportToursViewModel>();
             services.AddSingleton<ExportToursViewModel>();
             services.AddSingleton<MainViewModel>();
+            services.AddSingleton<TourInformationViewModel>();
 
-            services.AddSingleton<TourList>();
+            services.AddSingleton<DepictedTourList>();
 
             serviceProvider = services.BuildServiceProvider();
         }
@@ -46,6 +47,8 @@ namespace TourPlanner
         public ImportToursViewModel ImportToursInstance => serviceProvider.GetRequiredService<ImportToursViewModel>();
 
         public ExportToursViewModel ExportToursInstance => serviceProvider.GetRequiredService<ExportToursViewModel>();
+
+        public TourInformationViewModel TourInformationInstance => serviceProvider.GetRequiredService<TourInformationViewModel>();
 
         public MainViewModel MainViewInstance => serviceProvider.GetRequiredService<MainViewModel>();
     }
