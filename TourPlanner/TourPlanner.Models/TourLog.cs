@@ -10,7 +10,7 @@ namespace TourPlanner.Models
 
         public DateTime date { get; set; }
         public int difficulty { get; set; }
-        public DateTime totalTime { get; set; }
+        public TimeSpan totalTime { get; set; }
         public int rating { get; set; }
 
         public TourLog() { }
@@ -22,5 +22,15 @@ namespace TourPlanner.Models
         }
 
         public override string ToString() => $"TourLog({ID},{comment})";
+
+        public void CopyFrom(TourLog other)
+        {
+            ID = other.ID;
+            comment = other.comment;
+            date = other.date;
+            difficulty = other.difficulty;
+            totalTime = other.totalTime;
+            rating = other.rating;
+        }
     }
 }
