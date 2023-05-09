@@ -10,7 +10,7 @@ namespace TourPlanner.Models
 
         public DateTime date { get; set; }
         public int difficulty { get; set; }
-        public DateTime totalTime { get; set; }
+        public TimeSpan totalTime { get; set; }
         public int rating { get; set; }
 
         public TourLog() { }
