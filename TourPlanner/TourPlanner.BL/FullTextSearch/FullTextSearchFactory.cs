@@ -20,9 +20,32 @@ namespace TourPlanner.BL.FullTextSearch
 
         public IEnumerable<Tour> SearchForText(List<Tour> listOfAllTours, string text)
         {
-            List<Tour> SortedList = new List<Tour>(listOfAllTours);
+            Dictionary<double, List<Tour>> Dictionary = new();
 
-            SortedList.Sort((s1, s2) => Rate(s2, text).CompareTo(Rate(s1, text)));
+            List<double> Ratings = new();
+            
+            foreach(Tour t in listOfAllTours) 
+            {
+                double Rating = Rate(t, text);
+                if(!Dictionary.ContainsKey(Rating))
+                {
+                    Dictionary.Add(Rating, new List<Tour> { t });
+                } else
+                {
+                    Dictionary[Rating].Add(t);
+                }
+                Ratings.Add(Rating);
+            }
+
+            Ratings.Sort();
+
+            List<Tour> SortedList = new();
+
+            foreach (double r in Ratings)
+            {
+                SortedList.Add(Dictionary[r][0]);
+                Dictionary[r].RemoveAt(0);
+            }
 
             return SortedList;
         }

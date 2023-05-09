@@ -94,9 +94,9 @@ namespace TourPlanner.BL.FullTextSearch
                 {
                     cost = Convert.ToInt32(!(a[i - 1] == b[j - 1]));
 
-                    min1 = d[i - 1, j] + 1;
-                    min2 = d[i, j - 1] + 1;
-                    min3 = d[i - 1, j - 1] + cost;
+                    min1 = d[i - 1, j] + 1; 
+                    min2 = d[i, j - 1] + 1; 
+                    min3 = d[i - 1, j - 1] + cost; 
                     d[i, j] = Math.Min(Math.Min(min1, min2), min3);
                 }
             }

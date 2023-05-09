@@ -27,7 +27,7 @@ namespace TourPlanner.BL.FullTextSearch
 
             double nextValue = _nextElement.Rate(tourToRate, text);
 
-            return (thisValue > nextValue ? thisValue : nextValue);
+            return (thisValue < nextValue ? thisValue : nextValue);
         }
 
         public virtual double CompareFunction(Tour tourToRate, string text)

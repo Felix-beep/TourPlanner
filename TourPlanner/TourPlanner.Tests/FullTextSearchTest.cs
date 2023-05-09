@@ -30,7 +30,7 @@ namespace TourPlanner.Tests
         [TestCase("Subject1", 0)]
         [TestCase("Subject2", 1)]
         [TestCase("Subject3", 2)]
-        [TestCase("Food", 3)]
+        [TestCase("kood", 3)]
         public void Test(string testString, int position) 
         {
             Console.WriteLine("Starting List:");

@@ -25,7 +25,8 @@ namespace TourPlanner.BL.FullTextSearch
             Console.WriteLine($"\nComparing \"{str1}\" to \"{str2}\"");
 
             int distance = StringComparer.CompareStrings(str1, str2);
-            double similarity = 1.0 - (double)distance / Math.Max(str1.Length, str2.Length);
+
+            double similarity = (double)distance;
             return similarity;
         }
     }

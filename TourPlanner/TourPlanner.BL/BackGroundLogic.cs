@@ -1,4 +1,5 @@
-﻿using TourPlanner.DAL;
+﻿using TourPlanner.BL.FullTextSearch;
+using TourPlanner.DAL;
 using TourPlanner.Models;
 
 namespace TourPlanner.BL
@@ -58,6 +59,7 @@ namespace TourPlanner.BL
 
         public IEnumerable<Tour> FullTextSearch(String Text)
         {
+            FullTextSearchFactory factory = new();
             return new List<Tour>();
         }
 
