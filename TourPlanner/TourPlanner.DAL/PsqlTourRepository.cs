@@ -61,7 +61,7 @@ namespace TourPlanner.DAL
             context.SaveChanges();
         }
             
-        public void InsertTourLog(TourLog tourLog)
+        public void InsertTourLog(int tourID, TourLog tourLog)
         {
             context.TourLogs.Add(tourLog);
             context.SaveChanges();

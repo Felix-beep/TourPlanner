@@ -34,14 +34,14 @@ namespace TourPlanner.MVVM.View
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var sb = new StringBuilder();
+            /*var sb = new StringBuilder();
 
             foreach (var t in repo.GetTours())
             {
                 sb.AppendLine(t.ToString());
             }
 
-            MessageBox.Show(sb.ToString());
+            MessageBox.Show(sb.ToString());*/
         }
     }
 }

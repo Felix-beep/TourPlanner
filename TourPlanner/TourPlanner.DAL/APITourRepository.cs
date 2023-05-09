@@ -56,7 +56,7 @@ namespace TourPlanner.DAL
             response.Wait();
         }
 
-        public void InsertTourLog(TourLog tourLog)
+        public void InsertTourLog(int tourID, TourLog tourLog)
         {
             var content = JsonContent.Create(tourLog);
             var response = client.PostAsync($"{ApiRouteTourLogs}", content);
