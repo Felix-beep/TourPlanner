@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="test.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +33,12 @@
   <ItemGroup>
     <ProjectReference Include="..\TourPlanner.BL\TourPlanner.BL.csproj" />
     <ProjectReference Include="..\TourPlanner.DAL\TourPlanner.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="test.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
