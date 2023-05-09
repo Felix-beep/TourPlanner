@@ -22,5 +22,15 @@ namespace TourPlanner.Models
         }
 
         public override string ToString() => $"TourLog({ID},{comment})";
+
+        public void CopyFrom(TourLog other)
+        {
+            ID = other.ID;
+            comment = other.comment;
+            date = other.date;
+            difficulty = other.difficulty;
+            totalTime = other.totalTime;
+            rating = other.rating;
+        }
     }
 }
