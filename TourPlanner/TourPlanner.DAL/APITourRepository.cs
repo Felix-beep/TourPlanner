@@ -56,6 +56,11 @@ namespace TourPlanner.DAL
             response.Wait();
         }
 
+        public void InsertTour(Tour tour, out int newTourID)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertTourLog(int tourID, TourLog tourLog)
         {
             var content = JsonContent.Create(tourLog);

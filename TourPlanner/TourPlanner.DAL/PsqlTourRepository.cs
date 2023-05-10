@@ -60,7 +60,12 @@ namespace TourPlanner.DAL
             context.Tours.Add(tour);
             context.SaveChanges();
         }
-            
+
+        public void InsertTour(Tour tour, out int newTourID)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertTourLog(int tourID, TourLog tourLog)
         {
             context.TourLogs.Add(tourLog);

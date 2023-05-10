@@ -8,6 +8,7 @@ namespace TourPlanner.DAL
         IEnumerable<TourLog> GetTourLogs();
 
         void InsertTour(Tour tour);
+        void InsertTour(Tour tour, out int newTourID);
         void DeleteTour(int tourID);
         void UpdateTour(Tour tour);
 

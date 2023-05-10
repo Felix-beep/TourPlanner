@@ -1,25 +1,34 @@
-﻿using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using TourPlanner.BL;
+﻿using TourPlanner.BL;
 using TourPlanner.DAL;
+using TourPlanner.Models;
 
 namespace TourPlanner.Tests
 {
     public class BLTest
     {
-        BackgroundLogic BL;
-
         [OneTimeSetUp]
         public void Setup()
         {
-            BL = new BackgroundLogic(new APITourRepository());
-
+            log4net.Config.BasicConfigurator.Configure();
         }
 
         [Test]
-        public void Test() 
-        { 
+        public void ExportTest() 
+        {
+            var repo = new MemoryTourRepository();
+            repo.LoadSampleData();
 
+            var bl = new BackgroundLogic(repo);
+            bl.ExportTours(bl.GetAllTours());
+        }
+
+        [Test]
+        public void ImportTest()
+        {
+            var repo = new MemoryTourRepository();
+
+            var bl = new BackgroundLogic(repo);
+            bl.ImportTours(new string[] { "Subject2.csv" });
         }
     }
 }
