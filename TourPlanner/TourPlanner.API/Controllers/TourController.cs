@@ -22,27 +22,36 @@ namespace TourPlanner.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Tour>> Get()
         {
-            Console.WriteLine("GET");
+            log.Info("got request: GET tours/");
             return await repo.GetToursAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<Tour> Get(int id) => (await repo.GetToursAsync()).Single(t => t.ID == id);
+        public async Task<Tour> Get(int id)
+        {
+            log.Info($"got request: GET tours/{id}");
+            return (await repo.GetToursAsync()).Single(t => t.ID == id);
+        }
 
         [HttpPost]
         public async Task<int> Post([FromBody] Tour newTour)
         {
+            log.Info("got request: POST tours/");
             return await repo.InsertTourAsync(newTour);
         }
 
         [HttpPatch]
         public async Task Patch([FromBody] Tour updateTour)
         {
-            Console.WriteLine("UPDATED");
+            log.Info($"got request: PATCH tours/ with body {updateTour.CustomToString()}");
             await repo.UpdateTourAsync(updateTour);
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id) => await repo.DeleteTourAsync(id);
+        public async Task Delete(int id)
+        {
+            log.Info($"got request: DELETE tours/{id}");
+            await repo.DeleteTourAsync(id);
+        }
     }
 }
