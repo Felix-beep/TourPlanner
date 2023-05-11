@@ -2,6 +2,8 @@ using log4net.Config;
 using TourPlanner.BL;
 using TourPlanner.DAL;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 XmlConfigurator.Configure(new FileInfo("log4net.cfg"));
 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -15,6 +17,7 @@ repo.PopulateWithSampleData();
 
 var mapQuestClient = new MapQuestClient();
 
+/*
 {
     var req = mapQuestClient.GetBuilder(
         configuration.GetSection("ApiKeys")["MapQuestKey"]);
@@ -27,6 +30,7 @@ var mapQuestClient = new MapQuestClient();
     req.SetRequestType(IRequestBuilder.RequestType.Route);
     Console.WriteLine(await mapQuestClient.RequestJsonStringAsync(req));
 }
+*/
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,9 +1,12 @@
-﻿using TourPlanner.Models;
+﻿using log4net;
+using TourPlanner.Models;
 
 namespace TourPlanner.DAL
 {
     public class PsqlTourRepository : ITourRepository
     {
+        readonly ILog log = LogManager.GetLogger(typeof(PsqlTourRepository));
+
         PsqlContext context;
 
         public PsqlTourRepository(PsqlContext context)
@@ -23,67 +26,64 @@ namespace TourPlanner.DAL
                     logs.Add(
                         new TourLog
                         {
-                            comment = $"TourLog{j}"
+                            comment = $"TourLog{j}",
+                            date = DateTime.Now,
+                            difficulty = i,
+                            totalTime = TimeSpan.FromHours(i),
+                            rating = i
                         });
-             
-                context.Tours.Add(
-                    new Tour
-                    {
-                        name = $"Tour{i}",
-                        description = $"Tour{i}Desc",
-                        logs = logs
-                    });
+
+                context.Tours.Add(SampleExtensions.CreateSampleTour(i, logs));
             }
 
             context.SaveChanges();
         }
 
-        public IEnumerable<Tour> GetTours() => context.Tours.Where(t => true);
-        public IEnumerable<TourLog> GetTourLogs() => context.TourLogs.Where(tl => true);
+        public async Task<IEnumerable<Tour>> GetToursAsync() => context.Tours.Where(t => true);
+        public async Task<IEnumerable<TourLog>> GetTourLogsAsync() => context.TourLogs.Where(tl => true);
 
-        public void DeleteTour(int tourID)
+        public async Task DeleteTourAsync(int tourID)
         {
             context.Tours.Remove(
                 context.Tours.Single(t => t.ID == tourID));
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void DeleteTourLog(int tourLogID)
+        public async Task DeleteTourLogAsync(int tourLogID)
         {
             context.TourLogs.Remove(
                 context.TourLogs.Single(t => t.ID == tourLogID));
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void InsertTour(Tour tour)
+        public async Task<int> InsertTourAsync(Tour tour)
         {
             context.Tours.Add(tour);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
+            return tour.ID;
         }
 
-        public void InsertTour(Tour tour, out int newTourID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertTourLog(int tourID, TourLog tourLog)
+        public async Task<int> InsertTourLogAsync(int tourID, TourLog tourLog)
         {
             context.TourLogs.Add(tourLog);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
+            return tourLog.ID;
         }
 
-        public void UpdateTour(Tour tour)
+        public async Task UpdateTourAsync(Tour tour)
         {
-            context.Entry(context.Tours.Single(t => t.ID == tour.ID))
-                .CurrentValues.SetValues(tour);
-            context.SaveChanges();
+            var existingTour = context.Tours.Single(t => t.ID == tour.ID);
+            Console.WriteLine($"trying to update existing tour [{existingTour}] to [{tour}]");
+            
+            context.Entry(existingTour).CurrentValues.SetValues(tour);
+            await context.SaveChangesAsync();
         }
 
-        public void UpdateTourLog(TourLog tourLog)
+        public async Task UpdateTourLogAsync(TourLog tourLog)
         {
             context.Entry(context.TourLogs.Single(tl => tl.ID == tourLog.ID))
                 .CurrentValues.SetValues(tourLog);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

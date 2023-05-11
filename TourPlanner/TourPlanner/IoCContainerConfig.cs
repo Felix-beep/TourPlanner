@@ -15,7 +15,8 @@ namespace TourPlanner
             var services = new ServiceCollection();
 
             var repo = new MemoryTourRepository();
-            repo.LoadSampleData();
+            var fillWithSamplesTask = repo.LoadSampleDataAsync();
+            fillWithSamplesTask.Wait();
             //repo.Connect(new Uri("http://localhost:5000/"));
 
             // create all layers

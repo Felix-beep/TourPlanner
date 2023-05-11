@@ -13,22 +13,22 @@ namespace TourPlanner.Tests
         }
 
         [Test]
-        public void ExportTest() 
+        public async Task ExportTest() 
         {
             var repo = new MemoryTourRepository();
-            repo.LoadSampleData();
+            repo.LoadSampleDataAsync();
 
             var bl = new BackgroundLogic(repo);
-            bl.ExportTours(bl.GetAllTours());
+            await bl.ExportToursAsync(await bl.GetAllToursAsync());
         }
 
         [Test]
-        public void ImportTest()
+        public async Task ImportTest()
         {
             var repo = new MemoryTourRepository();
 
             var bl = new BackgroundLogic(repo);
-            bl.ImportTours(new string[] { "Subject2.csv" });
+            await bl.ImportToursAsync(new string[] { "Subject2.csv" });
         }
     }
 }

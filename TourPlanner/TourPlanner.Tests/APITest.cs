@@ -1,4 +1,5 @@
 ﻿using TourPlanner.DAL;
+using TourPlanner.Models;
 
 namespace TourPlanner.Tests
 {
@@ -9,47 +10,43 @@ namespace TourPlanner.Tests
         [OneTimeSetUp]
         public void Setup()
         {
+            log4net.Config.BasicConfigurator.Configure();
             repo = new APITourRepository();
-            repo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
+            repo.Connect(new Uri("http://localhost:5000/"));
         }
 
-        void PrintTours()
+        async Task PrintTours()
         {
-            foreach (var t in repo.GetTours())
+            foreach (var t in await repo.GetToursAsync())
             {
-                Console.WriteLine(t);
+                Console.WriteLine(t.CustomToString());
                 foreach (var tl in t.logs)
                     Console.WriteLine($"\t{tl}");
             }
         }
 
         [Test]
-        public void BasicTest() 
+        public async Task BasicTest() 
         {
             Console.WriteLine("Getting tours:");
-            PrintTours();
+            await PrintTours();
 
             Console.WriteLine("\nGetting tours after insert:");
-            var newTour = new Models.Tour
-            {
-                name = "new test tour",
-                description = "Description",
-            };
-            repo.InsertTour(newTour);
-            PrintTours();
+            await repo.InsertTourAsync(SampleExtensions.CreateSampleTour(100, new List<TourLog>()));
+            await PrintTours();
 
             Console.WriteLine("\nGetting tours after update:");
-            repo.UpdateTour(new Models.Tour
+            await repo.UpdateTourAsync(new Tour
             {
                 ID = 3,
-                name = "updated tour with id 3",
-                description = "Description",
+                name = "UPDATED TOUR WITH ID 3",
+                description = "UPDATED DESCRIPTION OF TOUR 3",
             });
-            PrintTours();
+            await PrintTours();
 
             Console.WriteLine("\nGetting tours after delete:");
-            repo.DeleteTour(5);
-            PrintTours();
+            await repo.DeleteTourAsync(5);
+            await PrintTours();
         }
     }
 }

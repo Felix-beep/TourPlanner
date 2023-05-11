@@ -94,7 +94,11 @@ namespace TourPlanner.MVVM.ViewModel
             SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
-            SearchbarInstance.SearchClicked += (_, searchtext) => TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));
+            SearchbarInstance.SearchClicked += async (_, searchtext) =>
+            {
+                TourListItem.SetTours(await BackGroundLogic.FullTextSearchAsync(searchtext));
+            };
+
             BrowseToursViewInstance.TourClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
 
 
