@@ -12,20 +12,37 @@ namespace TourPlanner.MVVM.ViewModel
     {
         private DepictedTourList? _tourList;
 
-        public List<Tour> Items
-        {
+        public List<Tour> Discover {
             get
             {
-                return _tourList?.ListOfTours.ToList();
+                return Discover;
             }
+            set
+            {
+                Discover = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<Tour> Popular {
+            get
+            {
+                return Popular;
+            } 
+            set {
+                Popular = value;
+                OnPropertyChanged();
+            } 
+        }
+
+        public HomeViewModel(DepictedTourList tourlist)
+        {
+            _tourList = tourlist;
         }
 
         public void SetTourList(DepictedTourList tourlist)
         {
-            if (_tourList == null)
-            {
-                _tourList = tourlist;
-            }
+            
         }
 
     }

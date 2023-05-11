@@ -18,5 +18,7 @@ namespace TourPlanner.BL
 
         public IEnumerable<Tour> FullTextSearch(String Text);
 
+        public void SwapOnlineMode();
+
     }
 }

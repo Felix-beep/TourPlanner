@@ -49,21 +49,28 @@ namespace TourPlanner.MVVM.ViewModel
         public DepictedTourList TourListInstance;
 
         public SearchbarViewModel SearchbarInstance;
+
+
         
         public HomeViewModel HomeViewInstance;
         public ICommand SwapToHomeView { get; }
 
+
         public CreateToursViewModel CreateToursViewInstance;
         public ICommand SwapToCreateTours { get; }
+
 
         public BrowseToursViewModel BrowseToursViewInstance;
         public ICommand SwapToBrowseTours { get; }
 
+
         public ImportToursViewModel ImportToursViewInstance;
         public ICommand SwapToImportTours { get; }
 
+
         public ExportToursViewModel ExportToursViewInstance;
         public ICommand SwapToExportTours { get; }
+
 
         public TourInformationViewModel TourInformationViewInstance;
 
@@ -94,7 +101,8 @@ namespace TourPlanner.MVVM.ViewModel
             SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
-            SearchbarInstance.SearchClicked += (_, searchtext) => TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));
+            SearchbarInstance.SearchClicked += (_, searchtext) => { CurrentView = BrowseToursViewInstance; TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));  };
+            SearchbarInstance.SwapClicked += () => { BackGroundLogic.SwapOnlineMode(); };
             BrowseToursViewInstance.TourClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
 
 

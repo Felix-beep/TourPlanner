@@ -12,17 +12,19 @@ namespace TourPlanner.BL
     {
         readonly ILog log = LogManager.GetLogger(typeof(BackgroundLogic));
 
-        private ITourRepository _repository;
-        public BackgroundLogic(ITourRepository repository)
+        public ConnectionModeFactory _repositoryFactory;
+        public void SwapOnlineMode() => _repositoryFactory.SwapMode();
+
+        public BackgroundLogic(ConnectionModeFactory repositoryFactory)
         {
-            _repository = repository;
+            _repositoryFactory = repositoryFactory;
         }
 
         public IEnumerable<Tour> GetAllTours() {
-            return _repository.GetTours();
+            return _repositoryFactory.GetRepo().GetTours();
         }
 
-        public IEnumerable<TourLog> GetTourLogs(int TourID) => _repository.GetTourLogs();
+        public IEnumerable<TourLog> GetTourLogs(int TourID) => _repositoryFactory.GetRepo().GetTourLogs();
 
         public void CreateNewTour(String Name, String From, String Description, String To)
         {
@@ -33,7 +35,7 @@ namespace TourPlanner.BL
                 // this still needs the information from MapQuest
             };
 
-            _repository.InsertTour(newTour);
+            _repositoryFactory.GetRepo().InsertTour(newTour);
         }
 
         public void EditDescription(int TourID, String Text)
@@ -113,9 +115,9 @@ namespace TourPlanner.BL
 
             newTour.logs = new List<TourLog>();
 
-            _repository.InsertTour(newTour, out var newTourID);
+            _repositoryFactory.GetRepo().InsertTour(newTour, out var newTourID);
             foreach (var log in tourLogs)
-                _repository.InsertTourLog(newTourID, log);
+                _repositoryFactory.GetRepo().InsertTourLog(newTourID, log);
 
             log.Info($"imported tour {newTour.name}, with {tourLogs.Count} logs from file {fileToImport}");
         }
@@ -123,7 +125,7 @@ namespace TourPlanner.BL
         public IEnumerable<Tour> FullTextSearch(String Text)
         {
             FullTextSearchFactory factory = new();
-            return factory.SearchForText(_repository.GetTours().ToList(), Text);
+            return factory.SearchForText(_repositoryFactory.GetRepo().GetTours().ToList(), Text);
         }
 
     }

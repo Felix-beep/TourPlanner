@@ -16,7 +16,7 @@
             
         </TextBox>
 
-        <Button Grid.Column="1"  Content="Submit" Command="{Binding Path=ExecuteCommandSearch}" Style="{StaticResource ButtonTheme}" Height="30" Width="70">
+        <Button Grid.Column="1"  Content="Submit" Command="{Binding Path=ExecuteCommandSwapMode}" Style="{StaticResource ButtonTheme}" Height="30" Width="70">
         </Button>
 
     </Grid>
