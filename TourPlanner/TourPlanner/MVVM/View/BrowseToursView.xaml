@@ -7,54 +7,92 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
+
     <Grid Margin="0,20,5,5">
-        <DataGrid Name="dataGridProgram"
-            AlternatingRowBackground="#FFA3A3A3"
-            AutoGenerateColumns="False"
-            Background="Transparent"
-            BorderBrush="Gray"
-            BorderThickness="0,0,0,0"
-            CanUserAddRows="False"
-            CanUserResizeColumns="True"
-            ColumnHeaderHeight="40"
-            FontSize="15"
-            Foreground="Black"
-            GridLinesVisibility="All"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Tours" Grid.Row="0" FontSize="40" FontWeight="SemiBold" Foreground="White" Margin="0,20,0,0"/>
+        <Button Grid.Column="1" Style="{StaticResource addButton}">
+            <StackPanel Orientation="Horizontal">
+                <!-- Icon -->
+                <TextBlock Text="Create new Tour"/>
+            </StackPanel>
+        </Button>
+
+        <DataGrid  Name="dataGridProgram"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            CanUserSortColumns="False"
             ItemsSource="{Binding Path=Items}"
-            RowBackground="#FFCECDCD"
+            Style="{StaticResource DataGridStyle}"
+            CellStyle="{StaticResource DataGridCellStyle}"
+            ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+            RowStyle="{DynamicResource DataGridRowStyle}"
             >
 
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="View" Width="100*">
+                <DataGridTemplateColumn Header="View" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
                             x:Name="btnView"
-                            Width="75"
-                            Height="Auto"
-                            Margin="5"
                             Content="View"
-                            BorderBrush="Transparent"
-                            Background="White"
+                            Margin="10,5"
                             Command="{Binding DataContext.OpenTourInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                             CommandParameter="{Binding Path=ID}"
+                            Style="{StaticResource viewButton}"
                             />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn
-                    Width="100*"
+                    Width="Auto"
                     Binding="{Binding Path=name}"
                     Header="Name"
                     IsReadOnly="True"
                     Visibility="Visible"/>
                 <DataGridTextColumn
-                    Width="450*"
+                    Width="*"
                     Binding="{Binding Path=description}"
                     Header="Description"
                     IsReadOnly="True"
                     Visibility="Visible"/>
+                <DataGridTemplateColumn Header="Edit" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                            x:Name="btnEdit"
+                            Content="Edit"
+                            Margin="10,5"
+                            Command="{Binding DataContext.OpenTourInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                            CommandParameter="{Binding Path=ID}"
+                            Style="{StaticResource editButton}"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Delete" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                            x:Name="btnDelete"
+                            Content="Delete"
+                            Margin="10,5"
+                            Command="{Binding DataContext.OpenTourInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                            CommandParameter="{Binding Path=ID}"
+                            Style="{StaticResource deleteButton}"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>    
+        </DataGrid>
     </Grid>
 </UserControl>

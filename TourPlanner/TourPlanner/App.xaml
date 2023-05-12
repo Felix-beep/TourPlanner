@@ -10,12 +10,25 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/BetterTextBoxTheme.xaml"/>
-                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/SearchBarTheme.xaml"/>
-                <ResourceDictionary Source="Theme/InputField.xaml"/>
-                <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/OnlineOfflineButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/ButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/BaseContentButton.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/AddButton.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/EditButton.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/DeleteButton.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/OnlineOfflineButtonTheme.xaml"/>
+                
+                <ResourceDictionary Source="Theme/DataGrid/DataGridButtonStyle.xaml"/>
+                <ResourceDictionary Source="Theme/DataGrid/DataGridCellStyle.xaml"/>
+                <ResourceDictionary Source="Theme/DataGrid/DataGridHeaderStyle.xaml"/>
+                <ResourceDictionary Source="Theme/DataGrid/DataGridRowStyle.xaml"/>
+                <ResourceDictionary Source="Theme/DataGrid/DataGridStyle.xaml"/>
+                
+                <ResourceDictionary Source="Theme/Searchbar/BetterTextBoxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/Searchbar/SearchBarTheme.xaml"/>
+
+                <ResourceDictionary Source="Theme/BorderShadowEffect.xaml"/>
+                <ResourceDictionary Source="Theme/TextDisplay/InputField.xaml"/>
                 <ResourceDictionary>
                     <local:IoCContainerConfig x:Key="IoCConfig" />
                 </ResourceDictionary>

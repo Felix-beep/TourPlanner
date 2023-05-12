@@ -15,8 +15,7 @@ namespace TourPlanner.Tests
         [Test]
         public void ExportTest() 
         {
-            var repo = new MemoryTourRepository();
-            repo.LoadSampleData();
+            var repo = new ConnectionModeFactory(null, new MemoryTourRepository());
 
             var bl = new BackgroundLogic(repo);
             bl.ExportTours(bl.GetAllTours());
@@ -25,7 +24,7 @@ namespace TourPlanner.Tests
         [Test]
         public void ImportTest()
         {
-            var repo = new MemoryTourRepository();
+            var repo = new ConnectionModeFactory(null, new MemoryTourRepository());
 
             var bl = new BackgroundLogic(repo);
             bl.ImportTours(new string[] { "Subject2.csv" });

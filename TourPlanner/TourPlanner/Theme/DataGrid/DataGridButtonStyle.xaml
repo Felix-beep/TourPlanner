@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="viewButton" TargetType="Button" BasedOn="{StaticResource BaseContentButton}">
+        <Setter Property="Background" Value="#512da8"/>
+        <Setter Property="BorderBrush" Value="#4a148c"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#673ab7"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

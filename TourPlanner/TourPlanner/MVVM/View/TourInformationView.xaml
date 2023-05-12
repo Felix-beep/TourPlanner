@@ -8,15 +8,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0" Grid.Row="0" Background="LightGray">
+        <Border Grid.Column="0" Grid.Row="0" Background="LightGray" CornerRadius="5" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -48,57 +48,77 @@
 
         <TextBlock Grid.Column="1" Grid.Row="0" Text="Image here" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="DimGray">
-            <DataGrid Name="dataGridTour"
-            AlternatingRowBackground="#FFA3A3A3"
-            AutoGenerateColumns="False"
-            Background="Transparent"
-            BorderBrush="Gray"
-            BorderThickness="0,0,0,0"
-            CanUserAddRows="False"
-            CanUserResizeColumns="True"
-            ColumnHeaderHeight="40"
-            FontSize="15"
-            Margin="15"
-            Foreground="Black"
-            GridLinesVisibility="All"
-            ItemsSource="{Binding Path=DisplayedTour.logs}"
-            RowBackground="#FFCECDCD"
-            >
+        <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="DimGray" CornerRadius="5" Margin="5" Padding="15,0,15,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn
-                    Width="450*"
-                    Binding="{Binding Path=comment}"
-                    Header="Comment"
-                    IsReadOnly="True"
-                    Visibility="Visible"/>
-                    <DataGridTextColumn
-                    Width="100*"
-                    Binding="{Binding Path=date}"
-                    Header="Date"
-                    IsReadOnly="True"
-                    Visibility="Visible"/>
-                    <DataGridTextColumn
-                    Width="100*"
-                    Binding="{Binding Path=difficulty}"
-                    Header="Difficulty"
-                    IsReadOnly="True"
-                    Visibility="Visible"/>
-                    <DataGridTextColumn
-                    Width="100*"
-                    Binding="{Binding Path=totalTime}"
-                    Header="Time"
-                    IsReadOnly="True"
-                    Visibility="Visible"/>
-                    <DataGridTextColumn
-                    Width="100*"
-                    Binding="{Binding Path=rating}"
-                    Header="Rating"
-                    IsReadOnly="True"
-                    Visibility="Visible"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                <TextBlock Text="TourLogs" Grid.Row="0" FontSize="40" FontWeight="SemiBold" Foreground="White" />
+                <Button Grid.Column="1" Style="{StaticResource addButton}" >
+                    <StackPanel Orientation="Horizontal">
+                        <!-- Icon -->
+                        <TextBlock Text="Create new Log"/>
+                    </StackPanel>
+                </Button>
+
+                <DataGrid Name="dataGridTour"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          AlternatingRowBackground="#FFA3A3A3"
+                          AutoGenerateColumns="False"
+                          Background="Transparent"
+                          BorderBrush="Gray"
+                          BorderThickness="0,0,0,0"
+                          CanUserAddRows="False"
+                          CanUserResizeColumns="True"
+                          ColumnHeaderHeight="40"
+                          FontSize="15"
+                          Foreground="Black"
+                          GridLinesVisibility="All"
+                          ItemsSource="{Binding Path=DisplayedTour.logs}"
+                          RowBackground="#FFCECDCD"
+                          >
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="450*"
+                            Binding="{Binding Path=comment}"
+                            Header="Comment"
+                            IsReadOnly="True"
+                            Visibility="Visible"/>
+                        <DataGridTextColumn
+                            Width="100*"
+                            Binding="{Binding Path=date}"
+                            Header="Date"
+                            IsReadOnly="True"
+                            Visibility="Visible"/>
+                        <DataGridTextColumn
+                            Width="100*"
+                            Binding="{Binding Path=difficulty}"
+                            Header="Difficulty"
+                            IsReadOnly="True"
+                            Visibility="Visible"/>
+                        <DataGridTextColumn
+                            Width="100*"
+                            Binding="{Binding Path=totalTime}"
+                            Header="Time"
+                            IsReadOnly="True"
+                            Visibility="Visible"/>
+                        <DataGridTextColumn
+                            Width="100*"
+                            Binding="{Binding Path=rating}"
+                            Header="Rating"
+                            IsReadOnly="True"
+                            Visibility="Visible"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>
