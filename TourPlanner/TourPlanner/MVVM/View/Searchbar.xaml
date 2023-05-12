@@ -16,8 +16,7 @@
             
         </TextBox>
 
-        <Button Grid.Column="1"  Content="Submit" Command="{Binding Path=ExecuteCommandSwapMode}" Style="{StaticResource ButtonTheme}" Height="30" Width="70">
-        </Button>
+        <Button Grid.Column="1" Command="{Binding Path=ExecuteCommandSwapMode}" Height="30" Width="70" Style="{StaticResource OnOffButton}"/>
 
     </Grid>
 </UserControl>

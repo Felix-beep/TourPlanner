@@ -102,7 +102,7 @@ namespace TourPlanner.MVVM.ViewModel
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
             SearchbarInstance.SearchClicked += (_, searchtext) => { CurrentView = BrowseToursViewInstance; TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));  };
-            SearchbarInstance.SwapClicked += () => { BackGroundLogic.SwapOnlineMode(); };
+            SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackGroundLogic.SwapOnlineMode(); };
             BrowseToursViewInstance.TourClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
 
 

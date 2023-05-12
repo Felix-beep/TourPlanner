@@ -14,25 +14,34 @@ namespace TourPlanner.MVVM.ViewModel
     {
         private IBackgroundLogic _bl;
 
-        public IEnumerable<Tour> ListOfTours {
-            get;
-            private set;
+        private List<Tour> _listoftours;
+
+        public List<Tour> ListOfTours {
+            get
+            {
+                return _listoftours;
+            }
+            private set
+            {
+                _listoftours = value;
+                OnPropertyChanged();
+            }
         }
 
         public DepictedTourList(IBackgroundLogic bl)
         {
             _bl = bl;
-            ListOfTours = bl.GetAllTours();
+            ListOfTours = bl.GetAllTours().ToList(); 
         }
 
         public void UpadteTours()
         {
-            ListOfTours = _bl.GetAllTours();
+            ListOfTours = _bl.GetAllTours().ToList(); 
         }
 
         public void SetTours(IEnumerable<Tour> tours) 
         {
-            ListOfTours = tours;
+            ListOfTours = tours.ToList(); 
         }
     }
 }

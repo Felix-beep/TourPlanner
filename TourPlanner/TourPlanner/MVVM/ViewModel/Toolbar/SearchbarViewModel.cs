@@ -13,6 +13,18 @@ namespace TourPlanner.MVVM.ViewModel
     {
         private String searchtext = "";
 
+        private bool _isonline;
+
+        public bool IsOnline
+        {
+            get { return _isonline; }
+            set
+            {
+                _isonline = value;
+                OnPropertyChanged();
+            }
+        } 
+
         public String SearchText { 
             get { return searchtext; }
             set
@@ -26,6 +38,7 @@ namespace TourPlanner.MVVM.ViewModel
         {
             ExecuteCommandSearch = new RelayCommand(param => SearchClicked?.Invoke(this, searchtext));
             ExecuteCommandSwapMode = new RelayCommand(param => SwapClicked?.Invoke());
+            IsOnline = false;
         }
 
         public ICommand ExecuteCommandSearch { get; }

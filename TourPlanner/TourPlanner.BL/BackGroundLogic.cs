@@ -13,7 +13,7 @@ namespace TourPlanner.BL
         readonly ILog log = LogManager.GetLogger(typeof(BackgroundLogic));
 
         public ConnectionModeFactory _repositoryFactory;
-        public void SwapOnlineMode() => _repositoryFactory.SwapMode();
+        public bool SwapOnlineMode() => _repositoryFactory.SwapMode(); 
 
         public BackgroundLogic(ConnectionModeFactory repositoryFactory)
         {

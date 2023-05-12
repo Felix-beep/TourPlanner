@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TourPlanner.MVVM.View">
+    
+    <Style x:Key="OnOffButton" TargetType="Button" BasedOn="{StaticResource ButtonTheme}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=IsOnline}" Value="True">
+                <Setter Property="Background" Value="#ffcf4a"/>
+                <Setter Property="Content" Value="Online"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=IsOnline}" Value="False">
+                <Setter Property="Background" Value="#5bc3ff"/>
+                <Setter Property="Content" Value="Offline"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

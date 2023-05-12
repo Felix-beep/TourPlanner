@@ -25,6 +25,7 @@ namespace TourPlanner.BL
             _offlinerepo = offlinerepo;
             _offlinerepo.LoadSampleData();
 
+            // defines whether the app is in offline or online made on start
             _appIsOnline = false;
         }
 
@@ -33,7 +34,7 @@ namespace TourPlanner.BL
             return (_appIsOnline) ? _onlinerepo : _offlinerepo;
         }
 
-        public void SwapMode()
+        public bool SwapMode()
         {
             _appIsOnline = !_appIsOnline;
 
@@ -42,6 +43,7 @@ namespace TourPlanner.BL
                 _isConnected = _onlinerepo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
                 _appIsOnline = _isConnected;
             }
+            return _appIsOnline;
         }
     }
 }
