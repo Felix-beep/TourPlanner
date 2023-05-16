@@ -47,6 +47,13 @@ namespace TourPlanner.Tests
             Console.WriteLine("\nGetting tours after delete:");
             await repo.DeleteTourAsync(5);
             await PrintTours();
+
+            Console.WriteLine("\nGetting tours after tour log update:");
+            var tour6 = await repo.GetTourAsync(6);
+            var tour6log = tour6.logs.First();
+            tour6log.comment = "UPDATED TOUR LOG";
+            await repo.UpdateTourLogAsync(tour6log);
+            await PrintTours();
         }
     }
 }

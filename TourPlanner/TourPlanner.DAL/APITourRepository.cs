@@ -43,6 +43,13 @@ namespace TourPlanner.DAL
             return JsonConvert.DeserializeObject<Tour>(content);
         }
 
+        public async Task<TourLog> GetTourLogAsync(int tourLogID)
+        {
+            var response = await client.GetAsync($"{ApiRouteTourLogs}/{tourLogID}");
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TourLog>(content);
+        }
+
         public async Task DeleteTourAsync(int tourID)
         {
             var response = await client.DeleteAsync($"{ApiRouteTours}/{tourID}");

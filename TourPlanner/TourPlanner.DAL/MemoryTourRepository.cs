@@ -55,6 +55,7 @@ namespace TourPlanner.DAL
         public async Task<IEnumerable<Tour>> GetToursAsync() => tours.Values;
 
         public async Task<Tour> GetTourAsync(int tourID) => tours[tourID];
+        public async Task<TourLog> GetTourLogAsync(int tourLogID) => tours.SelectMany(t => t.Value.logs).Single(tl => tl.ID == tourLogID);
 
         public async Task<int> InsertTourAsync(Tour tour)
         {

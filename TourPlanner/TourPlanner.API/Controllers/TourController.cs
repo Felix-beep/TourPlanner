@@ -26,11 +26,11 @@ namespace TourPlanner.API.Controllers
             return await repo.GetToursAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<Tour> Get(int id)
+        [HttpGet("{tourID}")]
+        public async Task<Tour> Get(int tourID)
         {
-            log.Info($"got request: GET tours/{id}");
-            return (await repo.GetToursAsync()).Single(t => t.ID == id);
+            log.Info($"got request: GET tours/{tourID}");
+            return await repo.GetTourAsync(tourID);
         }
 
         [HttpPost]
@@ -47,11 +47,11 @@ namespace TourPlanner.API.Controllers
             await repo.UpdateTourAsync(updateTour);
         }
 
-        [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        [HttpDelete("{tourID}")]
+        public async Task Delete(int tourID)
         {
-            log.Info($"got request: DELETE tours/{id}");
-            await repo.DeleteTourAsync(id);
+            log.Info($"got request: DELETE tours/{tourID}");
+            await repo.DeleteTourAsync(tourID);
         }
     }
 }

@@ -42,6 +42,7 @@ namespace TourPlanner.DAL
         public async Task<IEnumerable<Tour>> GetToursAsync() => context.Tours.Where(t => true);
         public async Task<IEnumerable<TourLog>> GetTourLogsAsync() => context.TourLogs.Where(tl => true);
         public async Task<Tour> GetTourAsync(int tourID) => await context.Tours.FindAsync(tourID);
+        public async Task<TourLog> GetTourLogAsync(int tourLogID) => await context.TourLogs.FindAsync(tourLogID);
 
         public async Task DeleteTourAsync(int tourID)
         {
