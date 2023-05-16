@@ -25,19 +25,12 @@
         
         <Grid Grid.Row="1" Margin="0,5,0,5">
             <DataGrid Name="dataGridProgram"
-            AlternatingRowBackground="#FFA3A3A3"
-            AutoGenerateColumns="False"
-            Background="Transparent"
-            BorderBrush="Gray"
-            BorderThickness="0,0,0,0"
-            CanUserAddRows="False"
-            CanUserResizeColumns="True"
-            ColumnHeaderHeight="40"
-            FontSize="15"
-            Foreground="Black"
-            GridLinesVisibility="All"
+            Style="{StaticResource DataGridStyle}"
+            CellStyle="{StaticResource DataGridCellStyle}"
+            ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+            RowStyle="{DynamicResource DataGridRowStyle}"
             ItemsSource="{Binding Path=Items}"
-            RowBackground="#FFCECDCD"
+            SelectionMode="Extended"
             >
 
                 <DataGrid.Columns>

@@ -5,11 +5,11 @@
     <Style x:Key="OnOffButton" TargetType="Button" BasedOn="{StaticResource ButtonTheme}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsOnline}" Value="True">
-                <Setter Property="Background" Value="#ffcf4a"/>
+                <Setter Property="Background" Value="#ffb73a"/>
                 <Setter Property="Content" Value="Online"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=IsOnline}" Value="False">
-                <Setter Property="Background" Value="#5bc3ff"/>
+                <Setter Property="Background" Value="#3aa0ff"/>
                 <Setter Property="Content" Value="Offline"/>
             </DataTrigger>
         </Style.Triggers>

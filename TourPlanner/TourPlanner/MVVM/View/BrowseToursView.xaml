@@ -64,6 +64,24 @@
                     Header="Description"
                     IsReadOnly="True"
                     Visibility="Visible"/>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Path=from}"
+                    Header="Starting Point"
+                    IsReadOnly="True"
+                    Visibility="Visible"/>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Path=to}"
+                    Header="Destination"
+                    IsReadOnly="True"
+                    Visibility="Visible"/>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Path=estimatedTime}"
+                    Header="Estimated Time"
+                    IsReadOnly="True"
+                    Visibility="Visible"/>
                 <DataGridTemplateColumn Header="Edit" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
