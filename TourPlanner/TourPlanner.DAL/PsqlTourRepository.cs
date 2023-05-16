@@ -41,11 +41,12 @@ namespace TourPlanner.DAL
 
         public async Task<IEnumerable<Tour>> GetToursAsync() => context.Tours.Where(t => true);
         public async Task<IEnumerable<TourLog>> GetTourLogsAsync() => context.TourLogs.Where(tl => true);
+        public async Task<Tour> GetTourAsync(int tourID) => await context.Tours.FindAsync(tourID);
 
         public async Task DeleteTourAsync(int tourID)
         {
             context.Tours.Remove(
-                context.Tours.Single(t => t.ID == tourID));
+                await context.Tours.FindAsync(tourID));
             await context.SaveChangesAsync();
         }
 
@@ -72,9 +73,7 @@ namespace TourPlanner.DAL
 
         public async Task UpdateTourAsync(Tour tour)
         {
-            var existingTour = context.Tours.Single(t => t.ID == tour.ID);
-            Console.WriteLine($"trying to update existing tour [{existingTour}] to [{tour}]");
-            
+            var existingTour = await context.Tours.FindAsync(tour.ID);
             context.Entry(existingTour).CurrentValues.SetValues(tour);
             await context.SaveChangesAsync();
         }

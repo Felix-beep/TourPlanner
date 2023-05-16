@@ -5,14 +5,16 @@ namespace TourPlanner.Tests
 {
     public class APITest
     {
-        APITourRepository repo;
+        ITourRepository repo;
 
         [OneTimeSetUp]
         public void Setup()
         {
             log4net.Config.BasicConfigurator.Configure();
-            repo = new APITourRepository();
+            var repo = new APITourRepository();
             repo.Connect(new Uri("http://localhost:5000/"));
+            
+            this.repo = repo;
         }
 
         async Task PrintTours()
@@ -36,12 +38,10 @@ namespace TourPlanner.Tests
             await PrintTours();
 
             Console.WriteLine("\nGetting tours after update:");
-            await repo.UpdateTourAsync(new Tour
-            {
-                ID = 3,
-                name = "UPDATED TOUR WITH ID 3",
-                description = "UPDATED DESCRIPTION OF TOUR 3",
-            });
+            var tour3 = await repo.GetTourAsync(3);
+            tour3.description = "UPDATED DESCRIPTION";
+            tour3.name = "UPDATED NAME";
+            await repo.UpdateTourAsync(tour3);
             await PrintTours();
 
             Console.WriteLine("\nGetting tours after delete:");

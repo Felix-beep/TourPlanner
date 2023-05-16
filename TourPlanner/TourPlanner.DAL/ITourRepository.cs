@@ -6,6 +6,7 @@ namespace TourPlanner.DAL
     {
         Task<IEnumerable<Tour>> GetToursAsync();
         Task<IEnumerable<TourLog>> GetTourLogsAsync();
+        Task<Tour> GetTourAsync(int tourID);
 
         Task<int> InsertTourAsync(Tour tour);
         Task DeleteTourAsync(int tourID);
