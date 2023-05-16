@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TourPlanner.MVVM.ViewModel;
 
 namespace TourPlanner.MVVM.View
 {
@@ -23,6 +25,14 @@ namespace TourPlanner.MVVM.View
         public ExportToursView()
         {
             InitializeComponent();
+        }
+
+        // from https://stackoverflow.com/a/55313871
+        //
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.DataContext == null) return;
+            ((ExportToursViewModel)this.DataContext).SelectedItems = ExportDataGrid.SelectedItems;
         }
     }
 }

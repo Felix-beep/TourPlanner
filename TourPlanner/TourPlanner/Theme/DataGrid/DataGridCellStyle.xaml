@@ -5,6 +5,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        
         <Setter Property="Margin" Value="0,0,0,0"/>
         <Setter Property="Template">
             <Setter.Value>

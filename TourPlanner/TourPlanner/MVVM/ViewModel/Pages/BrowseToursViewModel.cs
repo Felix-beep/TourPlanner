@@ -34,8 +34,6 @@ namespace TourPlanner.MVVM.ViewModel
             TourClicked?.Invoke(this, ID);
         }
 
-
-
         public event EventHandler<int> TourClicked;
     }
 }

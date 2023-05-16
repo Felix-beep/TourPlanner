@@ -104,6 +104,7 @@ namespace TourPlanner.MVVM.ViewModel
             SearchbarInstance.SearchClicked += (_, searchtext) => { CurrentView = BrowseToursViewInstance; TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));  };
             SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackGroundLogic.SwapOnlineMode(); };
             BrowseToursViewInstance.TourClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
+            ExportToursViewInstance.SubmitClicked += (_, Tours) => { BackGroundLogic.ExportTours(Tours); };
 
 
             TourListInstance.UpadteTours();

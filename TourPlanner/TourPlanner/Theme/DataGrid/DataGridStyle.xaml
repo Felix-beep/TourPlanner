@@ -4,7 +4,6 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#222528"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
         <Setter Property="AutoGenerateColumns" Value="False"/>
