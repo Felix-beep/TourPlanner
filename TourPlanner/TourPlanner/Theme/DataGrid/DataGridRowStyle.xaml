@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
    
     <Style x:Key="DataGridRowStyle" TargetType="{x:Type DataGridRow}">
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="#1A1922"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="MinHeight" Value="50"/>
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
@@ -30,8 +31,8 @@
         <Style.Triggers>
             
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="DimGray"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#5a5478"/>
+                <Setter Property="Foreground" Value="#111"/>
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="True">
