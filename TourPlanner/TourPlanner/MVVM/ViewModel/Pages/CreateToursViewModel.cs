@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TourPlanner.Core;
 using TourPlanner.Models;
 
@@ -85,7 +86,22 @@ namespace TourPlanner.MVVM.ViewModel
 
         public CreateToursViewModel() {
             FillWithEmpty();
+            SubmitForm = new RelayCommand( param => {
+                if(_tourID == null)
+                {
+                    NewTourSubmitted?.Invoke(this, ConvertToTour());
+                } 
+                else
+                {
+                    OldTourSubmitted?.Invoke(this, ConvertToTour());
+                }
+                });
         }
+
+        public ICommand SubmitForm { get; }
+
+        public event EventHandler<Tour> NewTourSubmitted;
+        public event EventHandler<Tour> OldTourSubmitted;
 
         public void OpenTour(Tour? tour)
         {
@@ -109,6 +125,28 @@ namespace TourPlanner.MVVM.ViewModel
             _from = "";
             _to = "";
             _transport = "";
+        }
+
+        private Tour ConvertToTour()
+        {
+            int id;
+            if(_tourID == null)
+            {
+                id = 0;
+            } else
+            {
+                id = (int)_tourID;
+            }
+
+            return new Tour()
+            {
+                ID = id,
+                name = _tourName,
+                description = _description,
+                from = _from,
+                to = _to,
+                transportType = _transport,
+            };
         }
     }
 }

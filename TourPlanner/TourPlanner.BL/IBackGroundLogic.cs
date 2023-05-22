@@ -8,9 +8,9 @@ namespace TourPlanner.BL
 
         public IEnumerable<TourLog> GetTourLogs(int TourID);
 
-        public void CreateNewTour(String Name, String Description, String From, String To);
+        public void CreateNewTour(Tour NewTour);
 
-        public void EditDescription(int TourID, String Text);
+        public void EditTour(Tour EditedTour);
 
         public void ExportTours(IEnumerable<Tour> ToursToExport);
 

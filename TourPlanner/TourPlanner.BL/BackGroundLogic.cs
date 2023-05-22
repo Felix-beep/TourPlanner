@@ -26,21 +26,15 @@ namespace TourPlanner.BL
 
         public IEnumerable<TourLog> GetTourLogs(int TourID) => _repositoryFactory.GetRepo().GetTourLogs();
 
-        public void CreateNewTour(String Name, String From, String Description, String To)
+        public void CreateNewTour(Tour NewTour)
         {
-            Tour newTour = new()
-            {
-                name = Name,
-                description = Description,
-                // this still needs the information from MapQuest
-            };
 
-            _repositoryFactory.GetRepo().InsertTour(newTour);
+            _repositoryFactory.GetRepo().InsertTour(NewTour);
         }
 
-        public void EditDescription(int TourID, String Text)
+        public void EditTour(Tour EditedTour)
         {
-            // not sure how to implement this yet
+            _repositoryFactory.GetRepo().UpdateTour(EditedTour);
         }
 
         public void ExportTours(IEnumerable<Tour> toursToExport)

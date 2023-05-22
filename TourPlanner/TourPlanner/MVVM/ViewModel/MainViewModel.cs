@@ -112,6 +112,8 @@ namespace TourPlanner.MVVM.ViewModel
 
             ExportToursViewInstance.SubmitClicked += (_, Tours) => { BackGroundLogic.ExportTours(Tours); };
 
+            CreateToursViewInstance.NewTourSubmitted += (_, Tour) => { BackGroundLogic.CreateNewTour(Tour);  };
+            CreateToursViewInstance.OldTourSubmitted += (_, Tour) => { BackGroundLogic.EditTour(Tour); };
 
             TourListInstance.UpadteTours();
         }
