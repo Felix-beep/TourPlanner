@@ -36,6 +36,10 @@ namespace TourPlanner.BL
         {
             _repositoryFactory.GetRepo().UpdateTour(EditedTour);
         }
+        public void DeleteTour(int TourID)
+        {
+            _repositoryFactory.GetRepo().DeleteTour(TourID);
+        }
 
         public void ExportTours(IEnumerable<Tour> toursToExport)
         {

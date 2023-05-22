@@ -12,6 +12,8 @@ namespace TourPlanner.BL
 
         public void EditTour(Tour EditedTour);
 
+        public void DeleteTour(int TourID);
+
         public void ExportTours(IEnumerable<Tour> ToursToExport);
 
         public void ImportTours(IEnumerable<String> FilesToImport);

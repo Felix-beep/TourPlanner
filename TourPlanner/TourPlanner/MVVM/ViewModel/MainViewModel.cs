@@ -108,7 +108,7 @@ namespace TourPlanner.MVVM.ViewModel
         
             BrowseToursViewInstance.ViewClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
             BrowseToursViewInstance.EditClicked += (_, ID) => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(TourListItem.GetTour(ID)); };
-            BrowseToursViewInstance.DeleteClicked += (_, ID) => { /* BL function to delete a Tour*/ };
+            BrowseToursViewInstance.DeleteClicked += (_, ID) => { BackGroundLogic.DeleteTour(ID); };
 
             ExportToursViewInstance.SubmitClicked += (_, Tours) => { BackGroundLogic.ExportTours(Tours); };
 
