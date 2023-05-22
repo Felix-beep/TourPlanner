@@ -101,19 +101,19 @@ namespace TourPlanner.MVVM.ViewModel
             SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
-            SearchbarInstance.SearchClicked += (_, searchtext) => { CurrentView = BrowseToursViewInstance; TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));  };
+            SearchbarInstance.SearchClicked += (_, searchtext) => { CurrentView = BrowseToursViewInstance; TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext)); TourListItem.Refresh(); };
             SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackGroundLogic.SwapOnlineMode(); };
 
             BrowseToursViewInstance.NewTourClicked += () => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(null); };
         
             BrowseToursViewInstance.ViewClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
-            BrowseToursViewInstance.EditClicked += (_, ID) => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(TourListItem.GetTour(ID)); };
-            BrowseToursViewInstance.DeleteClicked += (_, ID) => { BackGroundLogic.DeleteTour(ID); };
+            BrowseToursViewInstance.EditClicked += (_, ID) => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(TourListItem.GetTour(ID)); TourListItem.UpadteTours(); };
+            BrowseToursViewInstance.DeleteClicked += (_, ID) => { BackGroundLogic.DeleteTour(ID); TourListItem.UpadteTours(); };
 
-            ExportToursViewInstance.SubmitClicked += (_, Tours) => { BackGroundLogic.ExportTours(Tours); };
+            ExportToursViewInstance.SubmitClicked += (_, Tours) => { BackGroundLogic.ExportTours(Tours); TourListItem.UpadteTours(); };
 
-            CreateToursViewInstance.NewTourSubmitted += (_, Tour) => { BackGroundLogic.CreateNewTour(Tour);  };
-            CreateToursViewInstance.OldTourSubmitted += (_, Tour) => { BackGroundLogic.EditTour(Tour); };
+            CreateToursViewInstance.NewTourSubmitted += (_, Tour) => { BackGroundLogic.CreateNewTour(Tour); TourListItem.UpadteTours(); };
+            CreateToursViewInstance.OldTourSubmitted += (_, Tour) => { BackGroundLogic.EditTour(Tour); TourListItem.UpadteTours(); };
 
             TourListInstance.UpadteTours();
         }

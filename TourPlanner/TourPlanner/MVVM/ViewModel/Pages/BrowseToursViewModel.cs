@@ -8,6 +8,7 @@ using TourPlanner.Models;
 using System.Windows.Input;
 using System.Windows.Controls;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using System.Collections.ObjectModel;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -15,9 +16,16 @@ namespace TourPlanner.MVVM.ViewModel
     {
         private DepictedTourList? _tourList;
 
+        private List<Tour> _displayedList;
+
         public List<Tour> Items {
-            get {
-                return _tourList?.ListOfTours.ToList();
+            get
+            {
+                return _displayedList;
+            } set
+            {
+                _displayedList = value;
+                OnPropertyChanged();
             }
         }
         public ICommand CreateNewTour { get; }
@@ -33,14 +41,20 @@ namespace TourPlanner.MVVM.ViewModel
         public event EventHandler<int> DeleteClicked;
 
         public BrowseToursViewModel(DepictedTourList tourlist)
-        {
+        {   
             _tourList = tourlist;
+            _tourList.ListChanged += UpdateLocalList;
 
             CreateNewTour = new RelayCommand(param => NewTourClicked?.Invoke());
 
             OpenTourInformation = new RelayCommand<int>(param => ViewClicked?.Invoke(this, param));
             EditTourInformation = new RelayCommand<int>(param => EditClicked?.Invoke(this, param));
             DeleteTourInformation = new RelayCommand<int>(param => DeleteClicked?.Invoke(this, param));
+        }
+
+        private void UpdateLocalList()
+        {
+            Items = _tourList.ListOfTours;
         }
     }
 }
