@@ -43,5 +43,10 @@ namespace TourPlanner.MVVM.ViewModel
         {
             ListOfTours = tours.ToList(); 
         }
+
+        public Tour GetTour(int ID)
+        {
+            return ListOfTours.First(t => t.ID == ID);
+        }
     }
 }

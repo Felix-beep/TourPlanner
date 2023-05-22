@@ -9,36 +9,15 @@
                         <Border CornerRadius="10" Margin="0,3,0,3" Background="#353340" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                             <Grid>
                                 <TextBox Margin="2"
-                                         Text=""
+                                         Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                          BorderThickness="0"
                                          Background="Transparent"
                                          VerticalAlignment="Center"
                                          Foreground="#CFCFCF"
                                          Padding="5"
                                          Style="{StaticResource TextBoxBlock}"
-                                         x:Name="InputFieldBox"/>
-
-                                <TextBlock IsHitTestVisible="False"
-                                           Text="{TemplateBinding Text}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Margin="10,0,0,0"
-                                           FontSize="11"
-                                           Foreground="DarkGray"
-                                           Grid.Column="1">
-
-                                    <TextBlock.Style>
-                                        <Style TargetType="{x:Type TextBlock}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Text, ElementName=InputFieldBox}" Value="">
-                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                            <Setter Property="Visibility" Value="Hidden"/>
-                                        </Style>
-                                    </TextBlock.Style>
-
-                                </TextBlock>
+                                         x:Name="InputFieldBox">
+                                </TextBox>
                             </Grid>
                         </Border>
                     </ControlTemplate>

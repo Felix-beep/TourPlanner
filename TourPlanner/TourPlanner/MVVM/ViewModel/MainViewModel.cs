@@ -96,14 +96,20 @@ namespace TourPlanner.MVVM.ViewModel
             CurrentHotbar = Searchbar;
 
             SwapToHomeView = new RelayCommand(param => CurrentView = HomeViewInstance);
-            SwapToCreateTours = new RelayCommand(param => CurrentView = CreateToursViewInstance);
+            SwapToCreateTours = new RelayCommand(param => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(null); } );
             SwapToBrowseTours = new RelayCommand(param => CurrentView = BrowseToursViewInstance);
             SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
             SearchbarInstance.SearchClicked += (_, searchtext) => { CurrentView = BrowseToursViewInstance; TourListItem.SetTours(BackGroundLogic.FullTextSearch(searchtext));  };
             SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackGroundLogic.SwapOnlineMode(); };
-            BrowseToursViewInstance.TourClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
+
+            BrowseToursViewInstance.NewTourClicked += () => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(null); };
+        
+            BrowseToursViewInstance.ViewClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
+            BrowseToursViewInstance.EditClicked += (_, ID) => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(TourListItem.GetTour(ID)); };
+            BrowseToursViewInstance.DeleteClicked += (_, ID) => { /* BL function to delete a Tour*/ };
+
             ExportToursViewInstance.SubmitClicked += (_, Tours) => { BackGroundLogic.ExportTours(Tours); };
 
 

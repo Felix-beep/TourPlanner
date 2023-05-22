@@ -7,6 +7,7 @@ using TourPlanner.Core;
 using TourPlanner.Models;
 using System.Windows.Input;
 using System.Windows.Controls;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -19,21 +20,27 @@ namespace TourPlanner.MVVM.ViewModel
                 return _tourList?.ListOfTours.ToList();
             }
         }
-
+        public ICommand CreateNewTour { get; }
+        public event Action NewTourClicked;
 
         public ICommand OpenTourInformation { get; }
+        public event EventHandler<int> ViewClicked;
+
+        public ICommand EditTourInformation { get; }
+        public event EventHandler<int> EditClicked;
+
+        public ICommand DeleteTourInformation { get; }
+        public event EventHandler<int> DeleteClicked;
 
         public BrowseToursViewModel(DepictedTourList tourlist)
         {
             _tourList = tourlist;
-            OpenTourInformation = new RelayCommand<int>(newRelayCommand);
-        }
 
-        private void newRelayCommand(int ID)
-        {
-            TourClicked?.Invoke(this, ID);
-        }
+            CreateNewTour = new RelayCommand(param => NewTourClicked?.Invoke());
 
-        public event EventHandler<int> TourClicked;
+            OpenTourInformation = new RelayCommand<int>(param => ViewClicked?.Invoke(this, param));
+            EditTourInformation = new RelayCommand<int>(param => EditClicked?.Invoke(this, param));
+            DeleteTourInformation = new RelayCommand<int>(param => DeleteClicked?.Invoke(this, param));
+        }
     }
 }
