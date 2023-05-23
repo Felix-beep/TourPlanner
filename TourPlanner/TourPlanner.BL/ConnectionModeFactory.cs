@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TourPlanner.DAL;
+﻿using TourPlanner.DAL;
 
 namespace TourPlanner.BL
 {
@@ -23,7 +18,8 @@ namespace TourPlanner.BL
             _isConnected = _onlinerepo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
 
             _offlinerepo = offlinerepo;
-            _offlinerepo.LoadSampleData();
+            var loadSampleDataTask = _offlinerepo.LoadSampleDataAsync();
+            loadSampleDataTask.Wait();
 
             // defines whether the app is in offline or online made on start
             _appIsOnline = false;

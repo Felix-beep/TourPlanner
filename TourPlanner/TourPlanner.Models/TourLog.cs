@@ -21,7 +21,7 @@ namespace TourPlanner.Models
             this.comment = comment;
         }
 
-        public override string ToString() => $"TourLog({ID},{comment})";
+        public override string ToString() => $"TourLog({ID},{comment},{date},{difficulty},{totalTime},{rating})";
 
         public void CopyFrom(TourLog other)
         {

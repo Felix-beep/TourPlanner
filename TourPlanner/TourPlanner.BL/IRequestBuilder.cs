@@ -4,12 +4,15 @@
     {
         public enum RequestType
         {
+            None,
             Route,
             MapImage
         }
 
         void SetRequestType(RequestType type);
-        string Build();
+        void SetLocationFrom(string location);
+        void SetLocationTo(string location);
+        string? Build();
         void Clear();
     }
 }

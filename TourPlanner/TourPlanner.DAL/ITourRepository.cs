@@ -4,16 +4,17 @@ namespace TourPlanner.DAL
 {
     public interface ITourRepository
     {
-        IEnumerable<Tour> GetTours();
-        IEnumerable<TourLog> GetTourLogs();
+        Task<IEnumerable<Tour>> GetToursAsync();
+        Task<IEnumerable<TourLog>> GetTourLogsAsync();
+        Task<Tour> GetTourAsync(int tourID);
+        Task<TourLog> GetTourLogAsync(int tourLogID);
 
-        void InsertTour(Tour tour);
-        void InsertTour(Tour tour, out int newTourID);
-        void DeleteTour(int tourID);
-        void UpdateTour(Tour tour);
+        Task<int> InsertTourAsync(Tour tour);
+        Task DeleteTourAsync(int tourID);
+        Task UpdateTourAsync(Tour tour);
 
-        void InsertTourLog(int tourID, TourLog tourLog);
-        void DeleteTourLog(int tourLogID);
-        void UpdateTourLog(TourLog tourLog);
+        Task<int> InsertTourLogAsync(int tourID, TourLog tourLog);
+        Task DeleteTourLogAsync(int tourLogID);
+        Task UpdateTourLogAsync(TourLog tourLog);
     }
 }

@@ -35,12 +35,13 @@ namespace TourPlanner.MVVM.ViewModel
         public DepictedTourList(IBackgroundLogic bl)
         {
             _bl = bl;
-            ListOfTours = bl.GetAllTours().ToList();
+            var updateToursTask = UpdateToursAsync();
+            updateToursTask.Wait();
         }
 
-        public void UpadteTours()
+        public async Task UpdateToursAsync()
         {
-            ListOfTours = _bl.GetAllTours().ToList(); 
+            ListOfTours = (await _bl.GetAllToursAsync()).ToList(); 
         }
 
         public void Refresh()

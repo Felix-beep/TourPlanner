@@ -20,34 +20,33 @@ namespace TourPlanner.BL
             _repositoryFactory = repositoryFactory;
         }
 
-        public IEnumerable<Tour> GetAllTours() {
-            return _repositoryFactory.GetRepo().GetTours();
-        }
+        public async Task<IEnumerable<Tour>> GetAllToursAsync() 
+            => await _repositoryFactory.GetRepo().GetToursAsync();
 
-        public IEnumerable<TourLog> GetTourLogs(int TourID) => _repositoryFactory.GetRepo().GetTourLogs();
+        public async Task<IEnumerable<TourLog>> GetTourLogsAsync(int TourID) 
+            => await _repositoryFactory.GetRepo().GetTourLogsAsync();
 
-        public void CreateNewTour(Tour NewTour)
+        public async Task CreateNewTourAsync(Tour NewTour)
         {
-
-            _repositoryFactory.GetRepo().InsertTour(NewTour);
+            await _repositoryFactory.GetRepo().InsertTourAsync(NewTour);
         }
 
-        public void EditTour(Tour EditedTour)
+        public async Task EditTourAsync(Tour EditedTour)
         {
-            _repositoryFactory.GetRepo().UpdateTour(EditedTour);
+            await _repositoryFactory.GetRepo().UpdateTourAsync(EditedTour);
         }
-        public void DeleteTour(int TourID)
+        public async Task DeleteTourAsync(int TourID)
         {
-            _repositoryFactory.GetRepo().DeleteTour(TourID);
+            await _repositoryFactory.GetRepo().DeleteTourAsync(TourID);
         }
 
-        public void ExportTours(IEnumerable<Tour> toursToExport)
+        public async Task ExportToursAsync(IEnumerable<Tour> toursToExport)
         {
             foreach (var tour in toursToExport) 
-                ExportTour(tour);
+                await ExportTour(tour);
         }
 
-        void ExportTour(Tour tour)
+        async Task ExportTour(Tour tour)
         {
             // the export format is as follows: (line by line)
             // tour header
@@ -82,13 +81,13 @@ namespace TourPlanner.BL
             csvWriter.NextRecord();
         }
 
-        public void ImportTours(IEnumerable<string> filesToImport)
+        public async Task ImportToursAsync(IEnumerable<string> filesToImport)
         {
             foreach (var file in filesToImport)
-                ImportTour(file);
+                await ImportTour(file);
         }
 
-        void ImportTour(String fileToImport)
+        async Task ImportTour(String fileToImport)
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture);
 
@@ -113,17 +112,17 @@ namespace TourPlanner.BL
 
             newTour.logs = new List<TourLog>();
 
-            _repositoryFactory.GetRepo().InsertTour(newTour, out var newTourID);
+            var newTourID = await _repositoryFactory.GetRepo().InsertTourAsync(newTour);
             foreach (var log in tourLogs)
-                _repositoryFactory.GetRepo().InsertTourLog(newTourID, log);
+                await _repositoryFactory.GetRepo().InsertTourLogAsync(newTourID, log);
 
             log.Info($"imported tour {newTour.name}, with {tourLogs.Count} logs from file {fileToImport}");
         }
 
-        public IEnumerable<Tour> FullTextSearch(String Text)
+        public async Task<IEnumerable<Tour>> FullTextSearchAsync(String Text)
         {
             FullTextSearchFactory factory = new();
-            return factory.SearchForText(_repositoryFactory.GetRepo().GetTours().ToList(), Text);
+            return factory.SearchForText((await _repositoryFactory.GetRepo().GetToursAsync()).ToList(), Text);
         }
 
     }

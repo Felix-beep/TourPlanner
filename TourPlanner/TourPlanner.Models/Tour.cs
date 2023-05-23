@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace TourPlanner.Models
 {
@@ -28,7 +29,32 @@ namespace TourPlanner.Models
             this.logs = logs;
         }
 
-        // public override string ToString() => $"Tour({ID},{name},{description},{logs.Count})";
+        public string CustomToString()
+        {
+            var sb = new StringBuilder("Tour(");
+            sb.Append(ID);
+            sb.Append(',');
+            sb.Append(name ?? "-");
+            sb.Append(',');
+            sb.Append(description ?? "-");
+            sb.Append(',');
+            sb.Append(from ?? "-");
+            sb.Append(',');
+            sb.Append(to ?? "-");
+            sb.Append(',');
+            sb.Append(transportType ?? "-");
+            sb.Append(',');
+            sb.Append(tourDistance);
+            sb.Append(',');
+            sb.Append(estimatedTime);
+            sb.Append(',');
+            sb.Append(imageID ?? "-");
+            sb.Append(',');
+            sb.Append(logs?.Count);
+            sb.Append(')');
+            return sb.ToString();
+        }
+
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;
