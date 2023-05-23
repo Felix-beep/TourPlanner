@@ -4,23 +4,23 @@ namespace TourPlanner.BL
 {
     public interface IBackgroundLogic
     {
-        public IEnumerable<Tour> GetAllTours();
+        Task<IEnumerable<Tour>> GetAllToursAsync();
+        Task<IEnumerable<TourLog>> GetTourLogsAsync(int TourID);
 
-        public IEnumerable<TourLog> GetTourLogs(int TourID);
+        Task CreateNewTourAsync(Tour NewTour);
 
-        public void CreateNewTour(Tour NewTour);
+        Task EditTourAsync(Tour EditedTour);
 
-        public void EditTour(Tour EditedTour);
+        Task EditDescriptionAsync(int TourID, String Text);
 
-        public void DeleteTour(int TourID);
+        Task DeleteTourAsync(int TourID);
 
-        public void ExportTours(IEnumerable<Tour> ToursToExport);
+        Task ExportToursAsync(IEnumerable<Tour> ToursToExport);
 
-        public void ImportTours(IEnumerable<String> FilesToImport);
+        Task ImportToursAsync(IEnumerable<String> FilesToImport);
 
-        public IEnumerable<Tour> FullTextSearch(String Text);
+        Task<IEnumerable<Tour>> FullTextSearchAsync(String Text);
 
-        public bool SwapOnlineMode();
-
+        bool SwapOnlineMode();
     }
 }

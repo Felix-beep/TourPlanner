@@ -1,11 +1,14 @@
 ﻿using TourPlanner.Models;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
+using log4net;
 
 namespace TourPlanner.DAL
 {
     public class APITourRepository : ITourRepository
     {
+        readonly ILog log = LogManager.GetLogger(typeof(APITourRepository));
+
         const string
             ApiRouteTours = "api/tours",
             ApiRouteTourLogs = "api/tourlogs";
@@ -19,67 +22,73 @@ namespace TourPlanner.DAL
             return true;
         }
         
-        public IEnumerable<Tour> GetTours()
+        public async Task<IEnumerable<Tour>> GetToursAsync()
         {
-            var response = client.GetAsync(ApiRouteTours);
-            response.Wait();
-            var content = response.Result.Content.ReadAsStringAsync();
-            content.Wait();
-            return JsonConvert.DeserializeObject<Tour[]>(content.Result);
+            var response = await client.GetAsync(ApiRouteTours);
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Tour[]>(content);
         }
 
-        public IEnumerable<TourLog> GetTourLogs()
+        public async Task<IEnumerable<TourLog>> GetTourLogsAsync()
         {
-            var response = client.GetAsync(ApiRouteTourLogs);
-            response.Wait();
-            var content = response.Result.Content.ReadAsStringAsync();
-            content.Wait();
-            return JsonConvert.DeserializeObject<TourLog[]>(content.Result);
+            var response = await client.GetAsync(ApiRouteTourLogs);
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TourLog[]>(content);
         }
 
-        public void DeleteTour(int tourID)
+        public async Task<Tour> GetTourAsync(int tourID)
         {
-            var response = client.DeleteAsync($"{ApiRouteTours}/{tourID}");
-            response.Wait();
+            var response = await client.GetAsync($"{ApiRouteTours}/{tourID}");
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Tour>(content);
         }
 
-        public void DeleteTourLog(int tourLogID)
+        public async Task<TourLog> GetTourLogAsync(int tourLogID)
         {
-            var response = client.DeleteAsync($"{ApiRouteTourLogs}/{tourLogID}");
-            response.Wait();
+            var response = await client.GetAsync($"{ApiRouteTourLogs}/{tourLogID}");
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TourLog>(content);
         }
 
-        public void InsertTour(Tour tour)
+        public async Task DeleteTourAsync(int tourID)
+        {
+            var response = await client.DeleteAsync($"{ApiRouteTours}/{tourID}");
+        }
+
+        public async Task DeleteTourLogAsync(int tourLogID)
+        {
+            var response = await client.DeleteAsync($"{ApiRouteTourLogs}/{tourLogID}");
+        }
+
+        public async Task<int> InsertTourAsync(Tour tour)
         {
             var content = JsonContent.Create(tour);
-            var response = client.PostAsync($"{ApiRouteTours}", content);
-            response.Wait();
+            var response = await client.PostAsync($"{ApiRouteTours}", content);
+            var responseString = await response.Content.ReadAsStringAsync();
+            log.Info($"got [{responseString}] after inserting tour from api");
+
+            if (!int.TryParse(responseString, out var newTourID)) return -1;
+            return newTourID;
         }
 
-        public void InsertTour(Tour tour, out int newTourID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertTourLog(int tourID, TourLog tourLog)
+        public async Task<int> InsertTourLogAsync(int tourID, TourLog tourLog)
         {
             var content = JsonContent.Create(tourLog);
-            var response = client.PostAsync($"{ApiRouteTourLogs}", content);
-            response.Wait();
+            var response = await client.PostAsync($"{ApiRouteTourLogs}/{tourID}", content);
+            return int.Parse(await response.Content.ReadAsStringAsync());
         }
 
-        public void UpdateTour(Tour tour)
+        public async Task UpdateTourAsync(Tour tour)
         {
             var content = JsonContent.Create(tour);
-            var response = client.PatchAsync($"{ApiRouteTours}", content);
-            response.Wait();
+            log.Info($"requesting to update tour {tour.CustomToString()} as json:\n{await content.ReadAsStringAsync()}");
+            var response = await client.PatchAsync($"{ApiRouteTours}", content);
         }
 
-        public void UpdateTourLog(TourLog tourLog)
+        public async Task UpdateTourLogAsync(TourLog tourLog)
         {
             var content = JsonContent.Create(tourLog);
-            var response = client.PatchAsync($"{ApiRouteTourLogs}", content);
-            response.Wait();
+            var response = await client.PatchAsync($"{ApiRouteTourLogs}", content);
         }
     }
 }

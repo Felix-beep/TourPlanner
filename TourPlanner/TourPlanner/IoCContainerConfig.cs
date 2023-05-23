@@ -15,9 +15,6 @@ namespace TourPlanner
         {
             var services = new ServiceCollection();
 
-
-            //repo.Connect(new Uri("http://localhost:5000/"));
-
             // create all layers
             services.AddSingleton<MemoryTourRepository>(new MemoryTourRepository());
             services.AddSingleton<APITourRepository>(new  APITourRepository());

@@ -2,6 +2,8 @@ using log4net.Config;
 using TourPlanner.BL;
 using TourPlanner.DAL;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 XmlConfigurator.Configure(new FileInfo("log4net.cfg"));
 
 IConfiguration configuration = new ConfigurationBuilder()

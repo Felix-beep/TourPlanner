@@ -38,7 +38,7 @@ namespace TourPlanner.MVVM.ViewModel
             ListOfTours = bl.GetAllTours().ToList();
         }
 
-        public void UpadteTours()
+        public async Task UpadteTours()
         {
             ListOfTours = _bl.GetAllTours().ToList(); 
         }

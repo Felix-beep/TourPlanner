@@ -20,18 +20,21 @@ namespace TourPlanner.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TourLog> Get() => repo.GetTourLogs();
+        public async Task<IEnumerable<TourLog>> Get() => await repo.GetTourLogsAsync();
 
-        [HttpGet("{id}")]
-        public TourLog Get(int id) => repo.GetTourLogs().Single(tl => tl.ID == id);
+        [HttpGet("{tourLogID}")]
+        public async Task<TourLog> Get(int tourLogID) => await repo.GetTourLogAsync(tourLogID);
 
         [HttpPost("{tourID}")]
-        public void Post(int tourID, [FromBody] TourLog newTourLog) => repo.InsertTourLog(tourID, newTourLog);
+        public async Task<int> Post(int tourID, [FromBody] TourLog newTourLog)
+        {
+            return await repo.InsertTourLogAsync(tourID, newTourLog);
+        }
 
-        [HttpPut]
-        public void Put([FromBody] TourLog updateTourLog) => repo.UpdateTourLog(updateTourLog);
+        [HttpPatch]
+        public async Task Patch([FromBody] TourLog updateTourLog) => await repo.UpdateTourLogAsync(updateTourLog);
 
-        [HttpDelete("{id}")]
-        public void Delete(int id) => repo.DeleteTourLog(id);
+        [HttpDelete("{tourLogID}")]
+        public async Task Delete(int tourLogID) => await repo.DeleteTourLogAsync(tourLogID);
     }
 }

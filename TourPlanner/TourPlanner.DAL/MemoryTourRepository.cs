@@ -1,5 +1,4 @@
 ﻿using log4net;
-using Npgsql.Internal;
 using TourPlanner.Models;
 
 namespace TourPlanner.DAL
@@ -13,7 +12,7 @@ namespace TourPlanner.DAL
 
         Dictionary<int, Tour> tours = new Dictionary<int, Tour>();
 
-        public void LoadSampleData()
+        public async Task LoadSampleDataAsync()
         {
             var samples = new Tour[]
             {
@@ -23,10 +22,9 @@ namespace TourPlanner.DAL
                 new Tour(4, "Food", "Food", new List<TourLog>()),
             };
 
-            foreach (var sample in samples)
-                InsertTour(sample);
+            foreach (var sample in samples) await InsertTourAsync(sample);
 
-            InsertTourLog(2,
+            await InsertTourLogAsync(2,
                 new TourLog
                 {
                     comment = "a tour log",
@@ -37,9 +35,9 @@ namespace TourPlanner.DAL
                 });
         }
 
-        public void DeleteTour(int tourID) => tours.Remove(tourID);
+        public async Task DeleteTourAsync(int tourID) => tours.Remove(tourID);
 
-        public void DeleteTourLog(int tourLogID)
+        public async Task DeleteTourLogAsync(int tourLogID)
         {
             foreach (var tour in tours.Values)
             {
@@ -52,33 +50,35 @@ namespace TourPlanner.DAL
             }
         }
 
-        public IEnumerable<TourLog> GetTourLogs() => tours.SelectMany(t => t.Value.logs);
+        public async Task<IEnumerable<TourLog>> GetTourLogsAsync() => tours.SelectMany(t => t.Value.logs);
 
-        public IEnumerable<Tour> GetTours() => tours.Values;
+        public async Task<IEnumerable<Tour>> GetToursAsync() => tours.Values;
 
-        public void InsertTour(Tour tour) => InsertTour(tour, out var _);
+        public async Task<Tour> GetTourAsync(int tourID) => tours[tourID];
+        public async Task<TourLog> GetTourLogAsync(int tourLogID) => tours.SelectMany(t => t.Value.logs).Single(tl => tl.ID == tourLogID);
 
-        public void InsertTour(Tour tour, out int newTourID)
+        public async Task<int> InsertTourAsync(Tour tour)
         {
             var newID = nextTourID++;
             log.Info($"inserting tour {tour.name} with id {newID} into {nameof(MemoryTourRepository)}");
             tour.ID = newID;
             tours[newID] = tour;
-            newTourID = newID;
+            return newID;
         }
 
-        public void InsertTourLog(int tourID, TourLog tourLog)
+        public async Task<int> InsertTourLogAsync(int tourID, TourLog tourLog)
         {
             var newID = nextTourLogID++;
             log.Info($"inserting tour log [{tourLog.comment}] with id {newID} into {nameof(MemoryTourRepository)}");
             tourLog.ID = newID;
             tours[tourID].logs.Add(tourLog);
+            return newID;
         }
 
-        public void UpdateTour(Tour tour)
+        public async Task UpdateTourAsync(Tour tour)
             => tours[tour.ID] = tour;
         
-        public void UpdateTourLog(TourLog tourLog)
+        public async Task UpdateTourLogAsync(TourLog tourLog)
         {
             foreach (var tour in tours.Values)
             {
