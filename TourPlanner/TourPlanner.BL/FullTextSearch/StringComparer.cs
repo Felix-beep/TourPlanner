@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.BL.FullTextSearch
 {
-    internal static class StringComparer
+    public static class StringComparer
     {
         public static Int32 CompareStrings(string searchedin, string searchedfor)
         {
@@ -23,11 +23,7 @@ namespace TourPlanner.BL.FullTextSearch
 
             if (string.IsNullOrEmpty(searchedfor))
             {
-                if (!string.IsNullOrEmpty(searchedin))
-                {
-                    return searchedin.Length;
-                }
-                return 0;
+                return searchedin.Length;
             }
 
             if(searchedin.Length > searchedfor.Length)

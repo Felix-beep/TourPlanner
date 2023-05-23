@@ -51,13 +51,7 @@ namespace TourPlanner.BL.FullTextSearch
         }
 
         private double Rate(Tour tour, String text)
-        {
-            if (tour == null)
-            {
-                Console.WriteLine("Tour not found.");
-                return 0;
-            }
-            
+        {            
             return _startingDecorator.Rate(tour, text);
         }
     }

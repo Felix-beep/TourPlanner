@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using TourPlanner.BL.FullTextSearch;
 using TourPlanner.Models;
@@ -47,6 +48,16 @@ namespace TourPlanner.Tests
                 Console.WriteLine($"  Entry: {t.ID} and {t.name}");
             }
             Assert.That(SortedList[0].name, Is.EqualTo(_tourList[position].name));
+        }
+
+        [TestCase("Test", null, 4)]
+        [TestCase(null, null, 0)]
+        [TestCase(null, "Test", 4)]
+        public void StringComprarerNullTest(string testin, string testfor, int expectedResult)
+        {
+            int rating = BL.FullTextSearch.StringComparer.CompareStrings(testin, testfor);
+
+            Assert.That(rating, Is.EqualTo(expectedResult));
         }
     }
 }
