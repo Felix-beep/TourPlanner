@@ -12,7 +12,7 @@ namespace TourPlanner.DAL
 
         HttpClient client;
 
-        public bool Connect(Uri apiUrl)
+        public virtual bool Connect(Uri apiUrl)
         {
             client = new HttpClient();
             client.BaseAddress = apiUrl;
