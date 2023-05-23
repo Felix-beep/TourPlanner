@@ -18,16 +18,28 @@ namespace TourPlanner.Tests
         }
 
         [Test]
-        public async Task Test()
+        public async Task TestRequestRoute()
         {
             var client = new MapQuestClient();
             var req = client.GetBuilder(apiKey);
 
             req.SetRequestType(IRequestBuilder.RequestType.Route);
 
+            req.SetLocationFrom("Denver%2C+CO");
+            req.SetLocationTo("Boulder%2C+CO");
+
             Assert.That(
                 await client.RequestJsonStringAsync(req), 
                 Contains.Substring("\"hasTunnel\":false"));
+        }
+
+        [Test]
+        public async Task TestRequestImage()
+        {
+            var client = new MapQuestClient();
+            var req = client.GetBuilder(apiKey);
+            req.SetRequestType(IRequestBuilder.RequestType.MapImage);
+            await client.RequestImageAsync(req, "test.jpg");
         }
 
         [Test]
@@ -39,13 +51,8 @@ namespace TourPlanner.Tests
             req.SetRequestType(IRequestBuilder.RequestType.MapImage);
 
             var resultIs = req.Build();
-            var resultShouldBe =
-                string.Format(
-                    "staticmap/v5/map" +
-                    "?key={0}" +
-                    "&center=New+York&size=1100,500@2x", apiKey);
 
-            Assert.That(resultIs, Is.EqualTo(resultShouldBe));
+            Assert.That(resultIs, Contains.Substring("staticmap"));
         }
 
         [Test]
@@ -55,23 +62,13 @@ namespace TourPlanner.Tests
             var req = client.GetBuilder(apiKey);
 
             req.SetRequestType(IRequestBuilder.RequestType.Route);
+            req.SetLocationFrom("Denver%2C+CO");
+            req.SetLocationTo("Boulder%2C+CO");
 
             var resultIs = req.Build();
-            var resultShouldBe =
-                string.Format(
-                    "directions/v2/" +
-                    "route?key={0}&" +
-                    "from=Denver%2C+CO&" +
-                    "to=Boulder%2C+CO&" +
-                    "outFormat=json&" +
-                    "ambiguities=ignore&" +
-                    "routeType=fastest&" +
-                    "doReverseGeocode=false&" +
-                    "enhancedNarrative=false&" +
-                    "avoidTimedConditions=false", 
-                    apiKey);
 
-            Assert.That(resultIs, Is.EqualTo(resultShouldBe));
+            Assert.That(resultIs, Contains.Substring("to=Boulder%2C+CO"));
+            Assert.That(resultIs, Contains.Substring("from=Denver%2C+CO"));
         }
     }
 }

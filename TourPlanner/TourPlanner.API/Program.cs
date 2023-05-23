@@ -15,19 +15,6 @@ repo.PopulateWithSampleData();
 
 var mapQuestClient = new MapQuestClient();
 
-{
-    var req = mapQuestClient.GetBuilder(
-        configuration.GetSection("ApiKeys")["MapQuestKey"]);
-
-    req.SetRequestType(IRequestBuilder.RequestType.MapImage);
-
-    await mapQuestClient.RequestImageAsync(req);
-
-    req.Clear();
-    req.SetRequestType(IRequestBuilder.RequestType.Route);
-    Console.WriteLine(await mapQuestClient.RequestJsonStringAsync(req));
-}
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
