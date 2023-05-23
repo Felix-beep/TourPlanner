@@ -2,7 +2,7 @@
 
 namespace TourPlanner.BL
 {
-    public class MapQuestClient
+    public class MapQuestClient : IRouteClient
     {
         readonly ILog log = LogManager.GetLogger(typeof(MapQuestClient));
 
@@ -28,11 +28,11 @@ namespace TourPlanner.BL
             return content;
         }
 
-        public async Task RequestImageAsync(IRequestBuilder builder)
+        public async Task RequestImageAsync(IRequestBuilder builder, string fileName)
         {
             var stream = await client.GetStreamAsync(builder.Build());
 
-            using (var fs = new FileStream("test.jpg", FileMode.OpenOrCreate))
+            using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
             {
                 await stream.CopyToAsync(fs);
             }

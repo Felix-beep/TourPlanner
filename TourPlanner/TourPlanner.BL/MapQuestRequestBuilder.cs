@@ -7,23 +7,27 @@ namespace TourPlanner.BL
         const string basicRequest =
             "directions/v2/" +
             "route?key={0}&" +
-            "from=Denver%2C+CO&" +
-            "to=Boulder%2C+CO&" +
             "outFormat=json&" +
             "ambiguities=ignore&" +
             "routeType=fastest&" +
             "doReverseGeocode=false&" +
             "enhancedNarrative=false&" +
-            "avoidTimedConditions=false";
-
-        const string basicImageRequest = 
-            "staticmap/v5/map" +
-            "?key={0}" +
-            "&center=New+York&size=1100,500@2x";
+            "avoidTimedConditions=false&" +
+            "from={1}&" +
+            "to={2}";
+        
+        const string basicImageRequest =
+            "staticmap/v5/" +
+            "map?key={0}&" +
+            "start=New+York,NY&" +
+            "end=Washington,DC&" +
+            "size=600,400@2x";
 
         readonly string apiKey;
 
-        string request;
+        RequestType typeParameter;
+        string fromParameter;
+        string toParameter;
 
         public MapQuestRequestBuilder(string apiKey)
         {
@@ -32,26 +36,35 @@ namespace TourPlanner.BL
 
         public void Clear()
         {
-            request = null;
+            typeParameter = RequestType.None;
+            fromParameter = null;
+            toParameter = null;
         }
 
         public void SetRequestType(RequestType type)
         {
-            switch (type) 
-            {
-                case RequestType.Route:
-                    request = basicRequest;
-                    break;
-
-                case RequestType.MapImage: 
-                    request = basicImageRequest; 
-                    break;
-            }
+            typeParameter = type;
         }
 
-        public string Build()
+        public void SetLocationFrom(string location)
         {
-            return string.Format(request, apiKey);
+            fromParameter = location;
+        }
+
+        public void SetLocationTo(string location)
+        { 
+            toParameter = location; 
+        }
+
+        public string? Build()
+        {
+            switch (typeParameter)
+            {
+                case RequestType.Route: return string.Format(basicRequest, apiKey, fromParameter, toParameter);
+                case RequestType.MapImage: return string.Format(basicImageRequest, apiKey);
+            }
+
+            return null;
         }
     }
 }
