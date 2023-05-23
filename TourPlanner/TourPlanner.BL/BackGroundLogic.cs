@@ -21,18 +21,17 @@ namespace TourPlanner.BL
         }
 
         public async Task<IEnumerable<Tour>> GetAllToursAsync() 
-            => await _repository.GetToursAsync();
+            => await _repositoryFactory.GetRepo().GetToursAsync();
 
         public async Task<IEnumerable<TourLog>> GetTourLogsAsync(int TourID) 
-            => await _repository.GetTourLogsAsync();
+            => await _repositoryFactory.GetRepo().GetTourLogsAsync();
 
-        public async Task CreateNewTourAsync(String Name, String From, String Description, String To)
+        public async Task CreateNewTourAsync(Tour NewTour)
         {
-
-            await _repository.InsertTourAsync(newTour);
+            await _repositoryFactory.GetRepo().InsertTourAsync(NewTour);
         }
 
-        public async Task EditDescriptionAsync(int TourID, String Text)
+        public async Task EditTourAsync(Tour EditedTour)
         {
             await _repositoryFactory.GetRepo().UpdateTourAsync(EditedTour);
         }
@@ -113,9 +112,9 @@ namespace TourPlanner.BL
 
             newTour.logs = new List<TourLog>();
 
-            var newTourID = await _repository.InsertTourAsync(newTour);
+            var newTourID = await _repositoryFactory.GetRepo().InsertTourAsync(newTour);
             foreach (var log in tourLogs)
-                await _repository.InsertTourLogAsync(newTourID, log);
+                await _repositoryFactory.GetRepo().InsertTourLogAsync(newTourID, log);
 
             log.Info($"imported tour {newTour.name}, with {tourLogs.Count} logs from file {fileToImport}");
         }
@@ -123,7 +122,7 @@ namespace TourPlanner.BL
         public async Task<IEnumerable<Tour>> FullTextSearchAsync(String Text)
         {
             FullTextSearchFactory factory = new();
-            return factory.SearchForText((await _repository.GetToursAsync()).ToList(), Text);
+            return factory.SearchForText((await _repositoryFactory.GetRepo().GetToursAsync()).ToList(), Text);
         }
 
     }

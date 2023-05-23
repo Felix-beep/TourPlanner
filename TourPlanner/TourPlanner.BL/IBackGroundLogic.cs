@@ -11,8 +11,6 @@ namespace TourPlanner.BL
 
         Task EditTourAsync(Tour EditedTour);
 
-        Task EditDescriptionAsync(int TourID, String Text);
-
         Task DeleteTourAsync(int TourID);
 
         Task ExportToursAsync(IEnumerable<Tour> ToursToExport);
