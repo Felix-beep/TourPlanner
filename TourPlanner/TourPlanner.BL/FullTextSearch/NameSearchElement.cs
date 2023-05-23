@@ -16,14 +16,13 @@ namespace TourPlanner.BL.FullTextSearch
             // performs the exact same behavior as its parent
         }
 
-        public override double CompareFunction(Tour tourToRate, string text)
+        public override double CompareFunction(Tour tourToRate, string searchtext)
         {
-            string str1 = tourToRate.name;
-            string str2 = text;
+            string tourstring = tourToRate.name;
 
-            Console.WriteLine($"\nComparing \"{str1}\" to \"{str2}\"");
+            Console.WriteLine($"\nComparing \"{tourstring}\" to \"{searchtext}\"");
 
-            int distance = StringComparer.CompareStrings(str1, str2);
+            int distance = StringComparer.CompareStrings(tourstring, searchtext);
             double similarity = (double)distance;
             return similarity;
         }

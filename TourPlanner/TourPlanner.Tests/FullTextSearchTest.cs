@@ -20,7 +20,7 @@ namespace TourPlanner.Tests
             {
                 new Tour(0, "Hello Subject1", "description1", new List<TourLog>()),
                 new Tour(1, "Subject2", "description2", new List<TourLog>()),
-                new Tour(2, "Subject3", "description3", new List<TourLog>()),
+                new Tour(2, "Subject3", "Foo", new List<TourLog>()),
                 new Tour(3, "Food", "Food", new List<TourLog>()),
             };
 
@@ -30,7 +30,7 @@ namespace TourPlanner.Tests
         [TestCase("Subject1", 0)]
         [TestCase("Subject2", 1)]
         [TestCase("Subject3", 2)]
-        [TestCase("kood", 3)]
+        [TestCase("Food", 3)]
         public void Test(string testString, int position) 
         {
             Console.WriteLine("Starting List:");

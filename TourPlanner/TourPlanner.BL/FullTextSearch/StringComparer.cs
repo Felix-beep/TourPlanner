@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,47 +9,46 @@ namespace TourPlanner.BL.FullTextSearch
 {
     internal static class StringComparer
     {
-        public static Int32 CompareStrings(string a, string b)
+        public static Int32 CompareStrings(string searchedin, string searchedfor)
         {
 
-            if (string.IsNullOrEmpty(a))
+            if (string.IsNullOrEmpty(searchedin))
             {
-                if (!string.IsNullOrEmpty(b))
+                if (!string.IsNullOrEmpty(searchedfor))
                 {
-                    return b.Length;
+                    return searchedfor.Length;
                 }
                 return 0;
             }
 
-            if (string.IsNullOrEmpty(b))
+            if (string.IsNullOrEmpty(searchedfor))
             {
-                if (!string.IsNullOrEmpty(a))
+                if (!string.IsNullOrEmpty(searchedin))
                 {
-                    return a.Length;
+                    return searchedin.Length;
                 }
                 return 0;
             }
 
-            string longer;
-            string shorter;
-            if(a.Length < b.Length)
+            if(searchedin.Length > searchedfor.Length)
             {
-                shorter = a;
-                longer = b;
-            } else
+                return SearchSubstrings(searchedin, searchedfor);
+            } 
+            else
             {
-                longer = a;
-                shorter = b;
+                return SearchString(searchedin, searchedfor);
             }
+        }
 
+        private static int SearchSubstrings(string longer, string shorter)
+        {
             int smallestDifference = 0;
 
             int numOfPossibleSubstrings = longer.Length - shorter.Length + 1;
 
-            for(int i = 0; i < numOfPossibleSubstrings; i++)
+            for (int i = 0; i < numOfPossibleSubstrings; i++)
             {
-
-                Console.WriteLine($"Creating Substring {i+1}/{numOfPossibleSubstrings} from {longer} with length of {shorter.Length}:");
+                Console.WriteLine($"Creating Substring {i + 1}/{numOfPossibleSubstrings} from {longer} with length of {shorter.Length}:");
 
                 string substring = longer.Substring(i, shorter.Length);
 
@@ -61,13 +61,21 @@ namespace TourPlanner.BL.FullTextSearch
                 if (i == 0)
                 {
                     smallestDifference = substringRating;
-                } else if(substringRating < smallestDifference)
+                }
+                else if (substringRating < smallestDifference)
                 {
                     smallestDifference = substringRating;
                 }
             }
 
             return smallestDifference;
+        }
+
+        private static int SearchString(string searchedin, string searchedfor)
+        {
+            int substringRating = LevenshteinDistance(searchedin, searchedfor);
+            Console.WriteLine($"Comparing \"{searchedin}\" to \"{searchedfor}\"\nResulting distance: {substringRating}\n");
+            return substringRating;
         }
 
         private static Int32 LevenshteinDistance(String a, String b)
