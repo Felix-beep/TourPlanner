@@ -84,7 +84,7 @@ namespace TourPlanner.BL
         public async Task ImportToursAsync(IEnumerable<string> filesToImport)
         {
             foreach (var file in filesToImport)
-                ImportTour(file);
+                await ImportTour(file);
         }
 
         async Task ImportTour(String fileToImport)
