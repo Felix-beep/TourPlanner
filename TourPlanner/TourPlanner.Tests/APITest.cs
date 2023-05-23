@@ -1,25 +1,26 @@
-﻿using TourPlanner.DAL;
+﻿using TourPlanner.BL;
+using TourPlanner.DAL;
 using TourPlanner.Models;
 
 namespace TourPlanner.Tests
 {
     public class APITest
     {
-        ITourRepository repo;
+        ConnectionModeFactory repofactory;
 
         [OneTimeSetUp]
         public void Setup()
         {
             log4net.Config.BasicConfigurator.Configure();
+
             var repo = new APITourRepository();
-            repo.Connect(new Uri("http://localhost:5000/"));
+            repofactory = new ConnectionModeFactory(repo, null);
             
-            this.repo = repo;
         }
 
         async Task PrintTours()
         {
-            foreach (var t in await repo.GetToursAsync())
+            foreach (var t in await repofactory.GetRepo().GetToursAsync())
             {
                 Console.WriteLine(t.CustomToString());
                 foreach (var tl in t.logs)
@@ -34,25 +35,25 @@ namespace TourPlanner.Tests
             await PrintTours();
 
             Console.WriteLine("\nGetting tours after insert:");
-            await repo.InsertTourAsync(SampleExtensions.CreateSampleTour(100, new List<TourLog>()));
+            await repofactory.GetRepo().InsertTourAsync(SampleExtensions.CreateSampleTour(100, new List<TourLog>()));
             await PrintTours();
 
             Console.WriteLine("\nGetting tours after update:");
-            var tour3 = await repo.GetTourAsync(3);
+            var tour3 = await repofactory.GetRepo().GetTourAsync(3);
             tour3.description = "UPDATED DESCRIPTION";
             tour3.name = "UPDATED NAME";
-            await repo.UpdateTourAsync(tour3);
+            await repofactory.GetRepo().UpdateTourAsync(tour3);
             await PrintTours();
 
             Console.WriteLine("\nGetting tours after delete:");
-            await repo.DeleteTourAsync(5);
+            await repofactory.GetRepo().DeleteTourAsync(5);
             await PrintTours();
 
             Console.WriteLine("\nGetting tours after tour log update:");
-            var tour6 = await repo.GetTourAsync(6);
+            var tour6 = await repofactory.GetRepo().GetTourAsync(6);
             var tour6log = tour6.logs.First();
             tour6log.comment = "UPDATED TOUR LOG";
-            await repo.UpdateTourLogAsync(tour6log);
+            await repofactory.GetRepo().UpdateTourLogAsync(tour6log);
             await PrintTours();
         }
     }

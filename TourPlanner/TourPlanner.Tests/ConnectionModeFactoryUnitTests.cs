@@ -16,6 +16,8 @@ namespace TourPlanner.Tests
         {
             // Arrange
             var onlineRepoMock = new Mock<APITourRepository>();
+            onlineRepoMock.Setup(repo => repo.Connect(It.IsAny<Uri>())).Returns(true);
+
             var offlineRepoMock = new Mock<MemoryTourRepository>();
 
             var factory = new ConnectionModeFactory(onlineRepoMock.Object, offlineRepoMock.Object);
@@ -25,7 +27,7 @@ namespace TourPlanner.Tests
             var repo = factory.GetRepo();
 
             // Assert
-            Assert.That(onlineRepoMock.Object, Is.EqualTo(repo));
+            Assert.That(repo, Is.EqualTo(onlineRepoMock.Object));
         }
 
         [Test]

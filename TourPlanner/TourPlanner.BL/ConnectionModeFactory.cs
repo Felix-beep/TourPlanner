@@ -10,19 +10,25 @@ namespace TourPlanner.BL
 
         private bool _appIsOnline;
 
-        private bool _isConnected;
+        private bool _isConnected = false;
 
         public ConnectionModeFactory(APITourRepository onlinerepo, MemoryTourRepository offlinerepo) 
         {
             _onlinerepo = onlinerepo;
-            _isConnected = _onlinerepo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
-
             _offlinerepo = offlinerepo;
-            var loadSampleDataTask = _offlinerepo.LoadSampleDataAsync();
-            loadSampleDataTask.Wait();
+            if (_onlinerepo != null)
+            {
+                _isConnected = _onlinerepo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
+            }
+            
+            if( _offlinerepo != null)
+            {
+                var loadSampleDataTask = _offlinerepo.LoadSampleDataAsync();
+                loadSampleDataTask.Wait();
+            }
 
             // defines whether the app is in offline or online made on start
-            _appIsOnline = false;
+            _appIsOnline = _isConnected;
         }
 
         public ITourRepository GetRepo() 
@@ -36,7 +42,10 @@ namespace TourPlanner.BL
 
             if (_appIsOnline && _isConnected == false)
             {
-                _isConnected = _onlinerepo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
+                if(_onlinerepo != null)
+                {
+                    _isConnected = _onlinerepo.Connect(new Uri("https://dev2.gasstationsoftware.net/"));
+                }
                 _appIsOnline = _isConnected;
             }
             return _appIsOnline;
