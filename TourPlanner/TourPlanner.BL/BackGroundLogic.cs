@@ -10,16 +10,20 @@ namespace TourPlanner.BL
 {
     public class BackgroundLogic : IBackgroundLogic
     {
-        readonly ILog log = LogManager.GetLogger(typeof(BackgroundLogic));
-
-        public ConnectionModeFactory _repositoryFactory;
-        public bool SwapOnlineMode() => _repositoryFactory.SwapMode(); 
-
         public BackgroundLogic(ConnectionModeFactory repositoryFactory)
         {
             _repositoryFactory = repositoryFactory;
         }
 
+        // Logging
+        readonly ILog log = LogManager.GetLogger(typeof(BackgroundLogic));
+
+
+        // repository
+        private ConnectionModeFactory _repositoryFactory;
+        public bool SwapOnlineMode() => _repositoryFactory.SwapMode(); 
+
+        // DB Access
         public async Task<IEnumerable<Tour>> GetAllToursAsync() 
             => await _repositoryFactory.GetRepo().GetToursAsync();
 
@@ -40,13 +44,52 @@ namespace TourPlanner.BL
             await _repositoryFactory.GetRepo().DeleteTourAsync(TourID);
         }
 
+        // Export and Import
         public async Task ExportToursAsync(IEnumerable<Tour> toursToExport)
         {
             foreach (var tour in toursToExport) 
                 await ExportTour(tour);
         }
 
-        async Task ExportTour(Tour tour)
+        public async Task ImportToursAsync(IEnumerable<string> filesToImport)
+        {
+            foreach (var file in filesToImport)
+                await ImportTour(file);
+        }
+
+        private async Task ImportTour(String fileToImport)
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+            Tour newTour = null;
+            List<TourLog> tourLogs = new();
+
+            using var fileStream = new FileStream(fileToImport, FileMode.Open);
+            using var reader = new StreamReader(fileStream);
+            using var csvReader = new CsvReader(reader, csvConfig, true);
+
+            csvReader.Read();
+            csvReader.ReadHeader();
+
+            csvReader.Read();
+            newTour = csvReader.GetRecord<Tour>();
+
+            csvReader.Read();
+            csvReader.ReadHeader();
+
+            while (csvReader.Read())
+                tourLogs.Add(csvReader.GetRecord<TourLog>());
+
+            newTour.logs = new List<TourLog>();
+
+            var newTourID = await _repositoryFactory.GetRepo().InsertTourAsync(newTour);
+            foreach (var log in tourLogs)
+                await _repositoryFactory.GetRepo().InsertTourLogAsync(newTourID, log);
+
+            log.Info($"imported tour {newTour.name}, with {tourLogs.Count} logs from file {fileToImport}");
+        }
+
+        private async Task ExportTour(Tour tour)
         {
             // the export format is as follows: (line by line)
             // tour header
@@ -81,49 +124,14 @@ namespace TourPlanner.BL
             csvWriter.NextRecord();
         }
 
-        public async Task ImportToursAsync(IEnumerable<string> filesToImport)
-        {
-            foreach (var file in filesToImport)
-                await ImportTour(file);
-        }
 
-        async Task ImportTour(String fileToImport)
-        {
-            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-            Tour newTour = null;
-            List<TourLog> tourLogs = new();
-
-            using var fileStream = new FileStream(fileToImport, FileMode.Open);
-            using var reader = new StreamReader(fileStream);
-            using var csvReader = new CsvReader(reader, csvConfig, true);
-
-            csvReader.Read();
-            csvReader.ReadHeader();
-
-            csvReader.Read();
-            newTour = csvReader.GetRecord<Tour>();
-
-            csvReader.Read();
-            csvReader.ReadHeader();
-
-            while (csvReader.Read())
-                tourLogs.Add(csvReader.GetRecord<TourLog>());
-
-            newTour.logs = new List<TourLog>();
-
-            var newTourID = await _repositoryFactory.GetRepo().InsertTourAsync(newTour);
-            foreach (var log in tourLogs)
-                await _repositoryFactory.GetRepo().InsertTourLogAsync(newTourID, log);
-
-            log.Info($"imported tour {newTour.name}, with {tourLogs.Count} logs from file {fileToImport}");
-        }
-
+        // Full Text Search
         public async Task<IEnumerable<Tour>> FullTextSearchAsync(String Text)
         {
             FullTextSearchFactory factory = new();
             return factory.SearchForText((await _repositoryFactory.GetRepo().GetToursAsync()).ToList(), Text);
         }
+
 
     }
 }
