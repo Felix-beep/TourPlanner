@@ -39,6 +39,8 @@ namespace TourPlanner.Tests
             var client = new MapQuestClient();
             var req = client.GetBuilder(apiKey);
             req.SetRequestType(IRequestBuilder.RequestType.MapImage);
+            req.SetLocationFrom("New+York,NY");
+            req.SetLocationTo("Washington,DC");
             await client.RequestImageAsync(req, "test.jpg");
         }
 

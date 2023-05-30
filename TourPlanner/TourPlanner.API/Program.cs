@@ -9,11 +9,11 @@ XmlConfigurator.Configure(new FileInfo("log4net.cfg"));
 IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .Build();
+var repo = new MemoryTourRepository();
+//var repo = new PsqlTourRepository(
+//    new PsqlContext(configuration, "TestDbContext"));
 
-var repo = new PsqlTourRepository(
-    new PsqlContext(configuration, "TestDbContext"));
-
-repo.PopulateWithSampleData();
+//repo.PopulateWithSampleData();
 
 var mapQuestClient = new MapQuestClient();
 

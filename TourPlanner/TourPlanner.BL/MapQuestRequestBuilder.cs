@@ -19,8 +19,8 @@ namespace TourPlanner.BL
         const string basicImageRequest =
             "staticmap/v5/" +
             "map?key={0}&" +
-            "start=New+York,NY&" +
-            "end=Washington,DC&" +
+            "start={1}&" +
+            "end={2}&" +
             "size=600,400@2x";
 
         readonly string apiKey;
@@ -61,7 +61,7 @@ namespace TourPlanner.BL
             switch (typeParameter)
             {
                 case RequestType.Route: return string.Format(basicRequest, apiKey, fromParameter, toParameter);
-                case RequestType.MapImage: return string.Format(basicImageRequest, apiKey);
+                case RequestType.MapImage: return string.Format(basicImageRequest, apiKey, fromParameter, toParameter);
             }
 
             return null;
