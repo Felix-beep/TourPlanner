@@ -21,12 +21,11 @@ namespace TourPlanner.Tests
         public async Task TestRequestRoute()
         {
             var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
 
-            req.SetRequestType(IRequestBuilder.RequestType.Route);
-
-            req.SetLocationFrom("Denver%2C+CO");
-            req.SetLocationTo("Boulder%2C+CO");
+            var req = client.GetBuilder(apiKey)
+                .SetRequestType(IRequestBuilder.RequestType.Route)
+                .SetLocationFrom("Denver%2C+CO")
+                .SetLocationTo("Boulder%2C+CO");
 
             Assert.That(
                 await client.RequestJsonStringAsync(req), 
@@ -37,10 +36,12 @@ namespace TourPlanner.Tests
         public async Task TestRequestImage()
         {
             var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
-            req.SetRequestType(IRequestBuilder.RequestType.MapImage);
-            req.SetLocationFrom("New+York,NY");
-            req.SetLocationTo("Washington,DC");
+
+            var req = client.GetBuilder(apiKey)
+                .SetRequestType(IRequestBuilder.RequestType.MapImage)
+                .SetLocationFrom("New+York,NY")
+                .SetLocationTo("Washington,DC");
+
             await client.RequestImageAsync(req, "test.jpg");
         }
 
@@ -48,9 +49,9 @@ namespace TourPlanner.Tests
         public void RouteBuilderTypeTest1()
         {
             var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
 
-            req.SetRequestType(IRequestBuilder.RequestType.MapImage);
+            var req = client.GetBuilder(apiKey)
+                .SetRequestType(IRequestBuilder.RequestType.MapImage);
 
             var resultIs = req.Build();
 
@@ -61,11 +62,11 @@ namespace TourPlanner.Tests
         public void RouteBuilderTypeTest2() 
         {
             var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
 
-            req.SetRequestType(IRequestBuilder.RequestType.Route);
-            req.SetLocationFrom("Denver%2C+CO");
-            req.SetLocationTo("Boulder%2C+CO");
+            var req = client.GetBuilder(apiKey)
+                .SetRequestType(IRequestBuilder.RequestType.Route)
+                .SetLocationFrom("Denver%2C+CO")
+                .SetLocationTo("Boulder%2C+CO");
 
             var resultIs = req.Build();
 

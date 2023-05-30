@@ -9,10 +9,10 @@
             MapImage
         }
 
-        void SetRequestType(RequestType type);
-        void SetLocationFrom(string location);
-        void SetLocationTo(string location);
-        void SetImageID(Guid imageID);
+        IRequestBuilder SetRequestType(RequestType type);
+        IRequestBuilder SetLocationFrom(string location);
+        IRequestBuilder SetLocationTo(string location);
+        IRequestBuilder SetImageID(Guid imageID);
         string? Build();
         void Clear();
     }

@@ -41,22 +41,28 @@ namespace TourPlanner.BL
             toParameter = null;
         }
 
-        public void SetRequestType(RequestType type)
+        public IRequestBuilder SetRequestType(RequestType type)
         {
             typeParameter = type;
+            return this;
         }
 
-        public void SetLocationFrom(string location)
+        public IRequestBuilder SetLocationFrom(string location)
         {
             fromParameter = location;
+            return this;
         }
 
-        public void SetLocationTo(string location)
+        public IRequestBuilder SetLocationTo(string location)
         { 
-            toParameter = location; 
+            toParameter = location;
+            return this;
         }
 
-        public void SetImageID(Guid imageID) { }
+        public IRequestBuilder SetImageID(Guid imageID) 
+        {
+            return this;
+        }
 
         public string? Build()
         {

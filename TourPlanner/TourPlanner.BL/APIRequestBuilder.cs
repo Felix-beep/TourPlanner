@@ -17,24 +17,28 @@
             imageIDParameter = null;
         }
 
-        public void SetLocationFrom(string location)
+        public IRequestBuilder SetLocationFrom(string location)
         {
             fromParameter = location;
+            return this;
         }
 
-        public void SetLocationTo(string location)
+        public IRequestBuilder SetLocationTo(string location)
         {
             toParameter = location;
+            return this;
         }
 
-        public void SetRequestType(IRequestBuilder.RequestType type)
+        public IRequestBuilder SetRequestType(IRequestBuilder.RequestType type)
         {
             typeParameter = type;
+            return this;
         }
 
-        public void SetImageID(Guid imageID)
+        public IRequestBuilder SetImageID(Guid imageID)
         {
             imageIDParameter = imageID;
+            return this;
         }
 
         public string? Build()
