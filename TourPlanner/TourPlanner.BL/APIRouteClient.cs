@@ -1,31 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using log4net;
 
 namespace TourPlanner.BL
 {
-    internal class APIRouteClient : IRouteClient
+    public class APIRouteClient : IRouteClient
     {
+        readonly ILog log = LogManager.GetLogger(typeof(APIRouteClient));
+
+        HttpClient client = new();
+
+        public APIRouteClient(Uri apiUri)
+        {
+            client.BaseAddress = apiUri;
+        }
+
         public IRequestBuilder GetBuilder(string apiKey)
+            => new APIRequestBuilder();
+
+        public async Task RequestImageAsync(IRequestBuilder builder, string fileName)
         {
-            throw new NotImplementedException();
+            var stream = await client.GetStreamAsync(builder.Build());
+
+            using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
+            {
+                await stream.CopyToAsync(fs);
+            }
         }
 
-        public Task RequestImageAsync(IRequestBuilder builder, string fileName)
+        public async Task<byte[]> RequestImageDataAsync(IRequestBuilder builder)
         {
-            throw new NotImplementedException();
+            return await client.GetByteArrayAsync(builder.Build());
         }
 
-        public Task<byte[]> RequestImageDataAsync(IRequestBuilder builder)
+        public async Task<string> RequestJsonStringAsync(IRequestBuilder builder)
         {
-            throw new NotImplementedException();
-        }
+            var request = builder.Build();
+            log.DebugFormat("sending request: [{0}]", request);
 
-        public Task<string> RequestJsonStringAsync(IRequestBuilder builder)
-        {
-            throw new NotImplementedException();
+            var response = await client.GetAsync(request);
+            var content = await response.Content.ReadAsStringAsync();
+            log.DebugFormat("got content: \n{0}", content);
+
+            return content;
         }
     }
 }

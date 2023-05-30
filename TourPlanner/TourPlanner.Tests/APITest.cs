@@ -7,15 +7,40 @@ namespace TourPlanner.Tests
     public class APITest
     {
         ConnectionModeFactory repofactory;
+        APIRouteClient routeClient;
 
         [OneTimeSetUp]
         public void Setup()
         {
             log4net.Config.BasicConfigurator.Configure();
 
+            var apiUri = new Uri("https://dev2.gasstationsoftware.net/");
+
             var repo = new APITourRepository();
+            repo.Connect(apiUri);
             repofactory = new ConnectionModeFactory(repo, null);
+
+            routeClient = new APIRouteClient(apiUri);
             
+        }
+
+        [Test]
+        public async Task ApiGetRouteImageTest()
+        {
+            var req = routeClient.GetBuilder(null);
+            req.SetRequestType(IRequestBuilder.RequestType.MapImage);
+            req.SetLocationFrom("Denver%2C+CO");
+            req.SetLocationTo("Boulder%2C+CO");
+            await routeClient.RequestImageAsync(req, "api_map_image.jpg");
+        }
+
+        [Test]
+        public async Task ApiGetCachedImageTest()
+        {
+            var req = routeClient.GetBuilder(null);
+            req.SetRequestType(IRequestBuilder.RequestType.MapImage);
+            req.SetImageID(Guid.Parse("00000000-0000-0000-0000-000000000000"));
+            await routeClient.RequestImageAsync(req, "api_cached_map_imgage.jpg");
         }
 
         async Task PrintTours()

@@ -56,12 +56,17 @@ namespace TourPlanner.BL
             toParameter = location; 
         }
 
+        public void SetImageID(Guid imageID) { }
+
         public string? Build()
         {
             switch (typeParameter)
             {
-                case RequestType.Route: return string.Format(basicRequest, apiKey, fromParameter, toParameter);
-                case RequestType.MapImage: return string.Format(basicImageRequest, apiKey, fromParameter, toParameter);
+                case RequestType.Route: 
+                    return string.Format(basicRequest, apiKey, fromParameter, toParameter);
+                
+                case RequestType.MapImage: 
+                    return string.Format(basicImageRequest, apiKey, fromParameter, toParameter);
             }
 
             return null;
