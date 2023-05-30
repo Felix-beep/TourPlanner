@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner.BL.FullTextSearch.Decorators;
 using TourPlanner.DAL;
 using TourPlanner.Models;
 
@@ -10,11 +11,48 @@ namespace TourPlanner.BL.FullTextSearch
 {
     public class FullTextSearchFactory
     {
-        private BaseSearchElementDecorator _startingDecorator;
+        private ITextSearchElement _startingDecorator;
 
+        private List<ITextSearchElement> specificTourDecorators = new List<ITextSearchElement>() {
+            new NameSearchDecorator(),
+            new DescriptionSearchDecorator(),
+            new StartingLocationSearchDecorator(),
+            new EndingLocationSearchDecorator(),
+            new TransportSearchDecorator(),
+        };
 
-        public FullTextSearchFactory() {
-            _startingDecorator = new NameSearchElement(new DescriptionSearchElement(null));
+        private List<ITextSearchElement> specificTourLogDecorators = new List<ITextSearchElement>()
+        {
+            new TourLogCommentSearchDecorator(),
+        };
+
+        private List<ITextSearchElement> FullTextDecorators = new List<ITextSearchElement>()
+        {
+            new FullTourSearchDecorator(),
+            new FullTourLogSearchDecorator(),
+        };
+
+        public FullTextSearchFactory() 
+        {
+            _startingDecorator = null;
+
+            List<ITextSearchElement> DecoratorsToUse = FullTextDecorators;
+
+            foreach(ITextSearchElement Decorator in DecoratorsToUse)
+            {
+                AddDecorator(Decorator);
+            }
+        }
+
+        private void AddDecorator(ITextSearchElement Decorator)
+        {
+            if (Decorator == null){
+                _startingDecorator = null; 
+                return; 
+            }
+
+            Decorator.AddDecorator(_startingDecorator);
+            _startingDecorator = Decorator;
         }
 
 

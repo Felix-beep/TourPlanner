@@ -10,5 +10,7 @@ namespace TourPlanner.BL.FullTextSearch
     internal interface ITextSearchElement
     {
         public double Rate(Tour tourToRate, string text);
+
+        public void AddDecorator(ITextSearchElement decorator);
     }
 }

@@ -5,17 +5,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TourPlanner.Models;
-using Microsoft.VisualBasic; 
+using Microsoft.VisualBasic;
 
-namespace TourPlanner.BL.FullTextSearch
+namespace TourPlanner.BL.FullTextSearch.Decorators
 {
-    internal class NameSearchElement : BaseSearchElementDecorator
+    internal class NameSearchDecorator : BaseSearchElementDecorator
     {
-        public NameSearchElement(ITextSearchElement nextElement) : base(nextElement) 
-        {
-            // performs the exact same behavior as its parent
-        }
-
         public override double CompareFunction(Tour tourToRate, string searchtext)
         {
             string tourstring = tourToRate.name;
@@ -23,7 +18,7 @@ namespace TourPlanner.BL.FullTextSearch
             Console.WriteLine($"\nComparing \"{tourstring}\" to \"{searchtext}\"");
 
             int distance = StringComparer.CompareStrings(tourstring, searchtext);
-            double similarity = (double)distance;
+            double similarity = distance;
             return similarity;
         }
     }

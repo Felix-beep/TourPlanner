@@ -12,9 +12,9 @@ namespace TourPlanner.BL.FullTextSearch
 
         public ITextSearchElement _nextElement;
 
-        public BaseSearchElementDecorator(ITextSearchElement nextElement)
+        public BaseSearchElementDecorator()
         {
-            _nextElement = nextElement;
+
         }
 
         public double Rate(Tour tourToRate, string text)
@@ -33,6 +33,11 @@ namespace TourPlanner.BL.FullTextSearch
         public virtual double CompareFunction(Tour tourToRate, string text)
         {
             return 0;
+        }
+
+        public void AddDecorator(ITextSearchElement decorator)
+        {
+            _nextElement = decorator;
         }
     }
 }
