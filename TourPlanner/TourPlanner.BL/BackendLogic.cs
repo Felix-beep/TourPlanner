@@ -30,6 +30,8 @@ namespace TourPlanner.BL
         public async Task<IEnumerable<TourLog>> GetTourLogsAsync(int TourID) 
             => await _repositoryFactory.GetRepo().GetTourLogsAsync();
 
+        // Tour editing
+
         public async Task CreateNewTourAsync(Tour NewTour)
         {
             await _repositoryFactory.GetRepo().InsertTourAsync(NewTour);
@@ -42,6 +44,22 @@ namespace TourPlanner.BL
         public async Task DeleteTourAsync(int TourID)
         {
             await _repositoryFactory.GetRepo().DeleteTourAsync(TourID);
+        }
+
+        // TourLog editing
+
+        public async Task CreateNewTourLogAsync(TourLog NewTourLog)
+        {
+            // await _repositoryFactory.GetRepo().InsertTourAsync(NewTour);
+        }
+
+        public async Task EditTourLogAsync(int TourID, TourLog EditedTour)
+        {
+            // await _repositoryFactory.GetRepo().UpdateTourAsync(EditedTour);
+        }
+        public async Task DeleteTourLogAsync(int TourID, int TourLogId)
+        {
+            // await _repositoryFactory.GetRepo().DeleteTourAsync(TourID);
         }
 
         // Export and Import

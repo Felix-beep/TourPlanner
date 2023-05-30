@@ -14,14 +14,14 @@ namespace TourPlanner.MVVM.ViewModel
         private DepictedTourList? _tourList;
         public Tour DisplayedTour { get; set; }
 
-        public TourInformationViewModel(DepictedTourList tourlist)
+        public TourInformationViewModel(DepictedTourList tourList)
         {
-            _tourList = tourlist;
+            _tourList = tourList;
 
 
-            CreateNewTourLog = new RelayCommand(param => CreateClicked?.Invoke());
-            EditTourLogInformation = new RelayCommand<int>(param => EditClicked?.Invoke(this, param));
-            DeleteTourLogInformation = new RelayCommand<int>(param => DeleteClicked?.Invoke(this, param));
+            CreateNewTourLog = new RelayCommand(parameter => CreateClicked?.Invoke());
+            EditTourLogInformation = new RelayCommand<int>(parameter => EditClicked?.Invoke(this, new MultipleEventArgs(DisplayedTour.ID, parameter)));
+            DeleteTourLogInformation = new RelayCommand<int>(parameter => DeleteClicked?.Invoke(this, new MultipleEventArgs(DisplayedTour.ID, parameter)));
         }
 
         public void OpenTour(int ID)
@@ -34,9 +34,9 @@ namespace TourPlanner.MVVM.ViewModel
         public event Action CreateClicked;
 
         public ICommand EditTourLogInformation { get; }
-        public event EventHandler<int> EditClicked;
+        public event EventHandler<MultipleEventArgs> EditClicked;
 
         public ICommand DeleteTourLogInformation { get; }
-        public event EventHandler<int> DeleteClicked;
+        public event EventHandler<MultipleEventArgs> DeleteClicked;
     }
 }

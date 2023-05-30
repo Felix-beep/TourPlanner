@@ -62,7 +62,7 @@
                 <view:ImportToursView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:CreateTourLogViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:CreateTourLogsViewModel}">
                 <view:CreateTourLogsView/>
             </DataTemplate>
 

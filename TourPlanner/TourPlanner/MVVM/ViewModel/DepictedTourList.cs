@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -57,6 +58,13 @@ namespace TourPlanner.MVVM.ViewModel
         public Tour GetTour(int ID)
         {
             return ListOfTours.First(t => t.ID == ID);
+        }
+
+        public TourLog GetTourLog(int tourID, int tourLogID)
+        {
+            Tour tour = ListOfTours.First(t => t.ID == tourID);
+            TourLog tourLog = tour.logs.First(t => t.ID == tourLogID);
+            return tourLog;
         }
 
         
