@@ -8,15 +8,15 @@ using TourPlanner.Models;
 
 namespace TourPlanner.BL
 {
-    public class BackgroundLogic : IBackgroundLogic
+    public class BackendLogic : IBackendLogic
     {
-        public BackgroundLogic(ConnectionModeFactory repositoryFactory)
+        public BackendLogic(ConnectionModeFactory repositoryFactory)
         {
             _repositoryFactory = repositoryFactory;
         }
 
         // Logging
-        readonly ILog log = LogManager.GetLogger(typeof(BackgroundLogic));
+        readonly ILog log = LogManager.GetLogger(typeof(BackendLogic));
 
 
         // repository

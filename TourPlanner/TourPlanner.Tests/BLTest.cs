@@ -17,7 +17,7 @@ namespace TourPlanner.Tests
         {
             var repo = new ConnectionModeFactory(null, new MemoryTourRepository());
 
-            var bl = new BackgroundLogic(repo);
+            var bl = new BackendLogic(repo);
             await bl.ExportToursAsync(await bl.GetAllToursAsync());
         }
 
@@ -26,7 +26,7 @@ namespace TourPlanner.Tests
         {
             var repo = new ConnectionModeFactory(null, new MemoryTourRepository());
 
-            var bl = new BackgroundLogic(repo);
+            var bl = new BackendLogic(repo);
             await bl.ImportToursAsync(new string[] { "Subject2.csv" });
         }
     }

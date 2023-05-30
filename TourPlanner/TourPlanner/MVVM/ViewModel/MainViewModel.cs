@@ -71,20 +71,23 @@ namespace TourPlanner.MVVM.ViewModel
         public ExportToursViewModel ExportToursViewInstance;
         public ICommand SwapToExportTours { get; }
 
-
         public TourInformationViewModel TourInformationViewInstance;
 
+        public CreateTourLogsViewModel CreateTourLogsViewInstance;
+
         // Behavior, UI event handlers
-        public MainViewModel(IBackgroundLogic BackGroundLogic, 
+        public MainViewModel(IBackendLogic BackendLogic, 
                             SearchbarViewModel Searchbar, HomeViewModel HomeView, 
                             CreateToursViewModel CreateToursView, ExportToursViewModel ExportToursView,
                             BrowseToursViewModel BrowseToursView, ImportToursViewModel ImportToursView,
-                            DepictedTourList TourListItem, TourInformationViewModel TourInformationView)
+                            DepictedTourList TourListItem, TourInformationViewModel TourInformationView,
+                            CreateTourLogsViewModel CreateTourLogsView)
 
         {
             SearchbarInstance = Searchbar;
             HomeViewInstance = HomeView;
             CreateToursViewInstance = CreateToursView;
+            CreateTourLogsViewInstance = CreateTourLogsView;
             BrowseToursViewInstance = BrowseToursView;
             ImportToursViewInstance = ImportToursView;
             ExportToursViewInstance = ExportToursView;
@@ -104,21 +107,29 @@ namespace TourPlanner.MVVM.ViewModel
             SearchbarInstance.SearchClicked += async (_, searchtext) => 
             { 
                 CurrentView = BrowseToursViewInstance; 
-                TourListItem.SetTours(await BackGroundLogic.FullTextSearchAsync(searchtext)); 
+                TourListItem.SetTours(await BackendLogic.FullTextSearchAsync(searchtext)); 
                 TourListItem.Refresh(); 
             };
-            SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackGroundLogic.SwapOnlineMode(); };
+            SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackendLogic.SwapOnlineMode(); };
             
-            BrowseToursViewInstance.NewTourClicked += () => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(null); };
+            // TourBrowser Buttons
+            BrowseToursViewInstance.CreateClicked += () => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(null); };
         
             BrowseToursViewInstance.ViewClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
             BrowseToursViewInstance.EditClicked += async (_, ID) => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(TourListItem.GetTour(ID)); await TourListItem.UpdateToursAsync(); };
-            BrowseToursViewInstance.DeleteClicked += async (_, ID) => { await BackGroundLogic.DeleteTourAsync(ID); await TourListItem.UpdateToursAsync(); };
+            BrowseToursViewInstance.DeleteClicked += async (_, ID) => { await BackendLogic.DeleteTourAsync(ID); await TourListItem.UpdateToursAsync(); };
 
-            ExportToursViewInstance.SubmitClicked += async (_, Tours) => { await BackGroundLogic.ExportToursAsync(Tours); await TourListItem.UpdateToursAsync(); };
+            // Tourinformation Buttons
+            TourInformationViewInstance.CreateClicked += () => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(null); };
 
-            CreateToursViewInstance.NewTourSubmitted += async (_, Tour) => { await BackGroundLogic.CreateNewTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
-            CreateToursViewInstance.OldTourSubmitted += async (_, Tour) => { await BackGroundLogic.EditTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
+            TourInformationViewInstance.EditClicked += async (_, ID) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(TourListItem.GetTour(ID)); await TourListItem.UpdateToursAsync(); };
+            TourInformationViewInstance.DeleteClicked += async (_, ID) => { await BackendLogic.DeleteTourLogAsync(ID); await TourListItem.UpdateTourLogAsync(); };
+
+
+            ExportToursViewInstance.SubmitClicked += async (_, Tours) => { await BackendLogic.ExportToursAsync(Tours); await TourListItem.UpdateToursAsync(); };
+
+            CreateToursViewInstance.NewTourSubmitted += async (_, Tour) => { await BackendLogic.CreateNewTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
+            CreateToursViewInstance.OldTourSubmitted += async (_, Tour) => { await BackendLogic.EditTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
 
             var updateToursTask = TourListInstance.UpdateToursAsync();
             updateToursTask.Wait();

@@ -3,6 +3,7 @@ using System;
 using TourPlanner.BL;
 using TourPlanner.Core;
 using TourPlanner.DAL;
+using TourPlanner.MVVM.View;
 using TourPlanner.MVVM.ViewModel;
 
 namespace TourPlanner
@@ -19,12 +20,13 @@ namespace TourPlanner
             services.AddSingleton<MemoryTourRepository>(new MemoryTourRepository());
             services.AddSingleton<APITourRepository>(new  APITourRepository());
             services.AddSingleton<ConnectionModeFactory>();
-            services.AddSingleton<IBackgroundLogic, BackgroundLogic>();
+            services.AddSingleton<IBackendLogic, BackendLogic>();
             
             // create all viewmodels
             services.AddSingleton<SearchbarViewModel>();
             services.AddSingleton<HomeViewModel>();
             services.AddSingleton<CreateToursViewModel>();
+            services.AddSingleton<CreateTourLogsViewModel>();
             services.AddSingleton<BrowseToursViewModel>();
             services.AddSingleton<ImportToursViewModel>();
             services.AddSingleton<ExportToursViewModel>();
@@ -41,6 +43,8 @@ namespace TourPlanner
         public HomeViewModel HomeViewInstance => serviceProvider.GetRequiredService<HomeViewModel>();
 
         public CreateToursViewModel CreateToursInstance => serviceProvider.GetRequiredService<CreateToursViewModel>();
+
+        public CreateTourLogsViewModel CreateTourLogsInstance => serviceProvider.GetRequiredService<CreateTourLogsViewModel>();
 
         public BrowseToursViewModel BrowseToursInstance => serviceProvider.GetRequiredService<BrowseToursViewModel>();
 

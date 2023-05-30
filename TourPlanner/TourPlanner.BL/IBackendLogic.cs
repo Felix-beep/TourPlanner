@@ -2,7 +2,7 @@
 
 namespace TourPlanner.BL
 {
-    public interface IBackgroundLogic
+    public interface IBackendLogic
     {
         Task<IEnumerable<Tour>> GetAllToursAsync();
         Task<IEnumerable<TourLog>> GetTourLogsAsync(int TourID);

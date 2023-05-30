@@ -13,7 +13,7 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class DepictedTourList : ObservableObject
     {
-        private IBackgroundLogic _bl;
+        private IBackendLogic _bl;
 
         private List<Tour> _listoftours = new();
 
@@ -32,7 +32,7 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
-        public DepictedTourList(IBackgroundLogic bl)
+        public DepictedTourList(IBackendLogic bl)
         {
             _bl = bl;
             var updateToursTask = UpdateToursAsync();

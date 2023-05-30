@@ -47,7 +47,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:CreateToursViewModel}">
-                <view:CreateNewToursView/>
+                <view:CreateToursView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:BrowseToursViewModel}">
@@ -60,6 +60,10 @@
 
             <DataTemplate DataType="{x:Type viewModel:ImportToursViewModel}">
                 <view:ImportToursView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:CreateTourLogViewModel}">
+                <view:CreateTourLogsView/>
             </DataTemplate>
 
         </ResourceDictionary>

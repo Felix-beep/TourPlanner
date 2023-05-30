@@ -29,7 +29,7 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
         public ICommand CreateNewTour { get; }
-        public event Action NewTourClicked;
+        public event Action CreateClicked;
 
         public ICommand OpenTourInformation { get; }
         public event EventHandler<int> ViewClicked;
@@ -45,7 +45,7 @@ namespace TourPlanner.MVVM.ViewModel
             _tourList = tourlist;
             _tourList.ListChanged += UpdateLocalList;
 
-            CreateNewTour = new RelayCommand(param => NewTourClicked?.Invoke());
+            CreateNewTour = new RelayCommand(param => CreateClicked?.Invoke());
 
             OpenTourInformation = new RelayCommand<int>(param => ViewClicked?.Invoke(this, param));
             EditTourInformation = new RelayCommand<int>(param => EditClicked?.Invoke(this, param));
