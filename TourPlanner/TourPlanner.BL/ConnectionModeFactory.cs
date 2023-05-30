@@ -28,7 +28,7 @@ namespace TourPlanner.BL
             }
 
             // defines whether the app is in offline or online made on start
-            _appIsOnline = _isConnected;
+            _appIsOnline = false;
         }
 
         public ITourRepository GetRepo() 
