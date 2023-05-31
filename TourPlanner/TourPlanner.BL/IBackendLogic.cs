@@ -11,7 +11,7 @@ namespace TourPlanner.BL
         Task EditTourAsync(Tour EditedTour);
         Task DeleteTourAsync(int TourID);
 
-        Task CreateNewTourLogAsync(TourLog NewTourLog);
+        Task CreateNewTourLogAsync(int TourId, TourLog NewTourLog);
         Task EditTourLogAsync(int TourId, TourLog TourLog);
         Task DeleteTourLogAsync(int TourId, int LogId);
 

@@ -11,6 +11,7 @@ namespace TourPlanner.MVVM.ViewModel
 {
     public class CreateTourLogsViewModel : ObservableObject
     {
+        private int _tourID;
         private int? _tourLogID;
         public string DisplayedTourLogID { get { return (_tourLogID == null) ? "Creating New Tour" : "Editing Tour: " + _tourLogID.ToString(); } }
 
@@ -98,22 +99,23 @@ namespace TourPlanner.MVVM.ViewModel
             SubmitForm = new RelayCommand(param => {
                 if (_tourLogID == null)
                 {
-                    NewTourSubmitted?.Invoke(this, ConvertToTour());
+                    NewTourSubmitted?.Invoke(this, new MultipleEventArgs(_tourID, ConvertToTour()));
                 }
                 else
                 {
-                    OldTourSubmitted?.Invoke(this, ConvertToTour());
+                    OldTourSubmitted?.Invoke(this, new MultipleEventArgs(_tourID, ConvertToTour()));
                 }
             });
         }
 
         public ICommand SubmitForm { get; }
 
-        public event EventHandler<TourLog> NewTourSubmitted;
-        public event EventHandler<TourLog> OldTourSubmitted;
+        public event EventHandler<MultipleEventArgs> NewTourSubmitted;
+        public event EventHandler<MultipleEventArgs> OldTourSubmitted;
 
-        public void OpenTour(TourLog? tourLog)
+        public void OpenTour(int TourID, TourLog? tourLog)
         {
+            _tourID = TourID;
             if (tourLog == null) { FillWithEmpty(); }
             else
             {

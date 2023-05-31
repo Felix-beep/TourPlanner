@@ -8,6 +8,7 @@ using System.Windows.Input;
 using TourPlanner.Core;
 using TourPlanner.BL;
 using TourPlanner.MVVM.View;
+using TourPlanner.Models;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -120,9 +121,9 @@ namespace TourPlanner.MVVM.ViewModel
             BrowseToursViewInstance.DeleteClicked += async (_, ID) => { await BackendLogic.DeleteTourAsync(ID); await TourListItem.UpdateToursAsync(); };
 
             // Tourinformation Buttons
-            TourInformationViewInstance.CreateClicked += () => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(null); };
+            TourInformationViewInstance.CreateClicked += (_, ID) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(ID, null); };
 
-            TourInformationViewInstance.EditClicked += async (_, Args) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(TourListItem.GetTourLog(Convert.ToInt32(Args.Args[0]), Convert.ToInt32(Args.Args[1]))); await TourListItem.UpdateToursAsync(); };
+            TourInformationViewInstance.EditClicked += async (_, Args) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(Convert.ToInt32(Args.Args[0]), TourListItem.GetTourLog(Convert.ToInt32(Args.Args[0]), Convert.ToInt32(Args.Args[1]))); await TourListItem.UpdateToursAsync(); };
             TourInformationViewInstance.DeleteClicked += async (_, Args) => { await BackendLogic.DeleteTourLogAsync(Convert.ToInt32(Args.Args[0]), Convert.ToInt32(Args.Args[1])); await TourListItem.UpdateToursAsync(); };
 
 
@@ -130,6 +131,9 @@ namespace TourPlanner.MVVM.ViewModel
 
             CreateToursViewInstance.NewTourSubmitted += async (_, Tour) => { await BackendLogic.CreateNewTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
             CreateToursViewInstance.OldTourSubmitted += async (_, Tour) => { await BackendLogic.EditTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
+
+            CreateTourLogsViewInstance.NewTourSubmitted += async (_, Args) => { await BackendLogic.CreateNewTourLogAsync(Convert.ToInt32(Args.Args[0]), (TourLog)Args.Args[1]); await TourListItem.UpdateToursAsync(); };
+            CreateTourLogsViewInstance.OldTourSubmitted += async (_, Args) => { await BackendLogic.EditTourLogAsync(Convert.ToInt32(Args.Args[0]), (TourLog)Args.Args[1]); await TourListItem.UpdateToursAsync(); };
 
             var updateToursTask = TourListInstance.UpdateToursAsync();
             updateToursTask.Wait();

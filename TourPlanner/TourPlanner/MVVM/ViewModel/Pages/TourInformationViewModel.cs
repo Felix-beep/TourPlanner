@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TourPlanner.Core;
 using TourPlanner.Models;
 using System.Windows.Input;
+using System.ComponentModel.DataAnnotations;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -19,7 +20,7 @@ namespace TourPlanner.MVVM.ViewModel
             _tourList = tourList;
 
 
-            CreateNewTourLog = new RelayCommand(parameter => CreateClicked?.Invoke());
+            CreateNewTourLog = new RelayCommand(parameter => CreateClicked?.Invoke(this, DisplayedTour.ID));
             EditTourLogInformation = new RelayCommand<int>(parameter => EditClicked?.Invoke(this, new MultipleEventArgs(DisplayedTour.ID, parameter)));
             DeleteTourLogInformation = new RelayCommand<int>(parameter => DeleteClicked?.Invoke(this, new MultipleEventArgs(DisplayedTour.ID, parameter)));
         }
@@ -31,7 +32,7 @@ namespace TourPlanner.MVVM.ViewModel
         }
 
         public ICommand CreateNewTourLog { get; }
-        public event Action CreateClicked;
+        public event EventHandler<int> CreateClicked;
 
         public ICommand EditTourLogInformation { get; }
         public event EventHandler<MultipleEventArgs> EditClicked;

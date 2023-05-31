@@ -48,18 +48,18 @@ namespace TourPlanner.BL
 
         // TourLog editing
 
-        public async Task CreateNewTourLogAsync(TourLog NewTourLog)
+        public async Task CreateNewTourLogAsync(int TourID, TourLog NewTourLog)
         {
-            // await _repositoryFactory.GetRepo().InsertTourAsync(NewTour);
+            await _repositoryFactory.GetRepo().InsertTourLogAsync(TourID, NewTourLog);
         }
 
         public async Task EditTourLogAsync(int TourID, TourLog EditedTour)
         {
-            // await _repositoryFactory.GetRepo().UpdateTourAsync(EditedTour);
+            await _repositoryFactory.GetRepo().UpdateTourLogAsync(EditedTour);
         }
-        public async Task DeleteTourLogAsync(int TourID, int TourLogId)
+        public async Task DeleteTourLogAsync(int TourID, int TourLogID)
         {
-            // await _repositoryFactory.GetRepo().DeleteTourAsync(TourID);
+            await _repositoryFactory.GetRepo().DeleteTourLogAsync(TourLogID);
         }
 
         // Export and Import
