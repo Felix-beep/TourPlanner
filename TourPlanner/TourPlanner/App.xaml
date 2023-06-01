@@ -12,12 +12,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/Buttons/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/Buttons/ButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/Buttons/ButtonThemeBlue.xaml"/>
                 <ResourceDictionary Source="Theme/Buttons/BaseContentButton.xaml"/>
                 <ResourceDictionary Source="Theme/Buttons/AddButton.xaml"/>
                 <ResourceDictionary Source="Theme/Buttons/EditButton.xaml"/>
                 <ResourceDictionary Source="Theme/Buttons/DeleteButton.xaml"/>
                 <ResourceDictionary Source="Theme/Buttons/OnlineOfflineButtonTheme.xaml"/>
-                
+
+                <ResourceDictionary Source="Theme/Carousel/CarouselItemStyle.xaml"/>
+
                 <ResourceDictionary Source="Theme/DataGrid/DataGridButtonStyle.xaml"/>
                 <ResourceDictionary Source="Theme/DataGrid/DataGridCellStyle.xaml"/>
                 <ResourceDictionary Source="Theme/DataGrid/DataGridHeaderStyle.xaml"/>

@@ -12,14 +12,15 @@ namespace TourPlanner.MVVM.ViewModel
     {
         private DepictedTourList? _tourList;
 
+        private List<Tour> _discover;
         public List<Tour> Discover {
             get
             {
-                return Discover;
+                return _discover;
             }
             set
             {
-                Discover = value;
+                _discover = value;
                 OnPropertyChanged();
             }
         }
@@ -38,11 +39,12 @@ namespace TourPlanner.MVVM.ViewModel
         public HomeViewModel(DepictedTourList tourlist)
         {
             _tourList = tourlist;
+            UpdateTours();
         }
 
-        public void SetTourList(DepictedTourList tourlist)
+        public void UpdateTours()
         {
-            
+            Discover = _tourList.ListOfTours;
         }
 
     }
