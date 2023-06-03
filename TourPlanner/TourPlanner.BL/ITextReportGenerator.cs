@@ -64,7 +64,7 @@ namespace TourPlanner.BL
                 .AddHeaderCell(GetHeaderCell("Avg. Time"))
                 .AddHeaderCell(GetHeaderCell("Avg. Difficulty"))
                 .AddHeaderCell(GetHeaderCell("Avg. Rating"))
-                .AddHeaderCell(GetHeaderCell("Child Friendliness"));
+                .AddHeaderCell(GetHeaderCell("Child Friendliness*"));
 
             foreach (var tour in tours) 
             {
@@ -92,6 +92,9 @@ namespace TourPlanner.BL
 
             doc.Add(CreateTitle("Tour Table", ColorConstants.GREEN));
             doc.Add(CreateTourTable(tours));
+
+            doc.Add(CreateTitle("Notes", ColorConstants.BLUE));
+            doc.Add(new Paragraph("*Child friendliness formula (lower value is more child friendly): avg. difficulty * distance * avg. time"));
 
             doc.Close();
 
