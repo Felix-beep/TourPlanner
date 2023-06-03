@@ -6,7 +6,7 @@ namespace TourPlanner.BL
     {
         readonly ILog log = LogManager.GetLogger(typeof(MapQuestClient));
 
-        HttpClient client = new HttpClient();
+        HttpClient client = new();
         
         public MapQuestClient() 
         { 
