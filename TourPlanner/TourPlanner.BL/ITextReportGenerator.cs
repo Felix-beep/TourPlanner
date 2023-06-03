@@ -55,7 +55,7 @@ namespace TourPlanner.BL
 
         static Table CreateTourTable(IEnumerable<Tour> tours)
         {
-            var table = new Table(UnitValue.CreatePercentArray(5))
+            var table = new Table(UnitValue.CreatePercentArray(6))
                 .UseAllAvailableWidth()
                 .SetFontSize(14)
                 .SetBackgroundColor(ColorConstants.WHITE)
@@ -63,20 +63,18 @@ namespace TourPlanner.BL
                 .AddHeaderCell(GetHeaderCell("Name"))
                 .AddHeaderCell(GetHeaderCell("Avg. Time"))
                 .AddHeaderCell(GetHeaderCell("Avg. Difficulty"))
-                .AddHeaderCell(GetHeaderCell("Avg. Rating"));
+                .AddHeaderCell(GetHeaderCell("Avg. Rating"))
+                .AddHeaderCell(GetHeaderCell("Child Friendliness"));
 
             foreach (var tour in tours) 
             {
-                var avgTime = tour.logs.Average(tl => tl.totalTime.TotalSeconds);
-                var avgDifficulty = tour.logs.Average(tl => tl.difficulty);
-                var avgRating = tour.logs.Average(tl => tl.rating);
-
                 table
                     .AddCell(tour.ID.ToString())
                     .AddCell(tour.name)
-                    .AddCell(TimeSpan.FromSeconds(avgTime).ToString())
-                    .AddCell(avgDifficulty.ToString())
-                    .AddCell(avgRating.ToString());
+                    .AddCell(TimeSpan.FromSeconds(tour.GetAverageTime()).ToString())
+                    .AddCell(tour.GetAverageDifficulty().ToString())
+                    .AddCell(tour.GetAverageRating().ToString())
+                    .AddCell(tour.GetChildFriendliness().ToString());
             }
 
             return table;
