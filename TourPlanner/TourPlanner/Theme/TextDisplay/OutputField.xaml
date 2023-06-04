@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+    <Style TargetType="{x:Type TextBox}"
+           x:Key="outputField">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="10" Margin="0" Background="#353340" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            
+                                <TextBlock Margin="3,0"
+                                         Text="{TemplateBinding Text}"
+                                         Background="Transparent"
+                                         VerticalAlignment="Center"
+                                         Foreground="White" 
+                                         Padding="5,0"
+                                         TextTrimming="CharacterEllipsis"
+                                         x:Name="InputFieldBox">
+                                </TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+</ResourceDictionary>

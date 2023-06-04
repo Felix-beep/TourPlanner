@@ -25,6 +25,8 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
+        private object _lastView = null;
+
         private object _currentHotbar;
         public object CurrentHotbar
         {
@@ -42,6 +44,8 @@ namespace TourPlanner.MVVM.ViewModel
             get { return _currentView; }
             set
             {
+                if (value == null) return;
+                _lastView = _currentView;
                 _currentView = value;
                 OnPropertyChanged();
             }
@@ -105,6 +109,7 @@ namespace TourPlanner.MVVM.ViewModel
             SwapToImportTours = new RelayCommand(param => CurrentView = ImportToursViewInstance);
             SwapToExportTours = new RelayCommand(param => CurrentView = ExportToursViewInstance);
 
+            // Searchbar Buttons
             SearchbarInstance.SearchClicked += async (_, searchtext) => 
             { 
                 CurrentView = BrowseToursViewInstance; 
@@ -112,6 +117,9 @@ namespace TourPlanner.MVVM.ViewModel
                 TourListItem.Refresh(); 
             };
             SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackendLogic.SwapOnlineMode(); };
+            SearchbarInstance.ReturnClicked += () => { 
+                CurrentView = _lastView; 
+            };
             
             // TourBrowser Buttons
             BrowseToursViewInstance.CreateClicked += () => { CurrentView = CreateToursViewInstance; CreateToursViewInstance.OpenTour(null); };
@@ -121,11 +129,14 @@ namespace TourPlanner.MVVM.ViewModel
             BrowseToursViewInstance.DeleteClicked += async (_, ID) => { await BackendLogic.DeleteTourAsync(ID); await TourListItem.UpdateToursAsync(); };
 
             // Tourinformation Buttons
+            TourInformationViewInstance.CreateReportClicked += (_, ID) => { /* generate report*/ return; };
             TourInformationViewInstance.CreateClicked += (_, ID) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(ID, null); };
 
             TourInformationViewInstance.EditClicked += async (_, Args) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(Convert.ToInt32(Args.Args[0]), TourListItem.GetTourLog(Convert.ToInt32(Args.Args[0]), Convert.ToInt32(Args.Args[1]))); await TourListItem.UpdateToursAsync(); };
             TourInformationViewInstance.DeleteClicked += async (_, Args) => { await BackendLogic.DeleteTourLogAsync(Convert.ToInt32(Args.Args[0]), Convert.ToInt32(Args.Args[1])); await TourListItem.UpdateToursAsync(); };
 
+            // HomeView Buttons
+            HomeViewInstance.ViewClicked += (_, ID) => { CurrentView = TourInformationViewInstance; TourInformationViewInstance.OpenTour(ID); };
 
             ExportToursViewInstance.SubmitClicked += async (_, Tours) => { await BackendLogic.ExportToursAsync(Tours); await TourListItem.UpdateToursAsync(); };
 

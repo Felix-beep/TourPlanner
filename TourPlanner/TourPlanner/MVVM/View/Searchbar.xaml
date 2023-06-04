@@ -10,13 +10,16 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400*"/>
             <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="SearchBox" Text="{Binding Path=SearchText}" Grid.Column="0" Height="40" HorizontalAlignment="Stretch" Style="{StaticResource SearchBarTheme}">
+        <TextBox Grid.Column="0" Text="{Binding Path=SearchText}" Height="40" HorizontalAlignment="Stretch" Style="{StaticResource SearchBarTheme}">
             
         </TextBox>
+        
+        <Button Content="Retun" Grid.Column="1" Command="{Binding Path=ExecuteCommandReturn}" Height="30" Width="70" Style="{StaticResource deleteButton}"/>
 
-        <Button Grid.Column="1" Command="{Binding Path=ExecuteCommandSwapMode}" Height="30" Width="70" Style="{StaticResource OnOffButton}"/>
+        <Button Grid.Column="2" Command="{Binding Path=ExecuteCommandSwapMode}" Height="30" Width="70" Style="{StaticResource OnOffButton}"/>
 
     </Grid>
 </UserControl>

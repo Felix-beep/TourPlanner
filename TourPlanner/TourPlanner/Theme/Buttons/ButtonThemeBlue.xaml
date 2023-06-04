@@ -6,11 +6,11 @@
 
         <Style.Triggers>
             <Trigger Property="Border.IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#ffcf4a"/>
+                <Setter Property="Background" Value="#56a8f5"/>
             </Trigger>
 
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#66b5ff"/>
+                <Setter Property="Background" Value="#11518c"/>
             </Trigger>
         </Style.Triggers>
     </Style>

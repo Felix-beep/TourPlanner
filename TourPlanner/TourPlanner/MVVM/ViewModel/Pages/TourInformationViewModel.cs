@@ -19,7 +19,7 @@ namespace TourPlanner.MVVM.ViewModel
         {
             _tourList = tourList;
 
-
+            CreateReport = new RelayCommand(parameter => CreateReportClicked?.Invoke(this, DisplayedTour.ID));
             CreateNewTourLog = new RelayCommand(parameter => CreateClicked?.Invoke(this, DisplayedTour.ID));
             EditTourLogInformation = new RelayCommand<int>(parameter => EditClicked?.Invoke(this, new MultipleEventArgs(DisplayedTour.ID, parameter)));
             DeleteTourLogInformation = new RelayCommand<int>(parameter => DeleteClicked?.Invoke(this, new MultipleEventArgs(DisplayedTour.ID, parameter)));
@@ -30,7 +30,8 @@ namespace TourPlanner.MVVM.ViewModel
             DisplayedTour = _tourList.ListOfTours.First(t => t.ID == ID);
 
         }
-
+        public ICommand CreateReport { get; }
+        public event EventHandler<int> CreateReportClicked;
         public ICommand CreateNewTourLog { get; }
         public event EventHandler<int> CreateClicked;
 

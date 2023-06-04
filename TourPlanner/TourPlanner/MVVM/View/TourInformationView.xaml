@@ -12,42 +12,54 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250"/>
-            <RowDefinition />
+            <RowDefinition Height="600*"/>
+            <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Column="0" Grid.Row="0" Background="#453f66" CornerRadius="5" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition Width="40*"/>
                 </Grid.ColumnDefinitions>
 
+                <ScrollViewer Grid.Column="0" Margin="5" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical"  Margin="5">
+                        <TextBlock Foreground="White" FontSize="20" Text="Name:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text="{Binding Path=DisplayedTour.name}"/>
+                        <TextBlock Foreground="White" FontSize="20" Text="Description:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text ="{Binding Path=DisplayedTour.description}"/>
+                        <TextBlock Foreground="White" FontSize="20" Text="Rating:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text="{Binding Path=DisplayedTour.rating}"/>
+                        <TextBlock Foreground="White" FontSize="20" Text="Child Friendlyness:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text ="{Binding Path=DisplayedTour.childfriendliness}"/>
+                        <Button Style="{StaticResource addButton}" Margin="0,10,0,0" HorizontalAlignment="Center" Content="Generate Report" Width="120" Height="30"
+                                Command="{Binding CreateReport}" 
+                                CommandParameter="{Binding Path=ID}"
+                                />
+                    </StackPanel>
+                </ScrollViewer>
 
-                <StackPanel Orientation="Vertical" Grid.Column="0">
-                    <TextBlock Foreground="White" Text="Name:"/>
-                    <TextBlock Foreground="White" Text="{Binding Path=DisplayedTour.name}"/>
-                    <TextBlock Foreground="White" Text="Description:"/>
-                    <TextBlock Foreground="White" Text ="{Binding Path=DisplayedTour.description}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" Grid.Column="1">
-                    <TextBlock Foreground="White" Text="From:"/>
-                    <TextBlock Foreground="White" Text="{Binding Path=DisplayedTour.from}"/>
-                    <TextBlock Foreground="White" Text="To:"/>
-                    <TextBlock Foreground="White" Text ="{Binding Path=DisplayedTour.to}"/>
-                    <TextBlock Foreground="White" Text="Transportation Type:"/>
-                    <TextBlock Foreground="White" Text="{Binding Path=DisplayedTour.transportType}"/>
-                    <TextBlock Foreground="White" Text="Distance:"/>
-                    <TextBlock Foreground="White" Text ="{Binding Path=DisplayedTour.tourDistance}"/>
-                    <TextBlock Foreground="White" Text="Estimated Time:"/>
-                    <TextBlock Foreground="White" Text ="{Binding Path=DisplayedTour.estimatedTime}"/>
-                </StackPanel>
+                <ScrollViewer Grid.Column="1" Margin="5" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Foreground="White" Text="From:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text="{Binding Path=DisplayedTour.from}"/>
+                        <TextBlock Foreground="White" Text="To:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text ="{Binding Path=DisplayedTour.to}"/>
+                        <TextBlock Foreground="White" Text="Transportation Type:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text="{Binding Path=DisplayedTour.transportType}"/>
+                        <TextBlock Foreground="White" Text="Distance:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text ="{Binding Path=DisplayedTour.tourDistance}"/>
+                        <TextBlock Foreground="White" Text="Estimated Time:"/>
+                        <TextBox Style="{StaticResource outputField}" Margin="5" Text ="{Binding Path=DisplayedTour.estimatedTime}"/>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
         </Border>
 
         <TextBlock Grid.Column="1" Grid.Row="0" Text="Image here" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
+        
         <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="#453f66" CornerRadius="5" Margin="5" Padding="15,0,15,0">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -66,79 +78,78 @@
                         <TextBlock Text="Create new Log"/>
                     </StackPanel>
                 </Button>
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+                    <DataGrid Name="dataGridTour"
+                              Style="{StaticResource DataGridStyle}"
+                              CellStyle="{StaticResource DataGridCellStyle}"
+                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                              RowStyle="{DynamicResource DataGridRowStyle}"
+                              ItemsSource="{Binding Path=DisplayedTour.logs}"
+                              >
 
-                <DataGrid Name="dataGridTour"
-                          Grid.Row="1"
-                          Grid.ColumnSpan="2"
-                          Style="{StaticResource DataGridStyle}"
-                          CellStyle="{StaticResource DataGridCellStyle}"
-                          ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
-                          RowStyle="{DynamicResource DataGridRowStyle}"
-                          ItemsSource="{Binding Path=DisplayedTour.logs}"
-                          >
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Path=comment}"
-                            Header="Comment"
-                            IsReadOnly="True"
-                            Visibility="Visible"/>
-                        <DataGridTextColumn
-                            Width="Auto"
-                            Binding="{Binding Path=date}"
-                            Header="Date"
-                            IsReadOnly="True"
-                            Visibility="Visible"/>
-                        <DataGridTextColumn
-                            Width="Auto"
-                            Binding="{Binding Path=difficulty}"
-                            Header="Difficulty"
-                            IsReadOnly="True"
-                            Visibility="Visible"/>
-                        <DataGridTextColumn
-                            Width="Auto"
-                            Binding="{Binding Path=totalTime}"
-                            Header="Time"
-                            IsReadOnly="True"
-                            Visibility="Visible"/>
-                        <DataGridTextColumn
-                            Width="Auto"
-                            Binding="{Binding Path=rating}"
-                            Header="Rating"
-                            IsReadOnly="True"
-                            Visibility="Visible"/>
-                        <DataGridTemplateColumn Header="Edit" Width="Auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button
-                            x:Name="btnEdit"
-                            Content="Edit"
-                            Margin="10,5"
-                            Command="{Binding DataContext.EditTourLogInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                            CommandParameter="{Binding Path=ID}"
-                            Style="{StaticResource editButton}"
-                            />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Delete" Width="Auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button
-                            x:Name="btnDelete"
-                            Content="Delete"
-                            Margin="10,5"
-                            Command="{Binding DataContext.DeleteTourLogInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                            CommandParameter="{Binding Path=ID}"
-                            Style="{StaticResource deleteButton}"
-                            />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding Path=comment}"
+                                Header="Comment"
+                                IsReadOnly="True"
+                                Visibility="Visible"/>
+                            <DataGridTextColumn
+                                Width="Auto"
+                                Binding="{Binding Path=date}"
+                                Header="Date"
+                                IsReadOnly="True"
+                                Visibility="Visible"/>
+                            <DataGridTextColumn
+                                Width="Auto"
+                                Binding="{Binding Path=difficulty}"
+                                Header="Difficulty"
+                                IsReadOnly="True"
+                                Visibility="Visible"/>
+                            <DataGridTextColumn
+                                Width="Auto"
+                                Binding="{Binding Path=totalTime}"
+                                Header="Time"
+                                IsReadOnly="True"
+                                Visibility="Visible"/>
+                            <DataGridTextColumn
+                                Width="Auto"
+                                Binding="{Binding Path=rating}"
+                                Header="Rating"
+                                IsReadOnly="True"
+                                Visibility="Visible"/>
+                            <DataGridTemplateColumn Header="Edit" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                x:Name="btnEdit"
+                                Content="Edit"
+                                Margin="10,5"
+                                Command="{Binding DataContext.EditTourLogInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                CommandParameter="{Binding Path=ID}"
+                                Style="{StaticResource editButton}"
+                                />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Delete" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                x:Name="btnDelete"
+                                Content="Delete"
+                                Margin="10,5"
+                                Command="{Binding DataContext.DeleteTourLogInformation, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                CommandParameter="{Binding Path=ID}"
+                                Style="{StaticResource deleteButton}"
+                                />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
                     
-                </DataGrid>
+                    </DataGrid>
+                </ScrollViewer>
             </Grid>
         </Border>
     </Grid>

@@ -17,6 +17,10 @@ namespace TourPlanner.Models
         public TimeSpan estimatedTime { get; set; }
         public string imageID { get; set; }
 
+        public float rating { get { return logs.Count(); } set { return; } }
+
+        public float childfriendliness { get { return (float)GetChildFriendliness(); } set { return; } }
+
         public ICollection<TourLog> logs { get; set; }
 
         public Tour() { }
@@ -65,6 +69,28 @@ namespace TourPlanner.Models
             }
 
             return false;
+        }
+
+        public double GetChildFriendliness()
+        {
+            // lower value -> more child friendly
+
+            return
+                GetAverageDifficulty() *
+                tourDistance *
+                GetAverageTime();
+        }
+
+        public double GetAverageTime()
+        {
+            if (logs.Count == 0) return 0;
+            return logs.Average(tl => tl.totalTime.TotalSeconds);
+        }
+
+        public double GetAverageDifficulty()
+        {
+            if (logs.Count == 0) return 0;
+            return logs.Average(tl => tl.difficulty);
         }
     }
 }

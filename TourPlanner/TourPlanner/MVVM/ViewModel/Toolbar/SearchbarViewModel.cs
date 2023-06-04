@@ -38,15 +38,18 @@ namespace TourPlanner.MVVM.ViewModel
         {
             ExecuteCommandSearch = new RelayCommand(param => SearchClicked?.Invoke(this, searchtext));
             ExecuteCommandSwapMode = new RelayCommand(param => SwapClicked?.Invoke());
+            ExecuteCommandReturn = new RelayCommand(param => ReturnClicked?.Invoke());
             IsOnline = false;
         }
 
         public ICommand ExecuteCommandSearch { get; }
-
         public event EventHandler<string> SearchClicked;
-        public ICommand ExecuteCommandSwapMode { get; }
 
+        public ICommand ExecuteCommandSwapMode { get; }
         public event Action SwapClicked;
+
+        public ICommand ExecuteCommandReturn { get; }
+        public event Action ReturnClicked;
 
     }
 }

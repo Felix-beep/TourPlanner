@@ -30,7 +30,7 @@
                 <ResourceDictionary Source="Theme/Searchbar/BetterTextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/Searchbar/SearchBarTheme.xaml"/>
 
-                <ResourceDictionary Source="Theme/BorderShadowEffect.xaml"/>
+                <ResourceDictionary Source="Theme/TextDisplay/OutputField.xaml"/>
                 <ResourceDictionary Source="Theme/TextDisplay/InputField.xaml"/>
                 <ResourceDictionary>
                     <local:IoCContainerConfig x:Key="IoCConfig" />

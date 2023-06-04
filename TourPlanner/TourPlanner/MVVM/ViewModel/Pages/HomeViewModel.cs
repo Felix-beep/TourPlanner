@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using TourPlanner.BL;
 using TourPlanner.Core;
 using TourPlanner.Models;
 
@@ -17,7 +19,7 @@ namespace TourPlanner.MVVM.ViewModel
         public List<Tour> Discover {
             get
             {
-                return _popular.OrderBy(x => RandomNumberGenerator.GetInt32(100)).ToList();
+                return _discover.OrderBy(x => RandomNumberGenerator.GetInt32(100)).ToList();
             }
             set
             {
@@ -31,7 +33,7 @@ namespace TourPlanner.MVVM.ViewModel
         public List<Tour> Popular {
             get
             {
-                return _popular.OrderBy(x => x.logs.Count).ToList();
+                return _popular.OrderByDescending(TourAttributeComputer.GetPopularity).ToList();
             } 
             set {
                 _popular = value;
@@ -43,6 +45,7 @@ namespace TourPlanner.MVVM.ViewModel
         {
             _tourList = tourlist;
             _tourList.ListChanged += UpdateTours;
+            OpenTourInformation = new RelayCommand<int>(param => ViewClicked?.Invoke(this, param));
         }
 
         public void UpdateTours()
@@ -50,6 +53,10 @@ namespace TourPlanner.MVVM.ViewModel
             Discover = _tourList.ListOfTours;
             Popular = _tourList.ListOfTours;
         }
+
+
+        public ICommand OpenTourInformation { get; }
+        public event EventHandler<int> ViewClicked;
 
     }
 }
