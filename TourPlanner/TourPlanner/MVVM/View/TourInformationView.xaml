@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="600*"/>
+            <ColumnDefinition Width="300*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="600*"/>
@@ -96,7 +96,7 @@
                                 Visibility="Visible"/>
                             <DataGridTextColumn
                                 Width="Auto"
-                                Binding="{Binding Path=date}"
+                                Binding="{Binding Path=date, StringFormat='dd-MM-yyyy'}"
                                 Header="Date"
                                 IsReadOnly="True"
                                 Visibility="Visible"/>

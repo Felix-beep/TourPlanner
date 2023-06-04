@@ -36,6 +36,8 @@ namespace TourPlanner.MVVM.ViewModel
             {
                 value = value.Replace(_emptyTourComment, string.Empty);
                 _tourComment = value;
+
+
             }
         }
 
@@ -52,6 +54,13 @@ namespace TourPlanner.MVVM.ViewModel
             {
                 value = value.Replace(_emptyDate, string.Empty);
                 _date = value;
+
+                _errorDictionary.ClearErrors(nameof(Date));
+                DateTime f;
+                if (!DateTime.TryParse(_date, out f) || _date == "")
+                {
+                    _errorDictionary.AddError(nameof(Date), "Date has to be in the format yyyy-mm-dd");
+                }
             }
         }
 
@@ -68,6 +77,18 @@ namespace TourPlanner.MVVM.ViewModel
             {
                 value = value.Replace(_emptyDifficulty, string.Empty);
                 _difficulty = value;
+
+                _errorDictionary.ClearErrors(nameof(Difficulty));
+                float f;
+                if (!float.TryParse(_difficulty, out f))
+                {
+                    _errorDictionary.AddError(nameof(Difficulty), "Difficulty may only consists of a number.");
+                    return;
+                }
+                if (float.Parse(_difficulty) < 1 || float.Parse(_difficulty) > 5)
+                {
+                    _errorDictionary.AddError(nameof(Difficulty), "Difficulty has to be a number between 1 and 5.");
+                }
             }
         }
 
@@ -83,6 +104,13 @@ namespace TourPlanner.MVVM.ViewModel
             {
                 value = value.Replace(_emptyTotalTime, string.Empty);
                 _totalTime = value;
+
+                _errorDictionary.ClearErrors(nameof(TotalTime));
+                TimeSpan f;
+                if (!TimeSpan.TryParse(_totalTime, out f) || _totalTime == "")
+                {
+                    _errorDictionary.AddError(nameof(TotalTime), "Time has to be in the format hh:mm:ss.");
+                }
             }
         }
 
@@ -98,6 +126,18 @@ namespace TourPlanner.MVVM.ViewModel
             {
                 value = value.Replace(_emptyRating, string.Empty);
                 _rating = value;
+
+                _errorDictionary.ClearErrors(nameof(Rating));
+                float f;
+                if (!float.TryParse(_rating, out f))
+                {
+                    _errorDictionary.AddError(nameof(Rating), "Difficulty may only consists of a number.");
+                    return;
+                }
+                if (float.Parse(_rating) < 1 || float.Parse(_rating) > 5)
+                {
+                    _errorDictionary.AddError(nameof(Rating), "Rating has to be a number between 1 and 5.");
+                }
             }
         }
 
@@ -152,11 +192,11 @@ namespace TourPlanner.MVVM.ViewModel
         private void FillWithEmpty()
         {
             _tourLogID = null;
-            _tourComment = "";
-            _date = "";
-            _difficulty = "";
-            _totalTime = "";
-            _rating = "";
+            TourComment = "";
+            Date = "";
+            Difficulty = "";
+            TotalTime = "";
+            Rating = "";
         }
 
         private TourLog ConvertToTour()
@@ -175,9 +215,9 @@ namespace TourPlanner.MVVM.ViewModel
             {
                 ID = id,
                 comment = _tourComment,
-                //date = (DateTime)_date,
+                date = DateTime.Parse(_date),
                 difficulty = Convert.ToInt32(_difficulty),
-                //totalTime = _totalTime,
+                totalTime = TimeSpan.Parse(_totalTime),
                 rating = Convert.ToInt32(_rating),
             };
         }

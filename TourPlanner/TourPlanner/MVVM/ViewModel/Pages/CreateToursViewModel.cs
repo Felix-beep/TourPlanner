@@ -82,9 +82,9 @@ namespace TourPlanner.MVVM.ViewModel
                 {
                     _errorDictionary.AddError(nameof(From), "Starting Location is too long. It cannot exceed 25 characters.");
                 }
-                if (_from.Length < 6)
+                if (_from.Length < 4)
                 {
-                    _errorDictionary.AddError(nameof(From), "Starting Location is too short. It must exceed 5 characters.");
+                    _errorDictionary.AddError(nameof(From), "Starting Location is too short. It must exceed 3 characters.");
                 }
             }
         }
@@ -106,9 +106,9 @@ namespace TourPlanner.MVVM.ViewModel
                 {
                     _errorDictionary.AddError(nameof(To), "Ending Location is too long. It cannot exceed 25 characters.");
                 }
-                if (_to.Length < 6)
+                if (_to.Length < 4)
                 {
-                    _errorDictionary.AddError(nameof(To), "Ending Location is too short. It must exceed 5 characters.");
+                    _errorDictionary.AddError(nameof(To), "Ending Location is too short. It must exceed 3 characters.");
                 }
             }
         }
