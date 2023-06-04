@@ -12,16 +12,12 @@ namespace TourPlanner.Core
     {
         public static BitmapImage ConvertToImage(byte[] byteArray) 
         { 
-
             BitmapImage bitmapImage = new BitmapImage();
 
-            using (MemoryStream stream = new MemoryStream(byteArray))
-            {
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = stream;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-            }
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = new MemoryStream(byteArray);
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
 
             return bitmapImage;
         }

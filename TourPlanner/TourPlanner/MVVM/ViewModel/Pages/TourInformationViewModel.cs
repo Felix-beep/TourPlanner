@@ -29,7 +29,7 @@ namespace TourPlanner.MVVM.ViewModel
             }
             set
             {
-                _tourImage = TourImage;
+                _tourImage = value;
                 OnPropertyChanged();
             }
         }
