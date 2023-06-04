@@ -1,7 +1,9 @@
 ﻿using log4net;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using TourPlanner.DAL;
 using TourPlanner.Models;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace TourPlanner.BL
 {
@@ -9,14 +11,18 @@ namespace TourPlanner.BL
     {
         readonly ILog log = LogManager.GetLogger(typeof(MapQuestClient));
 
+        readonly string apiKey;
+        readonly IImageCache imageCache;
         HttpClient client = new();
         
-        public MapQuestClient() 
-        { 
+        public MapQuestClient(IConfiguration configuration, IImageCache imageCache) 
+        {
+            apiKey = configuration.GetSection("ApiKeys")["MapQuestKey"];
+            this.imageCache = imageCache;
             client.BaseAddress = new Uri("https://www.mapquestapi.com/");
         }
 
-        public IRequestBuilder GetBuilder(string apiKey) 
+        public IRequestBuilder GetBuilder() 
             => new MapQuestRequestBuilder(apiKey);
 
         public async Task<string> RequestJsonStringAsync(IRequestBuilder builder)
@@ -46,9 +52,9 @@ namespace TourPlanner.BL
             return await client.GetByteArrayAsync(builder.Build());
         }
 
-        public async Task<Tour> RequestTourData(string from, string to, TransportType transportType, string apiKey, IImageCache imageCache)
+        public async Task<Tour> RequestTourData(string from, string to, TransportType transportType)
         {
-            var builder = GetBuilder(apiKey)
+            var builder = GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.Route)
                 .SetTransportType(transportType)
                 .SetLocationFrom(from)
@@ -58,7 +64,7 @@ namespace TourPlanner.BL
 
             var jsonData = JsonConvert.DeserializeObject<dynamic>(json);
 
-            log.Debug("got mapquest route statuscode: {0}", jsonData.info.statuscode);
+            log.DebugFormat("got mapquest route statuscode: {0}", (int)jsonData.info.statuscode);
 
             if (jsonData.info.statuscode != 0)
             {

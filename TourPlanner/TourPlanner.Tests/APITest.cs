@@ -27,7 +27,7 @@ namespace TourPlanner.Tests
         [Test]
         public async Task ApiGetRouteImageTest()
         {
-            var req = routeClient.GetBuilder(null)
+            var req = routeClient.GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.MapImage)
                 .SetLocationFrom("Denver%2C+CO")
                 .SetLocationTo("Boulder%2C+CO");
@@ -38,7 +38,7 @@ namespace TourPlanner.Tests
         [Test]
         public async Task ApiGetCachedImageTest()
         {
-            var req = routeClient.GetBuilder(null)
+            var req = routeClient.GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.MapImage)
                 .SetImageID(Guid.Parse("00000000-0000-0000-0000-000000000000"));
 
@@ -49,7 +49,7 @@ namespace TourPlanner.Tests
         [TestCase("nonexistent loc", "nonexistent loc", false)]
         public async Task ApiGetTourData(string from, string to, bool success)
         {
-            var newTour = await routeClient.RequestTourData(from, to, TransportType.fastest, null, null);
+            var newTour = await routeClient.RequestTourData(from, to, TransportType.fastest);
 
             if (!success)
             {

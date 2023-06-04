@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Ocsp;
 using TourPlanner.BL;
 using TourPlanner.DAL;
 using TourPlanner.Models;
@@ -12,14 +11,12 @@ namespace TourPlanner.API.Controllers
     [ApiController]
     public class TourPlannerController : ControllerBase
     {
-        readonly IConfiguration configuration;
         readonly IImageCache imageCache;
+        readonly IRouteClient routeClient;
 
-        MapQuestClient mapQuestClient = new();
-
-        public TourPlannerController(IConfiguration configuration, IImageCache imageCache) 
+        public TourPlannerController(IRouteClient routeClient, IImageCache imageCache) 
         {
-            this.configuration = configuration;
+            this.routeClient = routeClient;
             this.imageCache = imageCache;   
         }
 
@@ -37,18 +34,18 @@ namespace TourPlanner.API.Controllers
         [HttpGet("image/{from}/{to}/{transportType}")]
         public async Task<IActionResult> GetImageAsync(string from, string to, TransportType transportType)
         {
-            var req = mapQuestClient.GetBuilder(configuration.GetSection("ApiKeys")["MapQuestKey"]);
+            var req = routeClient.GetBuilder();
             req.SetRequestType(IRequestBuilder.RequestType.MapImage);
             req.SetLocationFrom(from);
             req.SetLocationTo(to);
             req.SetTransportType(transportType);
-            return File(await mapQuestClient.RequestImageDataAsync(req), "image/jpeg");
+            return File(await routeClient.RequestImageDataAsync(req), "image/jpeg");
         }
 
         [HttpGet("route/{from}/{to}/{transportType}")]
         public async Task<IActionResult> GetRouteAsync(string from, string to, TransportType transportType)
         {
-            var result = await mapQuestClient.RequestTourData(from, to, transportType, configuration.GetSection("ApiKeys")["MapQuestKey"], imageCache);
+            var result = await routeClient.RequestTourData(from, to, transportType);
 
             if (result == null)
             {

@@ -16,7 +16,7 @@ namespace TourPlanner.BL
             client.BaseAddress = apiUri;
         }
 
-        public IRequestBuilder GetBuilder(string apiKey)
+        public IRequestBuilder GetBuilder()
             => new APIRequestBuilder();
 
         public async Task RequestImageAsync(IRequestBuilder builder, string fileName)
@@ -46,9 +46,9 @@ namespace TourPlanner.BL
             return content;
         }
 
-        public async Task<Tour> RequestTourData(string from, string to, TransportType transportType, string apiKey, IImageCache imageCache)
+        public async Task<Tour> RequestTourData(string from, string to, TransportType transportType)
         {
-            var builder = GetBuilder(null)
+            var builder = GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.Route)
                 .SetLocationFrom(from)
                 .SetLocationTo(to)
