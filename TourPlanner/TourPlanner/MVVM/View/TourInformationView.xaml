@@ -96,7 +96,7 @@
                                 Visibility="Visible"/>
                             <DataGridTextColumn
                                 Width="Auto"
-                                Binding="{Binding Path=date}"
+                                Binding="{Binding Path=date, StringFormat='dd-MM-yyyy'}"
                                 Header="Date"
                                 IsReadOnly="True"
                                 Visibility="Visible"/>
