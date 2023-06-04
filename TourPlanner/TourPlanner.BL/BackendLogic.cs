@@ -18,6 +18,7 @@ namespace TourPlanner.BL
         // Logging
         readonly ILog log = LogManager.GetLogger(typeof(BackendLogic));
 
+        IRouteClient routeClient = new APIRouteClient(new Uri("https://dev2.gasstationsoftware.net/"));
 
         // repository
         private ConnectionModeFactory _repositoryFactory;
@@ -154,9 +155,19 @@ namespace TourPlanner.BL
 
         public async Task CreateReport(Tour Tour)
         {
-            // generate Report
-            return;
+            var reportGen = new ITextReportGenerator();
+
+            var req = routeClient.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.MapImage)
+                .SetImageID(Guid.Parse(Tour.imageID));
+
+            reportGen.GenerateTourReport(Tour, await routeClient.RequestImageDataAsync(req), Tour.name);
         }
 
+        public async Task CreateSummaryReport(IEnumerable<Tour> Tours)
+        {
+            var reportGen = new ITextReportGenerator();
+            reportGen.GenerateSummaryReport(Tours, "SummaryReport");
+        }
     }
 }

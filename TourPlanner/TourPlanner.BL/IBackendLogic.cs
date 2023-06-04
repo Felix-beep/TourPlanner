@@ -19,6 +19,7 @@ namespace TourPlanner.BL
         Task ImportToursAsync(IEnumerable<String> FilesToImport);
 
         Task CreateReport(Tour Tour);
+        Task CreateSummaryReport(IEnumerable<Tour> Tours);
 
         Task<IEnumerable<Tour>> FullTextSearchAsync(String Text);
 
