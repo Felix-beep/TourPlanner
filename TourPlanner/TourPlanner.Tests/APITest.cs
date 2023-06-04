@@ -20,29 +20,38 @@ namespace TourPlanner.Tests
             repo.Connect(apiUri);
             repofactory = new ConnectionModeFactory(repo, null);
 
-            routeClient = new APIRouteClient(apiUri);
+            repofactory.SwapMode();
             
+            routeClient = new APIRouteClient(apiUri);
         }
 
         [Test]
         public async Task ApiGetRouteImageTest()
         {
+            var filePath = "api_map_image.jpg";
+
             var req = routeClient.GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.MapImage)
                 .SetLocationFrom("Denver%2C+CO")
                 .SetLocationTo("Boulder%2C+CO");
 
-            await routeClient.RequestImageAsync(req, "api_map_image.jpg");
+            await routeClient.RequestImageAsync(req, filePath);
+            
+            Assert.IsTrue(File.Exists(filePath));
         }
 
         [Test]
         public async Task ApiGetCachedImageTest()
         {
+            var filePath = "api_cached_map_imgage.jpg";
+
             var req = routeClient.GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.MapImage)
                 .SetImageID(Guid.Parse("00000000-0000-0000-0000-000000000000"));
 
-            await routeClient.RequestImageAsync(req, "api_cached_map_imgage.jpg");
+            await routeClient.RequestImageAsync(req, filePath);
+
+            Assert.IsTrue(File.Exists(filePath));
         }
 
         [TestCase("Denver%2C+CO", "Boulder%2C+CO", true)]
@@ -57,7 +66,7 @@ namespace TourPlanner.Tests
             }
             else
             {
-                Console.WriteLine(newTour.CustomToString());
+                Assert.That(newTour, Is.Not.Null);
             }
         }
 
@@ -72,7 +81,7 @@ namespace TourPlanner.Tests
         }
 
         [Test]
-        public async Task BasicTest() 
+        public async Task ApiIntegrationTest() 
         {
             Console.WriteLine("Getting tours:");
             await PrintTours();
@@ -81,6 +90,8 @@ namespace TourPlanner.Tests
             await repofactory.GetRepo().InsertTourAsync(SampleExtensions.CreateSampleTour(100, new List<TourLog>()));
             await PrintTours();
 
+            Assert.That((await repofactory.GetRepo().GetToursAsync()).Count(), Is.EqualTo(8 + 1));  
+
             Console.WriteLine("\nGetting tours after update:");
             var tour3 = await repofactory.GetRepo().GetTourAsync(3);
             tour3.description = "UPDATED DESCRIPTION";
@@ -88,9 +99,13 @@ namespace TourPlanner.Tests
             await repofactory.GetRepo().UpdateTourAsync(tour3);
             await PrintTours();
 
+            Assert.That((await repofactory.GetRepo().GetTourAsync(3)).name, Is.EqualTo("UPDATED NAME"));
+
             Console.WriteLine("\nGetting tours after delete:");
             await repofactory.GetRepo().DeleteTourAsync(5);
             await PrintTours();
+
+            Assert.That((await repofactory.GetRepo().GetToursAsync()).Count(), Is.EqualTo(8));
 
             Console.WriteLine("\nGetting tours after tour log update:");
             var tour6 = await repofactory.GetRepo().GetTourAsync(6);
@@ -98,6 +113,8 @@ namespace TourPlanner.Tests
             tour6log.comment = "UPDATED TOUR LOG";
             await repofactory.GetRepo().UpdateTourLogAsync(tour6log);
             await PrintTours();
+
+            Assert.That((await repofactory.GetRepo().GetTourAsync(6)).logs.First().comment, Is.EqualTo("UPDATED TOUR LOG"));
         }
     }
 }
