@@ -73,6 +73,8 @@ namespace TourPlanner.Tests
             var gen = new ITextReportGenerator();
 
             gen.GenerateSummaryReport(tours, "output_summary_report");
+
+            Assert.IsTrue(File.Exists("output_summary_report.pdf"));
         }
 
         [Test]
@@ -81,7 +83,8 @@ namespace TourPlanner.Tests
             var gen = new ITextReportGenerator();
 
             gen.GenerateTourReport(tours[0], File.ReadAllBytes("test.jpg"), "output_tour_report");
-        }
 
+            Assert.IsTrue(File.Exists("output_tour_report.pdf"));
+        }
     }
 }

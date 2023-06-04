@@ -41,7 +41,11 @@ namespace TourPlanner.Tests
                 .SetLocationFrom("New+York,NY")
                 .SetLocationTo("Washington,DC");
 
-            await client.RequestImageAsync(req, "test.jpg");
+            var newFilePath = "test.jpg";
+
+            await client.RequestImageAsync(req, newFilePath);
+
+            Assert.IsTrue(File.Exists(newFilePath));
         }
 
         [Test]
