@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +11,14 @@ using TourPlanner.Models;
 
 namespace TourPlanner.MVVM.ViewModel
 {
-    public class CreateTourLogsViewModel : ObservableObject
+    public class CreateTourLogsViewModel : ObservableObject, INotifyDataErrorInfo
     {
+        private InputErrorDic _errorDictionary;
+        public bool CanSubmit => !(_errorDictionary.HasErrors);
+        public bool HasErrors => _errorDictionary.HasErrors;
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
         private int _tourID;
         private int? _tourLogID;
         public string DisplayedTourLogID { get { return (_tourLogID == null) ? "Creating New Tour" : "Editing Tour: " + _tourLogID.ToString(); } }
@@ -95,6 +103,8 @@ namespace TourPlanner.MVVM.ViewModel
 
         public CreateTourLogsViewModel()
         {
+            _errorDictionary = new InputErrorDic();
+            _errorDictionary.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
             FillWithEmpty();
             SubmitForm = new RelayCommand(param => {
                 if (_tourLogID == null)
@@ -106,6 +116,17 @@ namespace TourPlanner.MVVM.ViewModel
                     OldTourSubmitted?.Invoke(this, new MultipleEventArgs(_tourID, ConvertToTour()));
                 }
             });
+        }
+
+        private void ErrorsViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(CanSubmit));
+            ErrorsChanged?.Invoke(this, e);
+        }
+
+        public IEnumerable GetErrors(string? propertyName)
+        {
+            return _errorDictionary.GetErrors(propertyName);
         }
 
         public ICommand SubmitForm { get; }

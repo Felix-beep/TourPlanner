@@ -154,6 +154,11 @@ namespace TourPlanner.MVVM.ViewModel
             ErrorsChanged?.Invoke(this, e);
         }
 
+        public IEnumerable GetErrors(string? propertyName)
+        {
+            return _errorDictionary.GetErrors(propertyName);
+        }
+
         public ICommand SubmitForm { get; }
 
         public event EventHandler<Tour> NewTourSubmitted;
@@ -204,9 +209,6 @@ namespace TourPlanner.MVVM.ViewModel
                 transportType = _transport,
             };
         }
-        public IEnumerable GetErrors(string? propertyName)
-        {
-            return _errorDictionary.GetErrors(propertyName);
-        }
+        
     }
 }
