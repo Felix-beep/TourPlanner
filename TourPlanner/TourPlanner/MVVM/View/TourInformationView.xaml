@@ -35,7 +35,7 @@
                         <TextBox Style="{StaticResource outputField}" Margin="5" Text ="{Binding Path=DisplayedTour.childfriendliness}"/>
                         <Button Style="{StaticResource addButton}" Margin="0,10,0,0" HorizontalAlignment="Center" Content="Generate Report" Width="120" Height="30"
                                 Command="{Binding CreateReport}" 
-                                CommandParameter="{Binding Path=ID}"
+                                CommandParameter="{Binding Path=DisplayedTour.ID}"
                                 />
                     </StackPanel>
                 </ScrollViewer>

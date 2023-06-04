@@ -129,7 +129,7 @@ namespace TourPlanner.MVVM.ViewModel
             BrowseToursViewInstance.DeleteClicked += async (_, ID) => { await BackendLogic.DeleteTourAsync(ID); await TourListItem.UpdateToursAsync(); };
 
             // Tourinformation Buttons
-            TourInformationViewInstance.CreateReportClicked += (_, ID) => { /* generate report*/ return; };
+            TourInformationViewInstance.CreateReportClicked += (_, ID) => { BackendLogic.CreateReport(TourListItem.GetTour(ID)); };
             TourInformationViewInstance.CreateClicked += (_, ID) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(ID, null); };
 
             TourInformationViewInstance.EditClicked += async (_, Args) => { CurrentView = CreateTourLogsViewInstance; CreateTourLogsViewInstance.OpenTour(Convert.ToInt32(Args.Args[0]), TourListItem.GetTourLog(Convert.ToInt32(Args.Args[0]), Convert.ToInt32(Args.Args[1]))); await TourListItem.UpdateToursAsync(); };

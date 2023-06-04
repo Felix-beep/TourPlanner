@@ -150,6 +150,13 @@ namespace TourPlanner.BL
             return factory.SearchForText((await _repositoryFactory.GetRepo().GetToursAsync()).ToList(), Text);
         }
 
+        // Report
+
+        public async Task CreateReport(Tour Tour)
+        {
+            // generate Report
+            return;
+        }
 
     }
 }

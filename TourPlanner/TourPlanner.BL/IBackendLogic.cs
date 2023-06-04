@@ -18,6 +18,8 @@ namespace TourPlanner.BL
         Task ExportToursAsync(IEnumerable<Tour> ToursToExport);
         Task ImportToursAsync(IEnumerable<String> FilesToImport);
 
+        Task CreateReport(Tour Tour);
+
         Task<IEnumerable<Tour>> FullTextSearchAsync(String Text);
 
         bool SwapOnlineMode();
