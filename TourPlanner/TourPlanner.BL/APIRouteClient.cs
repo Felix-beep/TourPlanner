@@ -56,6 +56,8 @@ namespace TourPlanner.BL
 
             var response = await client.GetAsync(builder.Build());
 
+            if (!response.IsSuccessStatusCode) return null;
+
             var content = await response.Content.ReadAsStringAsync();
 
             var result = JsonConvert.DeserializeObject<Tour>(content);

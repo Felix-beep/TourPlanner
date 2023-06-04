@@ -58,8 +58,11 @@ namespace TourPlanner.BL
 
             var jsonData = JsonConvert.DeserializeObject<dynamic>(json);
 
-            if (jsonData == null)
+            log.Debug("got mapquest route statuscode: {0}", jsonData.info.statuscode);
+
+            if (jsonData.info.statuscode != 0)
             {
+                log.Warn("mapquestclient failed to find route");
                 return null;
             }
 

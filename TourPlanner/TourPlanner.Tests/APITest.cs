@@ -45,12 +45,20 @@ namespace TourPlanner.Tests
             await routeClient.RequestImageAsync(req, "api_cached_map_imgage.jpg");
         }
 
-        [Test] 
-        public async Task ApiGetTourData()
+        [TestCase("Denver%2C+CO", "Boulder%2C+CO", true)]
+        [TestCase("nonexistent loc", "nonexistent loc", false)]
+        public async Task ApiGetTourData(string from, string to, bool success)
         {
-            var newTour = await routeClient.RequestTourData("Denver%2C+CO", "Boulder%2C+CO", TransportType.fastest, null, null);
+            var newTour = await routeClient.RequestTourData(from, to, TransportType.fastest, null, null);
 
-            Console.WriteLine(newTour.CustomToString());
+            if (!success)
+            {
+                Assert.That(newTour, Is.Null);
+            }
+            else
+            {
+                Console.WriteLine(newTour.CustomToString());
+            }
         }
 
         async Task PrintTours()
