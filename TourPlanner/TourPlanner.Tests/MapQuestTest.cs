@@ -6,27 +6,25 @@ namespace TourPlanner.Tests
 {
     public class MapQuestTest
     {
-        string apiKey;
+        IConfiguration config;
 
         [OneTimeSetUp]
         public void LoadConfig()
         {
-            var config = new ConfigurationBuilder()
+            config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            apiKey = config.GetSection("ApiKeys")["MapQuestKey"];
         }
 
         [Test]
         public async Task TestRequestRoute()
         {
-            var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
+            var client = new MapQuestClient(config, null);
 
-            req.SetRequestType(IRequestBuilder.RequestType.Route);
-
-            req.SetLocationFrom("Denver%2C+CO");
-            req.SetLocationTo("Boulder%2C+CO");
+            var req = client.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.Route)
+                .SetLocationFrom("Denver%2C+CO")
+                .SetLocationTo("Boulder%2C+CO");
 
             Assert.That(
                 await client.RequestJsonStringAsync(req), 
@@ -36,19 +34,23 @@ namespace TourPlanner.Tests
         [Test]
         public async Task TestRequestImage()
         {
-            var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
-            req.SetRequestType(IRequestBuilder.RequestType.MapImage);
+            var client = new MapQuestClient(config, null);
+
+            var req = client.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.MapImage)
+                .SetLocationFrom("New+York,NY")
+                .SetLocationTo("Washington,DC");
+
             await client.RequestImageAsync(req, "test.jpg");
         }
 
         [Test]
         public void RouteBuilderTypeTest1()
         {
-            var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
+            var client = new MapQuestClient(config, null);
 
-            req.SetRequestType(IRequestBuilder.RequestType.MapImage);
+            var req = client.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.MapImage);
 
             var resultIs = req.Build();
 
@@ -58,12 +60,12 @@ namespace TourPlanner.Tests
         [Test]
         public void RouteBuilderTypeTest2() 
         {
-            var client = new MapQuestClient();
-            var req = client.GetBuilder(apiKey);
+            var client = new MapQuestClient(config, null);
 
-            req.SetRequestType(IRequestBuilder.RequestType.Route);
-            req.SetLocationFrom("Denver%2C+CO");
-            req.SetLocationTo("Boulder%2C+CO");
+            var req = client.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.Route)
+                .SetLocationFrom("Denver%2C+CO")
+                .SetLocationTo("Boulder%2C+CO");
 
             var resultIs = req.Build();
 

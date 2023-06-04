@@ -7,15 +7,58 @@ namespace TourPlanner.Tests
     public class APITest
     {
         ConnectionModeFactory repofactory;
+        APIRouteClient routeClient;
 
         [OneTimeSetUp]
         public void Setup()
         {
             log4net.Config.BasicConfigurator.Configure();
 
+            var apiUri = new Uri("https://dev2.gasstationsoftware.net/");
+
             var repo = new APITourRepository();
+            repo.Connect(apiUri);
             repofactory = new ConnectionModeFactory(repo, null);
+
+            routeClient = new APIRouteClient(apiUri);
             
+        }
+
+        [Test]
+        public async Task ApiGetRouteImageTest()
+        {
+            var req = routeClient.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.MapImage)
+                .SetLocationFrom("Denver%2C+CO")
+                .SetLocationTo("Boulder%2C+CO");
+
+            await routeClient.RequestImageAsync(req, "api_map_image.jpg");
+        }
+
+        [Test]
+        public async Task ApiGetCachedImageTest()
+        {
+            var req = routeClient.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.MapImage)
+                .SetImageID(Guid.Parse("00000000-0000-0000-0000-000000000000"));
+
+            await routeClient.RequestImageAsync(req, "api_cached_map_imgage.jpg");
+        }
+
+        [TestCase("Denver%2C+CO", "Boulder%2C+CO", true)]
+        [TestCase("nonexistent loc", "nonexistent loc", false)]
+        public async Task ApiGetTourData(string from, string to, bool success)
+        {
+            var newTour = await routeClient.RequestTourData(from, to, TransportType.fastest);
+
+            if (!success)
+            {
+                Assert.That(newTour, Is.Null);
+            }
+            else
+            {
+                Console.WriteLine(newTour.CustomToString());
+            }
         }
 
         async Task PrintTours()

@@ -5,12 +5,14 @@ namespace TourPlanner.Tests
 {
     public class ReportGenTest
     {
-        [Test]
-        public void Test()
-        {
-            var gen = new ReportGenerator();
+        Tour[] tours;
 
-            var tourLogs = new TourLog[]
+        [OneTimeSetUp] 
+        public void SetUp() 
+        {
+            tours = new Tour[2];
+
+            var tourLogs1 = new TourLog[]
             {
                 new TourLog {
                     ID = 1,
@@ -30,21 +32,55 @@ namespace TourPlanner.Tests
                 },
             };
 
-            var tour = new Tour
+            var tourLogs2 = new TourLog[]
             {
-                ID = 1,
-                name = "ATour",
-                description = "description of tour one",
-                from = "placeA",
-                to = "placeB",
-                transportType = "skateboard",
-                tourDistance = 1000,
-                estimatedTime = TimeSpan.FromHours(2),
-                imageID = "test.jpg",
-                logs = tourLogs,
+                new TourLog {
+                    ID = 3,
+                    comment = "third TL",
+                    date = DateTime.Now,
+                    difficulty = 2,
+                    totalTime = TimeSpan.FromHours(3),
+                    rating = 3,
+                },
+                new TourLog {
+                    ID = 4,
+                    comment = "fourth TL",
+                    date = DateTime.Now,
+                    difficulty = 4,
+                    totalTime = TimeSpan.FromHours(1),
+                    rating = 5,
+                },
+                new TourLog {
+                    ID = 5,
+                    comment = "fifth TL",
+                    date = DateTime.Now,
+                    difficulty = 5,
+                    totalTime = TimeSpan.FromHours(4),
+                    rating = 5,
+                },
             };
 
-            gen.GenerateTourPDF(tour, "output_report.pdf");
+            tours[0] = SampleExtensions.CreateSampleTour(0, tourLogs1);
+            tours[1] = SampleExtensions.CreateSampleTour(1, tourLogs2);
+            tours[0].ID = 0;
+            tours[0].imageID = "test.jpg";
+            tours[1].ID = 1;
+        }
+
+        [Test]
+        public void TestSummaryReport()
+        {
+            var gen = new ITextReportGenerator();
+
+            gen.GenerateSummaryReport(tours, "output_summary_report");
+        }
+
+        [Test]
+        public void TestTourReport()
+        {
+            var gen = new ITextReportGenerator();
+
+            gen.GenerateTourReport(tours[0], File.ReadAllBytes("test.jpg"), "output_tour_report");
         }
 
     }

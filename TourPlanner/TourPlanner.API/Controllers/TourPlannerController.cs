@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
 using TourPlanner.BL;
+using TourPlanner.DAL;
+using TourPlanner.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,35 +11,48 @@ namespace TourPlanner.API.Controllers
     [ApiController]
     public class TourPlannerController : ControllerBase
     {
-        readonly IConfiguration configuration;
+        readonly IImageCache imageCache;
+        readonly IRouteClient routeClient;
 
-        public TourPlannerController(IConfiguration configuration) 
+        public TourPlannerController(IRouteClient routeClient, IImageCache imageCache) 
         {
-            this.configuration = configuration;
+            this.routeClient = routeClient;
+            this.imageCache = imageCache;   
         }
 
-        [HttpGet("images/{imageName}")]
+        [HttpGet("image/{imageName}")]
         public async Task<IActionResult> GetImageAsync(string imageName)
         {
-            var mapQuestClient = new MapQuestClient();
-            var req = mapQuestClient.GetBuilder(configuration.GetSection("ApiKeys")["MapQuestKey"]);
+            if (!Guid.TryParse(imageName, out var imageID))
+            {
+                return BadRequest();
+            }
+
+            return File(await imageCache.GetImageDataAsync(imageID), "image/jpeg");
+        }
+
+        [HttpGet("image/{from}/{to}/{transportType}")]
+        public async Task<IActionResult> GetImageAsync(string from, string to, TransportType transportType)
+        {
+            var req = routeClient.GetBuilder();
             req.SetRequestType(IRequestBuilder.RequestType.MapImage);
-            return new FileContentResult(await mapQuestClient.RequestImageDataAsync(req), "image/jpeg");
+            req.SetLocationFrom(from);
+            req.SetLocationTo(to);
+            req.SetTransportType(transportType);
+            return File(await routeClient.RequestImageDataAsync(req), "image/jpeg");
         }
 
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("route/{from}/{to}/{transportType}")]
+        public async Task<IActionResult> GetRouteAsync(string from, string to, TransportType transportType)
         {
-        }
+            var result = await routeClient.RequestTourData(from, to, transportType);
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            if (result == null)
+            {
+                return BadRequest();
+            }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(result);
         }
     }
 }
