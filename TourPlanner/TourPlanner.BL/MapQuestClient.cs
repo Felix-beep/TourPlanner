@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using TourPlanner.DAL;
 using TourPlanner.Models;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace TourPlanner.BL
 {

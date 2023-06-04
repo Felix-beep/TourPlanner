@@ -20,21 +20,38 @@ namespace TourPlanner.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<TourLog>> Get() => await repo.GetTourLogsAsync();
+        public async Task<IEnumerable<TourLog>> Get()
+        {
+            log.Debug("got request: GET tourlogs/");
+            return await repo.GetTourLogsAsync();
+        }
 
         [HttpGet("{tourLogID}")]
-        public async Task<TourLog> Get(int tourLogID) => await repo.GetTourLogAsync(tourLogID);
+        public async Task<TourLog> Get(int tourLogID)
+        {
+            log.Debug($"got request: GET tourlogs/{tourLogID}");
+            return await repo.GetTourLogAsync(tourLogID);
+        }
 
         [HttpPost("{tourID}")]
         public async Task<int> Post(int tourID, [FromBody] TourLog newTourLog)
         {
+            log.Debug($"got request: POST tourlogs/{tourID}");
             return await repo.InsertTourLogAsync(tourID, newTourLog);
         }
 
         [HttpPatch]
-        public async Task Patch([FromBody] TourLog updateTourLog) => await repo.UpdateTourLogAsync(updateTourLog);
+        public async Task Patch([FromBody] TourLog updateTourLog)
+        {
+            log.Debug("got request: PATCH tourlogs/");
+            await repo.UpdateTourLogAsync(updateTourLog);
+        }
 
         [HttpDelete("{tourLogID}")]
-        public async Task Delete(int tourLogID) => await repo.DeleteTourLogAsync(tourLogID);
+        public async Task Delete(int tourLogID)
+        {
+            log.Debug($"got request: DELETE tourlogs/{tourLogID}");
+            await repo.DeleteTourLogAsync(tourLogID);
+        }
     }
 }

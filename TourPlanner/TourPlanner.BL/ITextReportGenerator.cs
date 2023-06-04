@@ -6,6 +6,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using log4net;
 using System;
 using System.Diagnostics;
 using TourPlanner.Models;
@@ -14,6 +15,8 @@ namespace TourPlanner.BL
 {
     public class ITextReportGenerator : IReportGenerator
     {
+        readonly ILog log = LogManager.GetLogger(typeof(ITextReportGenerator));
+
         static Paragraph CreateTitle(string text, Color color)
         {
             return new Paragraph(text)
@@ -84,6 +87,8 @@ namespace TourPlanner.BL
         {
             var filePath = $"{documentName}.pdf";
 
+            log.Debug($"Generating then opening Summary Report {filePath}");
+
             var doc = new Document(
                 new PdfDocument(new PdfWriter(filePath)));
 
@@ -107,6 +112,8 @@ namespace TourPlanner.BL
         public void GenerateTourReport(Tour tour, byte[] mapImageData, string documentName)
         {
             var filePath = $"{documentName}.pdf";
+
+            log.Debug($"Generating then opening Tour Report {filePath}");
 
             var doc = new Document(
                 new PdfDocument(new PdfWriter(filePath)));

@@ -18,7 +18,7 @@ namespace TourPlanner.BL
         // Logging
         readonly ILog log = LogManager.GetLogger(typeof(BackendLogic));
 
-        IRouteClient routeClient = new APIRouteClient(new Uri("https://dev2.gasstationsoftware.net/"));
+        readonly IRouteClient routeClient = new APIRouteClient(new Uri("https://dev2.gasstationsoftware.net/"));
 
         // repository
         private ConnectionModeFactory _repositoryFactory;
@@ -105,7 +105,7 @@ namespace TourPlanner.BL
             foreach (var log in tourLogs)
                 await _repositoryFactory.GetRepo().InsertTourLogAsync(newTourID, log);
 
-            log.Info($"imported tour {newTour.name}, with {tourLogs.Count} logs from file {fileToImport}");
+            log.Debug($"imported tour {newTour.name}, with {tourLogs.Count} logs from file {fileToImport}");
         }
 
         private async Task ExportTour(Tour tour)
@@ -125,7 +125,7 @@ namespace TourPlanner.BL
             // 2,a second tour log,05 / 10 / 2023 16:44:54,2,03:00:00,5
 
             var fileName = $"{tour.name}.csv";
-            log.Info($"writing tour {tour.name} to file [{fileName}]");
+            log.Debug($"writing tour {tour.name} to file [{fileName}]");
 
             using var writer = new StreamWriter(fileName);
             using var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture);

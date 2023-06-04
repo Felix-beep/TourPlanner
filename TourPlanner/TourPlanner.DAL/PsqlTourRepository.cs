@@ -19,6 +19,8 @@ namespace TourPlanner.DAL
 
         public void PopulateWithSampleData()
         {
+            log.Debug("Filling PsqlTourRepository with sample data");
+
             for (int i = 0; i < 8; i++)
             {
                 var logs = new List<TourLog>(); 

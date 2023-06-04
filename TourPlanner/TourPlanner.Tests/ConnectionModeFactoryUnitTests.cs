@@ -11,6 +11,12 @@ namespace TourPlanner.Tests
 {
     public class ConnectionModeFactoryTests
     {
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            log4net.Config.BasicConfigurator.Configure();
+        }
+
         [Test]
         public void GetRepo_ReturnsOnlineRepo_WhenAppIsOnline()
         {
