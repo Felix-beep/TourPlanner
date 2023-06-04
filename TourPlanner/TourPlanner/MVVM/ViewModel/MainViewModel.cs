@@ -116,7 +116,7 @@ namespace TourPlanner.MVVM.ViewModel
                 TourListItem.SetTours(await BackendLogic.FullTextSearchAsync(searchtext)); 
                 TourListItem.Refresh(); 
             };
-            SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackendLogic.SwapOnlineMode(); };
+            SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackendLogic.SwapOnlineMode(); TourListItem.Refresh(); };
             SearchbarInstance.ReturnClicked += () => {
                 ReturnToLastPage(); 
             };
