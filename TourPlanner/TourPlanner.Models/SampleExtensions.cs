@@ -2,18 +2,30 @@
 {
     public static class SampleExtensions
     {
+        static readonly string[] locations = new string[]
+        {
+            "Vienna",
+            "Linz",
+            "Salzburg",
+            "Graz",
+            "Hamburg",
+            "Berlin"
+        };
+
         public static Tour CreateSampleTour(int i, ICollection<TourLog> logs)
-            => new Tour
+        {
+            return new Tour
             {
                 name = $"Tour{i}",
                 description = $"Tour{i}Desc",
-                from = $"from{i}",
-                to = $"to{i}",
+                from = locations[i % locations.Length],
+                to = locations[(i + 1) % locations.Length],
                 transportType = "skateboard",
                 tourDistance = 10 * i,
                 estimatedTime = TimeSpan.FromHours(i),
                 imageID = $"img{i}",
                 logs = logs,
             };
+        }
     }
 }
