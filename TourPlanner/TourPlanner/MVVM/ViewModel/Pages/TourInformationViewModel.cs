@@ -35,8 +35,7 @@ namespace TourPlanner.MVVM.ViewModel
         }
         public TourInformationViewModel(DepictedTourList tourList, IBackendLogic Backend)
         {
-
-
+            _backend = Backend;
             _tourList = tourList;
 
             CreateReport = new RelayCommand(parameter => CreateReportClicked?.Invoke(this, DisplayedTour.ID));
