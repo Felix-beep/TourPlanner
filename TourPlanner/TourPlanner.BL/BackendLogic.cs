@@ -171,18 +171,21 @@ namespace TourPlanner.BL
             reportGen.GenerateSummaryReport(Tours, "SummaryReport");
         }
 
-        public BitmapImage GetImage(int ImageID)
+        public BitmapImage GetImage(int ImageID, byte[] byteArray)
         {
             // call the function and get byte array
-            byte[] byteArray = new byte[];
-
-            MemoryStream stream = new MemoryStream(byteArray);
 
             BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.StreamSource = stream;
-            bitmapImage.CacheOption = BitmapCacheOption.Onload;
-            bitmapImage.EndInit();
+
+            using (MemoryStream stream = new MemoryStream(byteArray)) 
+            {
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = stream;
+                bitmapImage.CacheOption = BitmapCacheOption.Onload;
+                bitmapImage.EndInit();
+            }
+
+            return bitmapImage;
         }
     }
 }
