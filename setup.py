@@ -32,3 +32,5 @@ for dst in COPY_DESTINATIONS:
     shutil.copyfile(TEMP_FILE_PATH, dst)
 
 os.remove(TEMP_FILE_PATH)
+
+os.mkdir('TourPlanner/TourPlanner.API/bin/Debug/net7.0/imgcache')
