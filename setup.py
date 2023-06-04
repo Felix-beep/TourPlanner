@@ -33,4 +33,4 @@ for dst in COPY_DESTINATIONS:
 
 os.remove(TEMP_FILE_PATH)
 
-os.mkdir('TourPlanner/TourPlanner.API/bin/Debug/net7.0/imgcache')
+os.makedirs('TourPlanner/TourPlanner.API/bin/Debug/net7.0/imgcache', exist_ok=True)
