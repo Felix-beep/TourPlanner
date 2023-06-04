@@ -15,6 +15,12 @@
 
         public async Task<byte[]> GetImageDataAsync(Guid imageID)
         {
+            if (!File.Exists(GetFilePath(imageID)))
+            {
+
+                return null;
+            }
+
             return await File.ReadAllBytesAsync(GetFilePath(imageID));
         }
 

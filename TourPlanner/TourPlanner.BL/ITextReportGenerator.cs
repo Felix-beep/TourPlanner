@@ -131,10 +131,13 @@ namespace TourPlanner.BL
             doc.Add(CreateTitle("Tour Log Table", ColorConstants.GREEN));
             doc.Add(CreateTourLogTable(tour));
 
-            doc.Add(CreateTitle("Tour Image", ColorConstants.GREEN));
-            doc.Add(new Image(ImageDataFactory.Create(mapImageData))
-                .SetMaxWidth(500)
-                .SetHorizontalAlignment(HorizontalAlignment.CENTER));
+            if (mapImageData != null) 
+            { 
+                doc.Add(CreateTitle("Tour Image", ColorConstants.GREEN));
+                doc.Add(new Image(ImageDataFactory.Create(mapImageData))
+                    .SetMaxWidth(500)
+                    .SetHorizontalAlignment(HorizontalAlignment.CENTER));
+            }
 
             doc.Close();
 

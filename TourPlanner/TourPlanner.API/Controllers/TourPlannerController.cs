@@ -28,7 +28,14 @@ namespace TourPlanner.API.Controllers
                 return BadRequest();
             }
 
-            return File(await imageCache.GetImageDataAsync(imageID), "image/jpeg");
+            var imageData = await imageCache.GetImageDataAsync(imageID);
+
+            if (imageData == null)
+            {
+                return BadRequest();
+            }
+
+            return File(imageData, "image/jpeg");
         }
 
         [HttpGet("image/{from}/{to}/{transportType}")]
@@ -39,7 +46,13 @@ namespace TourPlanner.API.Controllers
             req.SetLocationFrom(from);
             req.SetLocationTo(to);
             req.SetTransportType(transportType);
-            return File(await routeClient.RequestImageDataAsync(req), "image/jpeg");
+            var imageData = await routeClient.RequestImageDataAsync(req);
+            if (imageData == null)
+            {
+                return BadRequest();
+            }
+
+            return File(imageData, "image/jpeg");
         }
 
         [HttpGet("route/{from}/{to}/{transportType}")]

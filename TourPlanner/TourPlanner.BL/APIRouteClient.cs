@@ -31,7 +31,15 @@ namespace TourPlanner.BL
 
         public async Task<byte[]> RequestImageDataAsync(IRequestBuilder builder)
         {
-            return await client.GetByteArrayAsync(builder.Build());
+            try
+            {
+                return await client.GetByteArrayAsync(builder.Build());
+            }
+            catch (HttpRequestException) 
+            {
+                log.Error("failed to get image data");
+                return null;
+            }
         }
 
         public async Task<string> RequestJsonStringAsync(IRequestBuilder builder)
