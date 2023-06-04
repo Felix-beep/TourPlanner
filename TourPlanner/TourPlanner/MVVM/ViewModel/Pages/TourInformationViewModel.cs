@@ -15,8 +15,6 @@ namespace TourPlanner.MVVM.ViewModel
         private DepictedTourList? _tourList;
         public Tour DisplayedTour { get; set; }
 
-        public TourMap { get {
-
         public TourInformationViewModel(DepictedTourList tourList)
         {
             _tourList = tourList;
