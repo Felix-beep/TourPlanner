@@ -6,6 +6,7 @@ namespace TourPlanner.BL
     {
         public static double GetPopularity(this Tour tour)
         {
+            if (tour == null) return 0;
             return tour.logs.Count();
         }
 

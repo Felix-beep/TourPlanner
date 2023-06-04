@@ -60,6 +60,10 @@
             <Trigger Property="Border.IsMouseOver" Value="True">
                 <Setter Property="Cursor" Value="Hand"/>
             </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#919191"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

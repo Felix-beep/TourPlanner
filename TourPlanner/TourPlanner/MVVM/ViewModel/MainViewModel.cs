@@ -117,8 +117,8 @@ namespace TourPlanner.MVVM.ViewModel
                 TourListItem.Refresh(); 
             };
             SearchbarInstance.SwapClicked += () => { SearchbarInstance.IsOnline = BackendLogic.SwapOnlineMode(); };
-            SearchbarInstance.ReturnClicked += () => { 
-                CurrentView = _lastView; 
+            SearchbarInstance.ReturnClicked += () => {
+                ReturnToLastPage(); 
             };
             
             // TourBrowser Buttons
@@ -140,14 +140,19 @@ namespace TourPlanner.MVVM.ViewModel
 
             ExportToursViewInstance.SubmitClicked += async (_, Tours) => { await BackendLogic.ExportToursAsync(Tours); await TourListItem.UpdateToursAsync(); };
 
-            CreateToursViewInstance.NewTourSubmitted += async (_, Tour) => { await BackendLogic.CreateNewTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
-            CreateToursViewInstance.OldTourSubmitted += async (_, Tour) => { await BackendLogic.EditTourAsync(Tour); await TourListItem.UpdateToursAsync(); };
+            CreateToursViewInstance.NewTourSubmitted += async (_, Tour) => { await BackendLogic.CreateNewTourAsync(Tour); await TourListItem.UpdateToursAsync(); CurrentView = BrowseToursViewInstance; };
+            CreateToursViewInstance.OldTourSubmitted += async (_, Tour) => { await BackendLogic.EditTourAsync(Tour); await TourListItem.UpdateToursAsync(); ReturnToLastPage();  };
 
-            CreateTourLogsViewInstance.NewTourSubmitted += async (_, Args) => { await BackendLogic.CreateNewTourLogAsync(Convert.ToInt32(Args.Args[0]), (TourLog)Args.Args[1]); await TourListItem.UpdateToursAsync(); };
-            CreateTourLogsViewInstance.OldTourSubmitted += async (_, Args) => { await BackendLogic.EditTourLogAsync(Convert.ToInt32(Args.Args[0]), (TourLog)Args.Args[1]); await TourListItem.UpdateToursAsync(); };
+            CreateTourLogsViewInstance.NewTourSubmitted += async (_, Args) => { await BackendLogic.CreateNewTourLogAsync(Convert.ToInt32(Args.Args[0]), (TourLog)Args.Args[1]); await TourListItem.UpdateToursAsync(); ReturnToLastPage();  };
+            CreateTourLogsViewInstance.OldTourSubmitted += async (_, Args) => { await BackendLogic.EditTourLogAsync(Convert.ToInt32(Args.Args[0]), (TourLog)Args.Args[1]); await TourListItem.UpdateToursAsync(); ReturnToLastPage(); };
 
             var updateToursTask = TourListInstance.UpdateToursAsync();
             updateToursTask.Wait();
+        }
+
+        private void ReturnToLastPage()
+        {
+            CurrentView = _lastView;
         }
     }
 }
