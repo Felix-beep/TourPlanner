@@ -7,6 +7,7 @@ using TourPlanner.Core;
 using TourPlanner.Models;
 using System.Windows.Input;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Media.Imaging;
 
 namespace TourPlanner.MVVM.ViewModel
 {
@@ -15,8 +16,20 @@ namespace TourPlanner.MVVM.ViewModel
         private DepictedTourList? _tourList;
         public Tour DisplayedTour { get; set; }
 
-        public TourMap { get {
+        public BitmapImage _tourImage;
 
+        public BitmapImage TourImage
+        {
+            get
+            {
+                return _tourImage;
+            }
+            set
+            {
+                _tourImage = TourImage;
+                OnPropertyChanged();
+            }
+        }
         public TourInformationViewModel(DepictedTourList tourList)
         {
             _tourList = tourList;
