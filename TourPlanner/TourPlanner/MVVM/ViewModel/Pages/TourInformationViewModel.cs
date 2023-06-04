@@ -8,11 +8,14 @@ using TourPlanner.Models;
 using System.Windows.Input;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Media.Imaging;
+using TourPlanner.BL;
 
 namespace TourPlanner.MVVM.ViewModel
 {
     public class TourInformationViewModel : ObservableObject
     {
+        private IBackendLogic _backend;
+
         private DepictedTourList? _tourList;
         public Tour DisplayedTour { get; set; }
 
@@ -30,8 +33,10 @@ namespace TourPlanner.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public TourInformationViewModel(DepictedTourList tourList)
+        public TourInformationViewModel(DepictedTourList tourList, IBackendLogic Backend)
         {
+
+
             _tourList = tourList;
 
             CreateReport = new RelayCommand(parameter => CreateReportClicked?.Invoke(this, DisplayedTour.ID));
@@ -40,10 +45,13 @@ namespace TourPlanner.MVVM.ViewModel
             DeleteTourLogInformation = new RelayCommand<int>(parameter => DeleteClicked?.Invoke(this, new MultipleEventArgs(DisplayedTour.ID, parameter)));
         }
 
-        public void OpenTour(int ID)
+        public async void OpenTour(int ID)
         {
             DisplayedTour = _tourList.ListOfTours.First(t => t.ID == ID);
-
+            byte[] ByteArray = await _backend.GetCachedImage(DisplayedTour.imageID);
+            if(ByteArray != null) { 
+                TourImage = byteArrayToImageConverter.ConvertToImage( );
+            }
         }
         public ICommand CreateReport { get; }
         public event EventHandler<int> CreateReportClicked;

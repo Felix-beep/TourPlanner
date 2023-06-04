@@ -153,11 +153,11 @@ namespace TourPlanner.BL
 
         // Report
 
-        public async Task<byte[]> GetCachedImage(Guid imageID)
+        public async Task<byte[]> GetCachedImage(string imageID)
         {
             var req = routeClient.GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.MapImage)
-                .SetImageID(imageID);
+                .SetImageID(Guid.Parse(imageID));
 
             return await routeClient.RequestImageDataAsync(req);
         }
@@ -166,7 +166,7 @@ namespace TourPlanner.BL
         {
             var reportGen = new ITextReportGenerator();
 
-            reportGen.GenerateTourReport(Tour, await GetCachedImage(Guid.Parse(Tour.imageID)), Tour.name);
+            reportGen.GenerateTourReport(Tour, await GetCachedImage(Tour.imageID), Tour.name);
         }
 
         public async Task CreateSummaryReport(IEnumerable<Tour> Tours)
