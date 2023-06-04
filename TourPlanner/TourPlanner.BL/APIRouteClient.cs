@@ -64,7 +64,11 @@ namespace TourPlanner.BL
 
             var response = await client.GetAsync(builder.Build());
 
-            if (!response.IsSuccessStatusCode) return null;
+            if (!response.IsSuccessStatusCode)
+            {
+                log.Error("route get was not successful!");
+                return null;
+            }
 
             var content = await response.Content.ReadAsStringAsync();
 
