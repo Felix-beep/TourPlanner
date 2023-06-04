@@ -18,6 +18,7 @@ namespace TourPlanner.BL
         Task ExportToursAsync(IEnumerable<Tour> ToursToExport);
         Task ImportToursAsync(IEnumerable<String> FilesToImport);
 
+        Task<byte[]> GetCachedImage(Guid imageID);
         Task CreateReport(Tour Tour);
         Task CreateSummaryReport(IEnumerable<Tour> Tours);
 
