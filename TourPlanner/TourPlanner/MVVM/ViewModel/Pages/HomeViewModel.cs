@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TourPlanner.Core;
@@ -16,7 +17,7 @@ namespace TourPlanner.MVVM.ViewModel
         public List<Tour> Discover {
             get
             {
-                return _discover;
+                return _popular.OrderBy(x => RandomNumberGenerator.GetInt32(100)).ToList();
             }
             set
             {
@@ -25,13 +26,15 @@ namespace TourPlanner.MVVM.ViewModel
             }
         }
 
+        private List<Tour> _popular;
+
         public List<Tour> Popular {
             get
             {
-                return Popular;
+                return _popular.OrderBy(x => x.logs.Count).ToList();
             } 
             set {
-                Popular = value;
+                _popular = value;
                 OnPropertyChanged();
             } 
         }
@@ -39,12 +42,13 @@ namespace TourPlanner.MVVM.ViewModel
         public HomeViewModel(DepictedTourList tourlist)
         {
             _tourList = tourlist;
-            UpdateTours();
+            _tourList.ListChanged += UpdateTours;
         }
 
         public void UpdateTours()
         {
             Discover = _tourList.ListOfTours;
+            Popular = _tourList.ListOfTours;
         }
 
     }
