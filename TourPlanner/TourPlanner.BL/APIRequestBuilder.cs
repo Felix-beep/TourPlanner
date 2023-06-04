@@ -9,7 +9,7 @@ namespace TourPlanner.BL
         IRequestBuilder.RequestType typeParameter;
         string fromParameter;
         string toParameter;
-        TransportType transportTypeParameter;
+        TransportType transportTypeParameter = TransportType.fastest;
         Guid? imageIDParameter;
 
         public void Clear()
@@ -18,6 +18,7 @@ namespace TourPlanner.BL
             fromParameter = null;
             toParameter = null;
             imageIDParameter = null;
+            transportTypeParameter = TransportType.fastest;
         }
 
         public IRequestBuilder SetLocationFrom(string location)

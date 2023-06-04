@@ -153,8 +153,22 @@ namespace TourPlanner.BL
 
         // Report
 
+        public async Task<byte[]> GetImage(Tour tour)
+        {
+            if (!_repositoryFactory._isConnected) return null;
+
+            var req = routeClient.GetBuilder()
+                .SetRequestType(IRequestBuilder.RequestType.MapImage)
+                .SetLocationFrom(tour.from)
+                .SetLocationTo(tour.to);
+
+            return await routeClient.RequestImageDataAsync(req);
+        }
+
         public async Task<byte[]> GetCachedImage(string imageID)
         {
+            if (!_repositoryFactory._isConnected) return null;
+
             var req = routeClient.GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.MapImage)
                 .SetImageID(Guid.Parse(imageID));

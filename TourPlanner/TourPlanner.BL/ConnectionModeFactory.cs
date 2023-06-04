@@ -14,7 +14,7 @@ namespace TourPlanner.BL
 
         private bool _appIsOnline;
 
-        private bool _isConnected = false;
+        public bool _isConnected = false;
 
         public ConnectionModeFactory(APITourRepository onlinerepo, MemoryTourRepository offlinerepo) 
         {

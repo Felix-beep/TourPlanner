@@ -48,9 +48,10 @@ namespace TourPlanner.MVVM.ViewModel
         public async void OpenTour(int ID)
         {
             DisplayedTour = _tourList.ListOfTours.First(t => t.ID == ID);
-            byte[] ByteArray = await _backend.GetCachedImage(DisplayedTour.imageID);
+
+            byte[] ByteArray = await _backend.GetImage(DisplayedTour);
             if(ByteArray != null) { 
-                TourImage = byteArrayToImageConverter.ConvertToImage( );
+                TourImage = byteArrayToImageConverter.ConvertToImage(ByteArray);
             }
         }
         public ICommand CreateReport { get; }
