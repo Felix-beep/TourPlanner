@@ -35,8 +35,7 @@ namespace TourPlanner.MVVM.ViewModel
         }
         public TourInformationViewModel(DepictedTourList tourList, IBackendLogic Backend)
         {
-
-
+            _backend = Backend;
             _tourList = tourList;
 
             CreateReport = new RelayCommand(parameter => CreateReportClicked?.Invoke(this, DisplayedTour.ID));
@@ -48,7 +47,8 @@ namespace TourPlanner.MVVM.ViewModel
         public async void OpenTour(int ID)
         {
             DisplayedTour = _tourList.ListOfTours.First(t => t.ID == ID);
-            byte[] ByteArray = await _backend.GetCachedImage(DisplayedTour.imageID);
+
+            byte[] ByteArray = await _backend.GetImage(DisplayedTour);
             if(ByteArray != null) { 
                 TourImage = byteArrayToImageConverter.ConvertToImage(ByteArray);
             }
