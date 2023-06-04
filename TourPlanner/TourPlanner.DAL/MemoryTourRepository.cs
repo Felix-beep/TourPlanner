@@ -14,6 +14,8 @@ namespace TourPlanner.DAL
 
         public async Task LoadSampleDataAsync()
         {
+            log.Debug($"Filling {nameof(MemoryTourRepository)} with sample data");
+
             var samples = new Tour[]
             {
                 new Tour(1, "Hello Subject1", "description1", new List<TourLog>()),
@@ -60,7 +62,7 @@ namespace TourPlanner.DAL
         public async Task<int> InsertTourAsync(Tour tour)
         {
             var newID = nextTourID++;
-            log.Info($"inserting tour {tour.name} with id {newID} into {nameof(MemoryTourRepository)}");
+            log.Debug($"inserting tour {tour.name} with id {newID} into {nameof(MemoryTourRepository)}");
             tour.ID = newID;
             tours[newID] = tour;
             return newID;
@@ -69,7 +71,7 @@ namespace TourPlanner.DAL
         public async Task<int> InsertTourLogAsync(int tourID, TourLog tourLog)
         {
             var newID = nextTourLogID++;
-            log.Info($"inserting tour log [{tourLog.comment}] with id {newID} into {nameof(MemoryTourRepository)}");
+            log.Debug($"inserting tour log [{tourLog.comment}] with id {newID} into {nameof(MemoryTourRepository)}");
             tourLog.ID = newID;
             tours[tourID].logs.Add(tourLog);
             return newID;

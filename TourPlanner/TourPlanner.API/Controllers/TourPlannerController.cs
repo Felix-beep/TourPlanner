@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using log4net;
+using Microsoft.AspNetCore.Mvc;
 using TourPlanner.BL;
 using TourPlanner.DAL;
 using TourPlanner.Models;
@@ -11,6 +12,7 @@ namespace TourPlanner.API.Controllers
     [ApiController]
     public class TourPlannerController : ControllerBase
     {
+        readonly ILog log = LogManager.GetLogger(typeof(TourPlannerController));
         readonly IImageCache imageCache;
         readonly IRouteClient routeClient;
 
@@ -23,32 +25,55 @@ namespace TourPlanner.API.Controllers
         [HttpGet("image/{imageName}")]
         public async Task<IActionResult> GetImageAsync(string imageName)
         {
+            log.Debug($"got request: GET tourplanner/image/{imageName}");
+
             if (!Guid.TryParse(imageName, out var imageID))
             {
+                log.Error("imageID is invalid!");
                 return BadRequest();
             }
 
-            return File(await imageCache.GetImageDataAsync(imageID), "image/jpeg");
+            var imageData = await imageCache.GetImageDataAsync(imageID);
+
+            if (imageData == null)
+            {
+                log.Error("Failed to get image!");
+                return BadRequest();
+            }
+
+            return File(imageData, "image/jpeg");
         }
 
         [HttpGet("image/{from}/{to}/{transportType}")]
         public async Task<IActionResult> GetImageAsync(string from, string to, TransportType transportType)
         {
+            log.Debug($"got request: GET tourplanner/image/{from}/{to}/{transportType}");
+
             var req = routeClient.GetBuilder();
             req.SetRequestType(IRequestBuilder.RequestType.MapImage);
             req.SetLocationFrom(from);
             req.SetLocationTo(to);
             req.SetTransportType(transportType);
-            return File(await routeClient.RequestImageDataAsync(req), "image/jpeg");
+            var imageData = await routeClient.RequestImageDataAsync(req);
+            if (imageData == null)
+            {
+                log.Error("Failed to get image!");
+                return BadRequest();
+            }
+
+            return File(imageData, "image/jpeg");
         }
 
         [HttpGet("route/{from}/{to}/{transportType}")]
         public async Task<IActionResult> GetRouteAsync(string from, string to, TransportType transportType)
         {
+            log.Debug($"got request: GET tourplanner/route/{from}/{to}/{transportType}");
+
             var result = await routeClient.RequestTourData(from, to, transportType);
 
             if (result == null)
             {
+                log.Error("Failed to get tour data!");
                 return BadRequest();
             }
 

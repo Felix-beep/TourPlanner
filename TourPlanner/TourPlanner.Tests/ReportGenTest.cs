@@ -10,6 +10,8 @@ namespace TourPlanner.Tests
         [OneTimeSetUp] 
         public void SetUp() 
         {
+            log4net.Config.BasicConfigurator.Configure();
+            
             tours = new Tour[2];
 
             var tourLogs1 = new TourLog[]

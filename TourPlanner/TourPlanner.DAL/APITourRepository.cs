@@ -17,6 +17,7 @@ namespace TourPlanner.DAL
 
         public virtual bool Connect(Uri apiUrl)
         {
+            log.Debug($"{nameof(APITourRepository)} is using base url {apiUrl}");
             client = new HttpClient();
             client.BaseAddress = apiUrl;
             return true;
@@ -65,7 +66,7 @@ namespace TourPlanner.DAL
             var content = JsonContent.Create(tour);
             var response = await client.PostAsync($"{ApiRouteTours}", content);
             var responseString = await response.Content.ReadAsStringAsync();
-            log.Info($"got [{responseString}] after inserting tour from api");
+            log.Debug($"got [{responseString}] after inserting tour from api");
 
             if (!int.TryParse(responseString, out var newTourID)) return -1;
             return newTourID;
@@ -81,7 +82,7 @@ namespace TourPlanner.DAL
         public async Task UpdateTourAsync(Tour tour)
         {
             var content = JsonContent.Create(tour);
-            log.Info($"requesting to update tour {tour.CustomToString()} as json:\n{await content.ReadAsStringAsync()}");
+            log.Debug($"requesting to update tour {tour.CustomToString()} as json:\n{await content.ReadAsStringAsync()}");
             var response = await client.PatchAsync($"{ApiRouteTours}", content);
         }
 

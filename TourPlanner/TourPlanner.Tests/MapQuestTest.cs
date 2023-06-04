@@ -11,6 +11,7 @@ namespace TourPlanner.Tests
         [OneTimeSetUp]
         public void LoadConfig()
         {
+            log4net.Config.BasicConfigurator.Configure();
             config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();

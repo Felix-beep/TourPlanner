@@ -6,6 +6,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using log4net;
 using System;
 using System.Diagnostics;
 using TourPlanner.Models;
@@ -14,6 +15,8 @@ namespace TourPlanner.BL
 {
     public class ITextReportGenerator : IReportGenerator
     {
+        readonly ILog log = LogManager.GetLogger(typeof(ITextReportGenerator));
+
         static Paragraph CreateTitle(string text, Color color)
         {
             return new Paragraph(text)
@@ -84,6 +87,8 @@ namespace TourPlanner.BL
         {
             var filePath = $"{documentName}.pdf";
 
+            log.Debug($"Generating then opening Summary Report {filePath}");
+
             var doc = new Document(
                 new PdfDocument(new PdfWriter(filePath)));
 
@@ -108,6 +113,8 @@ namespace TourPlanner.BL
         {
             var filePath = $"{documentName}.pdf";
 
+            log.Debug($"Generating then opening Tour Report {filePath}");
+
             var doc = new Document(
                 new PdfDocument(new PdfWriter(filePath)));
 
@@ -131,10 +138,13 @@ namespace TourPlanner.BL
             doc.Add(CreateTitle("Tour Log Table", ColorConstants.GREEN));
             doc.Add(CreateTourLogTable(tour));
 
-            doc.Add(CreateTitle("Tour Image", ColorConstants.GREEN));
-            doc.Add(new Image(ImageDataFactory.Create(mapImageData))
-                .SetMaxWidth(500)
-                .SetHorizontalAlignment(HorizontalAlignment.CENTER));
+            if (mapImageData != null) 
+            { 
+                doc.Add(CreateTitle("Tour Image", ColorConstants.GREEN));
+                doc.Add(new Image(ImageDataFactory.Create(mapImageData))
+                    .SetMaxWidth(500)
+                    .SetHorizontalAlignment(HorizontalAlignment.CENTER));
+            }
 
             doc.Close();
 

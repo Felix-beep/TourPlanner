@@ -45,10 +45,13 @@ namespace TourPlanner.Tests
         {
             var filePath = "api_cached_map_imgage.jpg";
 
+            var route = await routeClient.RequestTourData("Denver%2C+CO", "Boulder%2C+CO", TransportType.fastest);
+
+            Guid imageID = Guid.Parse(route.imageID);
+
             var req = routeClient.GetBuilder()
                 .SetRequestType(IRequestBuilder.RequestType.MapImage)
-                .SetImageID(Guid.Parse("00000000-0000-0000-0000-000000000000"));
-
+                .SetImageID(imageID);
             await routeClient.RequestImageAsync(req, filePath);
 
             Assert.IsTrue(File.Exists(filePath));
@@ -60,13 +63,13 @@ namespace TourPlanner.Tests
         {
             var newTour = await routeClient.RequestTourData(from, to, TransportType.fastest);
 
-            if (!success)
+            if (success)
             {
-                Assert.That(newTour, Is.Null);
+                Assert.That(newTour, Is.Not.Null);
             }
             else
             {
-                Assert.That(newTour, Is.Not.Null);
+                Assert.That(newTour, Is.Null);
             }
         }
 
