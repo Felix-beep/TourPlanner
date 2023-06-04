@@ -5,6 +5,7 @@ using log4net;
 using TourPlanner.BL.FullTextSearch;
 using TourPlanner.DAL;
 using TourPlanner.Models;
+using System.Windows.Media.Imaging;
 
 namespace TourPlanner.BL
 {
@@ -168,6 +169,20 @@ namespace TourPlanner.BL
         {
             var reportGen = new ITextReportGenerator();
             reportGen.GenerateSummaryReport(Tours, "SummaryReport");
+        }
+
+        public BitmapImage GetImage(int ImageID)
+        {
+            // call the function and get byte array
+            byte[] byteArray = new byte[];
+
+            MemoryStream stream = new MemoryStream(byteArray);
+
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = stream;
+            bitmapImage.CacheOption = BitmapCacheOption.Onload;
+            bitmapImage.EndInit();
         }
     }
 }

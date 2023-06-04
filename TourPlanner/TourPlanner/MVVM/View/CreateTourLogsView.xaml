@@ -22,7 +22,7 @@
                 <Label Foreground="White" FontSize="20" Margin="0, 20,0,0" Content="Rating:"/>
                 <TextBox x:Name="Transport" Text="{Binding Path=Rating, UpdateSourceTrigger=PropertyChanged}" Margin="20,0" Style="{StaticResource InputField}"/>
 
-                <Button Content="Submit" Width="100" Height="30"  Style="{StaticResource ButtonTheme}" Command="{Binding Path=SubmitForm}"/>
+                <Button Content="Submit" Width="100" Height="30" Style="{StaticResource ButtonTheme}" Command="{Binding Path=SubmitForm}"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
