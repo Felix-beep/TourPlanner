@@ -60,13 +60,13 @@ namespace TourPlanner.Tests
         {
             var newTour = await routeClient.RequestTourData(from, to, TransportType.fastest);
 
-            if (!success)
+            if (success)
             {
-                Assert.That(newTour, Is.Null);
+                Assert.That(newTour, Is.Not.Null);
             }
             else
             {
-                Assert.That(newTour, Is.Not.Null);
+                Assert.That(newTour, Is.Null);
             }
         }
 

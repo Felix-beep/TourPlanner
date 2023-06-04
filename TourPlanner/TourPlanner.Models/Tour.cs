@@ -17,7 +17,7 @@ namespace TourPlanner.Models
         public TimeSpan estimatedTime { get; set; }
         public string imageID { get; set; }
 
-        public float rating { get { return logs.Count(); } set { return; } }
+        public float rating { get { return logs == null ? 0 : logs.Count(); } set { return; } }
 
         public float childfriendliness { get { return (float)GetChildFriendliness(); } set { return; } }
 
@@ -83,13 +83,13 @@ namespace TourPlanner.Models
 
         public double GetAverageTime()
         {
-            if (logs.Count == 0) return 0;
+            if (logs == null || logs.Count == 0) return 0;
             return logs.Average(tl => tl.totalTime.TotalSeconds);
         }
 
         public double GetAverageDifficulty()
         {
-            if (logs.Count == 0) return 0;
+            if (logs == null || logs.Count == 0) return 0;
             return logs.Average(tl => tl.difficulty);
         }
     }
