@@ -1,4 +1,7 @@
 ﻿using log4net;
+using Newtonsoft.Json;
+using TourPlanner.DAL;
+using TourPlanner.Models;
 
 namespace TourPlanner.BL
 {
@@ -41,6 +44,46 @@ namespace TourPlanner.BL
         public async Task<byte[]> RequestImageDataAsync(IRequestBuilder builder)
         {
             return await client.GetByteArrayAsync(builder.Build());
+        }
+
+        public async Task<Tour> RequestTourData(string from, string to, TransportType transportType, string apiKey, IImageCache imageCache)
+        {
+            var builder = GetBuilder(apiKey)
+                .SetRequestType(IRequestBuilder.RequestType.Route)
+                .SetTransportType(transportType)
+                .SetLocationFrom(from)
+                .SetLocationTo(to);
+
+            var json = await RequestJsonStringAsync(builder);
+
+            var jsonData = JsonConvert.DeserializeObject<dynamic>(json);
+
+            if (jsonData == null)
+            {
+                return null;
+            }
+
+            builder.SetRequestType(IRequestBuilder.RequestType.MapImage);
+
+            var imageData = await RequestImageDataAsync(builder);
+
+            if (imageData == null)
+            {
+                return null;
+            }
+
+            var newImageID = Guid.NewGuid();
+            await imageCache.SaveImageAsync(newImageID, imageData);
+
+            return new Tour
+            {
+                from = from,
+                to = to,
+                transportType = transportType.ToString(),
+                tourDistance = (double)jsonData.route.distance,
+                estimatedTime = TimeSpan.FromSeconds((double)jsonData.route.time),
+                imageID = newImageID.ToString()
+            };
         }
     }
 }

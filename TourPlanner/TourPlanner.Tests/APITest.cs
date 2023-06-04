@@ -45,6 +45,14 @@ namespace TourPlanner.Tests
             await routeClient.RequestImageAsync(req, "api_cached_map_imgage.jpg");
         }
 
+        [Test] 
+        public async Task ApiGetTourData()
+        {
+            var newTour = await routeClient.RequestTourData("Denver%2C+CO", "Boulder%2C+CO", TransportType.fastest, null, null);
+
+            Console.WriteLine(newTour.CustomToString());
+        }
+
         async Task PrintTours()
         {
             foreach (var t in await repofactory.GetRepo().GetToursAsync())

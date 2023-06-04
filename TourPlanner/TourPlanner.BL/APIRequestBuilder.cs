@@ -1,4 +1,6 @@
-﻿namespace TourPlanner.BL
+﻿using TourPlanner.Models;
+
+namespace TourPlanner.BL
 {
     public class APIRequestBuilder : IRequestBuilder
     {
@@ -7,6 +9,7 @@
         IRequestBuilder.RequestType typeParameter;
         string fromParameter;
         string toParameter;
+        TransportType transportTypeParameter;
         Guid? imageIDParameter;
 
         public void Clear()
@@ -41,6 +44,12 @@
             return this;
         }
 
+        public IRequestBuilder SetTransportType(TransportType transportType)
+        {
+            transportTypeParameter = transportType;
+            return this;
+        }
+
         public string? Build()
         {
             switch (typeParameter)
@@ -48,11 +57,15 @@
                 case IRequestBuilder.RequestType.MapImage:
                     if (imageIDParameter != null)
                     {
-                        return $"{baseRoute}images/{imageIDParameter}";
+                        return $"{baseRoute}image/{imageIDParameter}";
                     }
                     else
                     {
-                        return $"{baseRoute}route/{fromParameter}/{toParameter}";
+                        return $"{baseRoute}image/{fromParameter}/{toParameter}/{transportTypeParameter}";
+                    }
+                case IRequestBuilder.RequestType.Route:
+                    {
+                        return $"{baseRoute}route/{fromParameter}/{toParameter}/{transportTypeParameter}";
                     }
             }
 

@@ -1,4 +1,7 @@
 ﻿using log4net;
+using Newtonsoft.Json;
+using TourPlanner.DAL;
+using TourPlanner.Models;
 
 namespace TourPlanner.BL
 {
@@ -41,6 +44,23 @@ namespace TourPlanner.BL
             log.DebugFormat("got content: \n{0}", content);
 
             return content;
+        }
+
+        public async Task<Tour> RequestTourData(string from, string to, TransportType transportType, string apiKey, IImageCache imageCache)
+        {
+            var builder = GetBuilder(null)
+                .SetRequestType(IRequestBuilder.RequestType.Route)
+                .SetLocationFrom(from)
+                .SetLocationTo(to)
+                .SetTransportType(transportType);
+
+            var response = await client.GetAsync(builder.Build());
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<Tour>(content);
+
+            return result;
         }
     }
 }

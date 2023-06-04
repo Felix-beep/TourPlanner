@@ -17,11 +17,14 @@ repo.PopulateWithSampleData();
 
 var mapQuestClient = new MapQuestClient();
 
+var imageCache = new FileSystemImageCache();
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddSingleton<ITourRepository>(repo);
+builder.Services.AddSingleton<IImageCache>(imageCache);
 builder.Services.AddSingleton(configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

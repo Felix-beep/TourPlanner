@@ -1,4 +1,5 @@
-﻿using static TourPlanner.BL.IRequestBuilder;
+﻿using TourPlanner.Models;
+using static TourPlanner.BL.IRequestBuilder;
 
 namespace TourPlanner.BL
 {
@@ -9,12 +10,12 @@ namespace TourPlanner.BL
             "route?key={0}&" +
             "outFormat=json&" +
             "ambiguities=ignore&" +
-            "routeType=fastest&" +
             "doReverseGeocode=false&" +
             "enhancedNarrative=false&" +
             "avoidTimedConditions=false&" +
             "from={1}&" +
-            "to={2}";
+            "to={2}&" +
+            "routeType={3}";
         
         const string basicImageRequest =
             "staticmap/v5/" +
@@ -28,6 +29,7 @@ namespace TourPlanner.BL
         RequestType typeParameter;
         string fromParameter;
         string toParameter;
+        TransportType transportTypeParameter = TransportType.fastest;
 
         public MapQuestRequestBuilder(string apiKey)
         {
@@ -39,6 +41,7 @@ namespace TourPlanner.BL
             typeParameter = RequestType.None;
             fromParameter = null;
             toParameter = null;
+            transportTypeParameter = TransportType.fastest;
         }
 
         public IRequestBuilder SetRequestType(RequestType type)
@@ -59,6 +62,12 @@ namespace TourPlanner.BL
             return this;
         }
 
+        public IRequestBuilder SetTransportType(TransportType transportType)
+        {
+            transportTypeParameter = transportType;
+            return this;
+        }
+
         public IRequestBuilder SetImageID(Guid imageID) 
         {
             return this;
@@ -69,7 +78,7 @@ namespace TourPlanner.BL
             switch (typeParameter)
             {
                 case RequestType.Route: 
-                    return string.Format(basicRequest, apiKey, fromParameter, toParameter);
+                    return string.Format(basicRequest, apiKey, fromParameter, toParameter, transportTypeParameter);
                 
                 case RequestType.MapImage: 
                     return string.Format(basicImageRequest, apiKey, fromParameter, toParameter);
